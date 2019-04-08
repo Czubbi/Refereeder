@@ -54,7 +54,7 @@ class GraphqlController
                         type: UserListType,
                         args:{},
                         resolve:(root,args,context,info)=>{
-                            return {myUsers:models.Users};
+                            return models.Users;
                         }
                     },
                 }
