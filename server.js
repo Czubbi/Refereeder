@@ -2,15 +2,9 @@ const express = require('express');
 const app = express();
 var firebase = require('firebase');
 var fireBaseConfig=require('./firebase.json');
-var graphqlHTTP = require('express-graphql');
-const {
-    GraphQLID,
-    GraphQLString,
-    GraphQLList,
-    GraphQLNonNull,
-    GraphQLObjectType,
-    GraphQLSchema
-} = require("graphql");
+var GraphqlController = require('./graphQl/graphQl');
+var graphQlCtr = new GraphqlController(app);
+var port = process.env.PORT || 4000;
 var userController = require('./User/userController.js')
 var userCtr = new userController();
 
@@ -22,61 +16,32 @@ function initFireBase(config){
         console.log('Firebase initialized...');
     }
 }
+function initGraph(app)
+{
+    graphQlCtr.initGraphQl(app).then(()=>{
+        console.log('GraphQL initialized...');
+    })
+}
+
 //Endpoints setup
 
 
 //Final setup
-var port = process.env.PORT || 4000;
-var PersonModel={
-    firstname:'David',
-    lastname:'Szoke',
-    id:1,
-}
-const PersonType = new GraphQLObjectType({
-    name: "Person",
-    fields: {
-        id: { type: GraphQLID },
-        firstname: { type: GraphQLString },
-        lastname: { type: GraphQLString }
-    }
-});
-
-const schema = new GraphQLSchema({
-    query: new GraphQLObjectType({
-        name: "Query",
-        fields: {
-            people: {
-                type: GraphQLList(PersonType),
-                resolve: (root, args, context, info) => {
-                    return PersonModel.find().exec();
-                }
-            },
-            person: {
-                type: PersonType,
-                args: {
-                    id: { type: GraphQLNonNull(GraphQLID) }
-                },
-                resolve: (root, args, context, info) => {
-                    if(PersonModel.id==args.id){
-                        return PersonModel;
-                    }
-                }
-            }
-        }
+//Get user by ID
+app.get('/api/User/:id',(req,res)=>{
+    graphQlCtr.fetchGraph(port, { query: `{ user(id:${req.params.id}){firstname,lastname} }` }).then(x=>{
+        res.json(x);
+    }).catch(err=>{
+        console.log(err);
     })
-});
+})
 
-app.use("/graphql", graphqlHTTP({
-    schema: schema,
-    graphiql: true
-}));
-app.get('/api/Person/:id',(req,res)=>{
-    fetch(`http://localhost:${port}/graphql`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ query: `{ person(id:${req.params.id}){firstname,lastname} }` }),
-    }).then(x=>x.json()).then(result=>{
-        res.json(result);
+//Get all users
+app.get('/api/Users', (req,res)=>{
+    graphQlCtr.fetchGraph(port,{query: `{users{[]}}`}).then(x=>{
+        res.json(x);
+    }).catch(err=>{
+        console.log(err);
     })
 })
 //Starting server
@@ -84,5 +49,6 @@ app.get('/api/Person/:id',(req,res)=>{
 
 app.listen(port, ()=>{
     initFireBase(fireBaseConfig);
+    initGraph(app);
     console.log(`Server started on port ${port}`);
 })
