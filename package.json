@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/Czubbi/Refereeder/issues"
   },
-  "homepage": "https://github.com/Czubbi/Refereeder#readme"
+  "homepage": "https://github.com/Czubbi/Refereeder#readme",
+  "dependencies": {
+    "express": "^4.16.4"
+  }
 }
