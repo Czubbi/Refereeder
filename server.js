@@ -2,8 +2,10 @@ const express = require('express');
 const app = express();
 var firebase = require('firebase');
 var fireBaseConfig=require('./firebase.json');
-var GraphqlController = require('./graphQl/graphQl');
-var graphQlCtr = new GraphqlController(app);
+var GraphqlRuleController = require('./graphQl/queries/graphQlRules.js');
+var GraphqlUserController = require('./graphQl/queries/graphQlUser.js');
+var graphQlUserCtr = new GraphqlUserController(app);
+var graphQlRuleCtr = new GraphqlRuleController(app)
 var port = process.env.PORT || 4000;
 var userController = require('./User/userController.js')
 var userCtr = new userController();
@@ -18,9 +20,12 @@ function initFireBase(config){
 }
 function initGraph(app)
 {
-    graphQlCtr.initGraphQl(app).then(()=>{
-        console.log('GraphQL initialized...');
-    })
+    graphQlUserCtr.initGraphQl(app).then(()=>{
+        console.log('GraphQL Users initialized...');
+    });
+    graphQlRuleCtr.initGraphQl(app).then(()=>{
+        console.log('GraphQL Rules initialized...');
+    });
 }
 
 //Endpoints setup

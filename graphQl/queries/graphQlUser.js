@@ -1,6 +1,8 @@
 var graphqlHTTP = require('express-graphql');
-var UserType = require('./types/userType.js')
-var UserListType = require('./types/userListType.js')
+var UserType = require('../types/userType.js')
+var UserListType = require('../types/userListType.js')
+var userController = require('../../database/usersController.js')
+var userCtr = new userController();
 const {
     GraphQLID,
     GraphQLString,
@@ -11,7 +13,7 @@ const {
 } = require("graphql");
 var models={};
 var schema={};
-class GraphqlController
+class GraphqlUserController
 {
     constructor(){
         this.initGraphStuff();
@@ -37,7 +39,7 @@ class GraphqlController
             query: new GraphQLObjectType({
                 name: "UserQuery",
                 fields: {
-                    user: {
+                    one: {
                         type: UserType,
                         args: {
                             id: { type: GraphQLNonNull(GraphQLID) }
@@ -45,12 +47,21 @@ class GraphqlController
                         resolve: (root, args, context, info) => {
                             if(args.id)
                             {
-                                return models.Users.filter(x=>x.id==args.id)[0];  
+                                userCtr.getUserByID(args.id,(err,data)=>{
+                                    if(err){
+                                        console.log('Error: ' + err);
+                                        return null;
+                                    }
+                                    else{
+                                        console.log('Data: ' + data);
+                                        return data;
+                                    }
+                                })
                             }
                             else return null;
                         }
                     },
-                    users:{
+                    all:{
                         type: UserListType,
                         args:{},
                         resolve:(root,args,context,info)=>{
@@ -61,29 +72,15 @@ class GraphqlController
             })
         });
     }
-    fetchGraph(port,query)
-    {
-        return new Promise((resolve,reject)=>{
-            fetch(`http://localhost:${port}/graphql`, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(query),
-            }).then(x=>x.json()).then(result=>{
-                resolve(result);
-            }).catch(err=>{
-                reject(err);
-            })
-        })
-    }
     initGraphQl(app)
     {
         return new Promise((resolve,reject)=>{
-            app.use("/graphql", graphqlHTTP({
+            app.use("/graphql/users", graphqlHTTP({
                 schema: schema,
-                graphiql: false
+                graphiql: true
             }));
             resolve()
         })
     }
 }
-module.exports = GraphqlController;
+module.exports = GraphqlUserController;

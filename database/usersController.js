@@ -4,9 +4,10 @@ var ObjectId = require('mongodb').ObjectID;
 
 class UserController{
     constructor(){
-        dbConnection.connectToDb('User', ()=>{
-            conn = dbConnection.get();
-        })
+        dbConnection.connectToDb('User').then(()=>{
+            conn=dbConnection.get();
+            console.log(conn);
+        }).catch(err=>{console.log(err)});
     }
 
     //Get all users 
@@ -20,7 +21,7 @@ class UserController{
     //Get all the users with same name
     getUsersByName(name,callback){
         conn.find({"name":{'$regex': name}}).toArray((err,docs)=>{
-            if(err) callback(error,null);
+            if(err) callback(err,null);
             else callback(null,docs);
         })
     }
@@ -28,16 +29,18 @@ class UserController{
     //Get all users by role
     getUsersByRole(role,callback){
         conn.find({"role": role}).toArray((err,docs)=>{
-            if(err) callback(error,null);
+            if(err) callback(err,null);
             else callback(null,docs);
         })
     }
 
     //Get one user by ID
     getUserByID(id,callback){
-        conn.findOne({"_id": ObjectId(id)}).toArray((err,docs)=>{
-            if(err) callback(error,null);
-            else callback(null,docs);
+        console.log(id);
+        conn.findOne({"_id": ObjectId(id)},(err,result)=>{
+            console.log(result);
+            if(err) callback(err,null);
+            else callback(null,result)
         })
     }
 
