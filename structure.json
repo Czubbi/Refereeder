@@ -4,22 +4,22 @@
 			{
 				"number":"1",
 				"source":"diagram1.jpg",
-				"description":"very nice diagram 2.2",		
+				"description":"very nice diagram 2.2"	
 			},
 			{
 				"number":"2.2",
 				"source":"diagram2.2.jpg",
-				"description":"very nice diagram 2.2",
-			},
+				"description":"very nice diagram 2.2"
+			}
 		],
 		"main_categories":[
 			{
 				"name":"Playing Court",
-				"base_nr":1,
+				"base_nr":1
 			},
 			{
 				"name:":"Playing Time, Final signal and Time-Out",
-				"base_nr":2,
+				"base_nr":2
 			}		
 		],
 		"elements":[
@@ -32,7 +32,7 @@
 						"notes":[],
 						"comments":[],
 						"dashrules":[],
-						"alpharules":[],
+						"alpharules":[]
 					},
 					"eng":{
 						"description":"english blabla",
@@ -40,7 +40,7 @@
 						"notes":[],
 						"comments":[],
 						"dashrules":[],
-						"alpharules":[],
+						"alpharules":[]
 					}			
 				}
 			},
@@ -55,18 +55,18 @@
 						"subrules":[
 							{
 								"title":"subrule",
-								"description":"blabla",
-							},
+								"description":"blabla"
+							}
 																					
-						],
+						]
 					},
 					{
 						"lang_name":"eng",
 						"description":"english blabla",
-						"subrules":[],
+						"subrules":[]
 					}				
 				]
 			}
 		]
-	},
+	}
 }
