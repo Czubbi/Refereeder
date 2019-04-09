@@ -38,7 +38,7 @@ app.get('/api/User/:id',(req,res)=>{
 
 //Get all users
 app.get('/api/Users', (req,res)=>{
-    graphQlCtr.fetchGraph(port,{query: `{users{[]}}`}).then(x=>{
+    graphQlCtr.fetchGraph(port,{ query: `{users{firstname, lastname}}`}).then(x=>{
         res.json(x);
     }).catch(err=>{
         console.log(err);

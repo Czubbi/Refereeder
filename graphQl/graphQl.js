@@ -35,7 +35,7 @@ class GraphqlController
         }];
         schema = new GraphQLSchema({
             query: new GraphQLObjectType({
-                name: "Query",
+                name: "UserQuery",
                 fields: {
                     user: {
                         type: UserType,
@@ -80,7 +80,7 @@ class GraphqlController
         return new Promise((resolve,reject)=>{
             app.use("/graphql", graphqlHTTP({
                 schema: schema,
-                graphiql: true
+                graphiql: false
             }));
             resolve()
         })
