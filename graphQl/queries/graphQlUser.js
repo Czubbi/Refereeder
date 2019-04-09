@@ -23,17 +23,17 @@ class GraphqlUserController
         models.Users=[{
             firstname:'Miquel',
             lastname:'Cami',
-            id:2
+            _id:2
         },
         {
             firstname:'Piotr',
             lastname:'Gzubicki',
-            id:3
+            _id:3
         },
         {
             firstname:'David',
             lastname:'Szoke',
-            id:1,
+            _id:1,
         }];
         schema = new GraphQLSchema({
             query: new GraphQLObjectType({
@@ -42,29 +42,21 @@ class GraphqlUserController
                     one: {
                         type: UserType,
                         args: {
-                            id: { type: GraphQLNonNull(GraphQLID) }
+                            id: { type: GraphQLNonNull(GraphQLString) }
                         },
                         resolve: (root, args, context, info) => {
-                            if(args.id)
-                            {
-                                userCtr.getUserByID(args.id,(err,data)=>{
-                                    if(err){
-                                        console.log('Error: ' + err);
-                                        return null;
-                                    }
-                                    else{
-                                        console.log('Data: ' + data);
-                                        return data;
-                                    }
-                                })
+                            if(args.id){
+                                return this.getUserByID(args.id).then(x=>{
+                                    return x;
+                                });
                             }
-                            else return null;
                         }
                     },
                     all:{
                         type: UserListType,
                         args:{},
                         resolve:(root,args,context,info)=>{
+                            console.log(models.Users);
                             return models.Users;
                         }
                     },
@@ -80,6 +72,21 @@ class GraphqlUserController
                 graphiql: true
             }));
             resolve()
+        })
+    }
+    getUserByID(id)
+    {
+        return new Promise((resolve,reject)=>{
+            userCtr.getUserByID(id,(err,data)=>{
+                if(err){
+                    console.log('Error: ' + err);
+                    reject(err);
+                }
+                else{
+                    var user =JSON.parse(data);
+                    resolve(user);
+                }
+            });
         })
     }
 }

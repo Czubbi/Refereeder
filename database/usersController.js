@@ -6,7 +6,6 @@ class UserController{
     constructor(){
         dbConnection.connectToDb('User').then(()=>{
             conn=dbConnection.get();
-            console.log(conn);
         }).catch(err=>{console.log(err)});
     }
 
@@ -36,11 +35,9 @@ class UserController{
 
     //Get one user by ID
     getUserByID(id,callback){
-        console.log(id);
-        conn.findOne({"_id": ObjectId(id)},(err,result)=>{
-            console.log(result);
+        conn.findOne({"_id":ObjectId(id)},(err,result)=>{
             if(err) callback(err,null);
-            else callback(null,result)
+            else callback(null,JSON.stringify(result));
         })
     }
 
