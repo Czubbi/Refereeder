@@ -1,0 +1,72 @@
+{
+	"rules":{
+		"diagrams":[
+			{
+				"number":"1",
+				"source":"diagram1.jpg",
+				"description":"very nice diagram 2.2",		
+			},
+			{
+				"number":"2.2",
+				"source":"diagram2.2.jpg",
+				"description":"very nice diagram 2.2",
+			},
+		],
+		"main_categories":[
+			{
+				"name":"Playing Court",
+				"base_nr":1,
+			},
+			{
+				"name:":"Playing Time, Final signal and Time-Out",
+				"base_nr":2,
+			}		
+		],
+		"elements":[
+			{
+				"number":"1:1",
+				"lang":{
+					"esp":{
+						"description":"Spanish blabla",
+						"subrules":[],
+						"notes":[],
+						"comments":[],
+						"dashrules":[],
+						"alpharules":[],
+					},
+					"eng":{
+						"description":"english blabla",
+						"subrules":[],
+						"notes":[],
+						"comments":[],
+						"dashrules":[],
+						"alpharules":[],
+					}			
+				}
+			},
+			{
+				"number":"2.1",
+				"lang":[
+					{
+						"lang_name":"esp",
+						"description":"Spanish blabla",
+						"comments":"",
+						"note":"",
+						"subrules":[
+							{
+								"title":"subrule",
+								"description":"blabla",
+							},
+																					
+						],
+					},
+					{
+						"lang_name":"eng",
+						"description":"english blabla",
+						"subrules":[],
+					}				
+				]
+			}
+		]
+	},
+}
