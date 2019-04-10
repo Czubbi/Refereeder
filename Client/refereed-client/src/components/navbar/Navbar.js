@@ -1,22 +1,23 @@
 import React, { Component } from 'react';
-import Navbar from '../navbar/Navbar';
 
-class Home extends Component {
+class Navbar extends Component{
   render() {
     return (
       <div>
-        <div className="navbar">
+        <div id="navbar" className="navbar">
             <div className="navbar-placeholder"></div>
             <div className="navbar-logo">
-                <h1>Refereeder</h1>
+                <div class="navbar-logo-container">
+                    <img src={process.env.PUBLIC_URL+'images/logo.png'}></img>
+                </div>
             </div>
             <div className="navbar-menu">
                 <div>
                     <ul>
-                        <li>Test</li>
-                        <li>Rules</li>
-                        <li>Sign up</li>
-                        <li>Log in</li>
+                        <li>Take a test</li>
+                        <li>See the rules</li>
+                        <li><div className="navbar-buttons"><a href="#" className="btn btn-outline-light btn-lg">Sign up</a>
+                        <a href="#" className="btn btn-success btn-lg">Log in</a></div></li>
                     </ul>
                 </div>
             </div>
@@ -27,4 +28,4 @@ class Home extends Component {
   }
 }
 
-export default Home;
+export default Navbar;

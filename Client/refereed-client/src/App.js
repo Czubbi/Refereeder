@@ -11,6 +11,11 @@ class App extends Component {
           </div>
       );
     }
+    else{
+      return (<div>
+        <Home></Home>
+      </div>);
+    }
   }
 }
 

@@ -35,6 +35,25 @@
 						"diagrams":["d1"],
 						"dashrules":["1:1:d1", "1:1:d2", "1:1:d3"],
 						"alpharules":["1:1:a","1:1:b","1:1:c","1:1:d"],
+						"paragraphs":["1:1:p1"]
+					}
+				}
+			},
+			{
+				"_id":1.1,
+				"elementType":"paragraph",
+				"number":"1:1:p1",
+				"lang":{
+					"eng":{
+						"name":"SubRule name",
+						"title": "SubRule title",
+						"description":"english blabla",
+						"subrules":[null],
+						"notes":[null],
+						"comments":[null],
+						"diagrams":["d1"],
+						"dashrules":["1:1:d1", "1:1:d2", "1:1:d3"],
+						"alpharules":["1:1:a","1:1:b","1:1:c","1:1:d"],
 						"paragraphs":["p1.1.1"]
 					}
 				}
