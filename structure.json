@@ -3,17 +3,39 @@
 		"elements":[
 			{
 				"_id":1,
-
+				"elementType":"rule",
 				"number":"1",
 				"lang":{
 					"eng":{
 						"name":"Rule name",
+						"title": "SubRule title",
 						"description":"english blabla",
 						"subrules":["1:1","1:2","1:3","1:4"],
-						"notes":[],
-						"diagrams":[],
+						"notes":[null],
+						"comments":[null],
+						"diagrams":["d1"],
+						"dashrules":[null],
+						"alpharules":[null],
+						"paragraphs":[null]
+					}
+				}
+			},
+			{
+				"_id":1.1,
+				"elementType":"subRule",
+				"number":"1:1",
+				"lang":{
+					"eng":{
+						"name":"SubRule name",
+						"title": "SubRule title",
+						"description":"english blabla",
+						"subrules":[null],
+						"notes":[null],
+						"comments":[null],
+						"diagrams":["d1"],
 						"dashrules":["1:1:d1", "1:1:d2", "1:1:d3"],
-						"alpharules":["1:1:a","1:1:b","1:1:c","1:1:d"]
+						"alpharules":["1:1:a","1:1:b","1:1:c","1:1:d"],
+						"paragraphs":["p1.1.1"]
 					}
 				}
 			}
