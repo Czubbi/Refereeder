@@ -12,19 +12,17 @@ class UserController{
     //Get all users 
     getUsers(callback){
         conn.find({}).toArray((err, docs)=>{
-            if(err) callback(err)
-            else callback(docs)
+            if(err) callback(err,null)
+            else callback(null,JSON.stringify(docs))
         })
     }
 
-    //Get all the users with same name
-    getUsersByName(name,callback){
-        conn.find({"name":{'$regex': name}}).toArray((err,docs)=>{
+    getUserByQuery(query,callback){
+        conn.findOne(query,(err,result)=>{
             if(err) callback(err,null);
-            else callback(null,docs);
+            else callback(null,JSON.stringify(result));
         })
     }
-
     //Get all users by role
     getUsersByRole(role,callback){
         conn.find({"role": role}).toArray((err,docs)=>{

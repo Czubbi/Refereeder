@@ -42,11 +42,29 @@ class GraphqlUserController
                     one: {
                         type: UserType,
                         args: {
-                            id: { type: GraphQLNonNull(GraphQLString) }
+                            id: { type: GraphQLString},
+                            email:{type:GraphQLString},
+                            username:{type: GraphQLString},
+                            uid:{type:GraphQLString}
                         },
                         resolve: (root, args, context, info) => {
                             if(args.id){
                                 return this.getUserByID(args.id).then(x=>{
+                                    return x;
+                                });
+                            }
+                            else if(args.email){
+                                return this.getUserByQuery({"email":args.email}).then(x=>{
+                                    return x;
+                                });
+                            }
+                            else if(args.username){
+                                return this.getUserByQuery({"username":{'$regex': args.username}}).then(x=>{
+                                    return x;
+                                });
+                            }
+                            else if(args.uid){
+                                return this.getUserByQuery({"uid":{'$regex': uid}}).then(x=>{
                                     return x;
                                 });
                             }
@@ -56,8 +74,9 @@ class GraphqlUserController
                         type: UserListType,
                         args:{},
                         resolve:(root,args,context,info)=>{
-                            console.log(models.Users);
-                            return models.Users;
+                            return this.getAllUsers().then(x=>{
+                                return x;
+                            });
                         }
                     },
                 }
@@ -87,6 +106,37 @@ class GraphqlUserController
                     resolve(user);
                 }
             });
+        })
+    }
+    getUserByQuery(query)
+    {
+        console.log(query);
+        return new Promise((resolve,reject)=>{
+            userCtr.getUserByQuery(query,(err,data)=>{
+                if(err){
+                    console.log('Error: ' + err);
+                    reject(err);
+                }
+                else{
+                    var user =JSON.parse(data);
+                    resolve(user);
+                }
+            });
+        })
+    }
+    getAllUsers()
+    {
+        return new Promise((resolve,reject)=>{
+            userCtr.getUsers((err,data)=>{
+                if(err){
+                    console.log('Error: ' + err);
+                    reject(err);
+                }
+                else{
+                    var users = JSON.parse(data);
+                    resolve(users);
+                }
+            })
         })
     }
 }
