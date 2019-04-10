@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 
-class Home extends Component {
+class Section extends Component {
   render() {
     return (
       <div>
         <div className="section">
-           
+           <h1>Section</h1>
         </div>
       </div>
 
@@ -13,4 +13,4 @@ class Home extends Component {
   }
 }
 
-export default Home;
+export default Section;
