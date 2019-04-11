@@ -7,8 +7,8 @@ class Navbar extends Component{
         <div id="navbar" className="navbar">
             <div className="navbar-placeholder"></div>
             <div className="navbar-logo">
-                <div class="navbar-logo-container">
-                    <img src={process.env.PUBLIC_URL+'images/logo.png'}></img>
+                <div className="navbar-logo-container">
+                    <a href="/"><img src={process.env.PUBLIC_URL+'images/logo.png'}></img></a>
                 </div>
             </div>
             <div className="navbar-menu">

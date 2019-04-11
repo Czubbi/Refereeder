@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { DEFAULT_ECDH_CURVE } from 'tls';
 
-class Navbar extends Component{
+class LoginModal extends Component{
     constructor(){
         super();
         this.filterRef = React.createRef();
@@ -24,9 +24,9 @@ class Navbar extends Component{
     render() {
         return (
         <div>
-            <div className="modal-filter" ref={this.filterRef}>
+            <div className="modal-filter" ref={this.filterRef} onClick={(e)=>{this.props.onModalCloseClick(e)}}>
                 <div className="my-modal" ref={this.modalRef}>
-                    <i className="fas fa-times-circle" onClick={this.props.onModalCloseClick}></i>
+                    <i className="fas fa-times-circle" onClick={(e)=>{this.props.onModalCloseClick(e)}}></i>
                     {this.props.children}
                 </div>
             </div>
@@ -35,4 +35,4 @@ class Navbar extends Component{
   }
 }
 
-export default Navbar;
+export default LoginModal;
