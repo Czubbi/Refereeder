@@ -17,7 +17,7 @@ class Navbar extends Component{
                         <li>Take a test</li>
                         <li>See the rules</li>
                         <li><div className="navbar-buttons"><a href="#" className="btn btn-outline-light btn-lg">Sign up</a>
-                        <a href="#" className="btn btn-success btn-lg">Log in</a></div></li>
+                        <a href="#" onClick={this.props.loginButtonClick} className="btn btn-success btn-lg">Log in</a></div></li>
                     </ul>
                 </div>
             </div>

@@ -144,7 +144,7 @@
 .mobile-menu-content{
     flex:5;
     width:100%;
-    background-color:rgba(0, 0, 0, 0.87);
+    background-color:rgba(0, 0, 0, 0.95);
 }
 .mobile-menu-content ul{
     padding:0;
@@ -214,8 +214,66 @@
     box-shadow:1px 3px 10px black;
     border-radius:2px;
 }
-.btn-warning,.btn-warning:hover{
-    color:white;
+.btn-warning {
+    color: white;
+    background-color: #555555;
+    border-color: #555555;
+  }
+  
+  .btn-warning:hover {
+    color: white;
+    background-color: #444444;
+    border-color: #444444;
+  }
+  
+  .btn-warning:focus, .btn-warning.focus {
+    box-shadow: 0 0 0 0.2rem rgba(100,100,100, 0.5);
+  }
+  
+  .btn-warning.disabled, .btn-warning:disabled {
+    color: white;
+    background-color: #444444;
+    border-color: #444444;
+  }
+  
+  .btn-warning:not(:disabled):not(.disabled):active, .btn-warning:not(:disabled):not(.disabled).active,
+  .show > .btn-warning.dropdown-toggle {
+    color: white;
+    background-color: #444444;
+    border-color: #444444;
+  }
+  
+  .btn-warning:not(:disabled):not(.disabled):active:focus, .btn-warning:not(:disabled):not(.disabled).active:focus,
+  .show > .btn-warning.dropdown-toggle:focus {
+    box-shadow: 0 0 0 0.2rem rgba(100, 100, 100, 0.5);
+  }
+.modal-filter{
+    background-color:rgba(0,0,0,0.5);
+    position:fixed;
+    display:none;
+    justify-content: center;
+    align-items: center;
+    top:0;
+    left:0;
+    width:100vw;
+    height:100vh;
+    z-index: 100;
+}
+.my-modal{
+    background-color:white;
+    min-width: 400px;
+    height: 80%;
+    border-radius: 5px;
+    z-index: 101;
+    position: relative;
+    transition:.3s;
+    top:-2000px;
+}
+.my-modal i{
+    position: absolute;
+    top:10px;
+    right:10px;
+    font-size: 30px;
 }
 @media only screen and (max-width: 1200px) {
     .navbar-placeholder {
@@ -243,5 +301,8 @@
     }
     .header-content{
         justify-content: center;
+    }
+    .my-modal{
+        min-width:85%;
     }
 }
