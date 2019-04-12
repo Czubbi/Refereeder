@@ -60,7 +60,7 @@ class Home extends Component {
             <div className='footer-content-right'>
               <div className='footer-card-container'>
                 <FooterNavigation>
-                  <h3>Navigation:</h3>
+                  <h3>Content:</h3>
                     <ul>
                       <li><a href='#'>Something</a></li>
                       <li><a href='#'>Something</a></li>
