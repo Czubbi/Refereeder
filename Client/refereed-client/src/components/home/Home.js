@@ -19,8 +19,26 @@ class Home extends Component {
   render() {
     return (
       <div>
-        <Navbar loginButtonClick={()=>{this.setState({modalVisible:true})}}></Navbar>
-        <NavbarMobile loginButtonClick={()=>{this.setState({modalVisible:true})}}></NavbarMobile>
+        <Navbar backgroundColor="transparent">
+            <div>
+              <ul>
+                <li>Take a test</li>
+                <li>See the rules</li>
+                <li><div className="navbar-buttons"><a href="#" className="btn btn-outline-light btn-lg">Sign up</a>
+                <a href="#" onClick={()=>{this.setState({modalVisible:true})}} className="btn btn-success btn-lg">Log in</a></div></li>
+              </ul>
+            </div>
+        </Navbar>
+        <NavbarMobile>
+          <div className="mobile-menu-content">
+            <ul>
+                <li>Take a test</li>
+                <li>See the rules</li>
+                <li><a href="#">Sign up</a></li>
+                <li onClick={()=>{this.setState({modalVisible:true})}}><a href="#">Log in</a></li>
+            </ul>
+          </div>
+        </NavbarMobile>
         <Header></Header>
         <Section>
           <div className="card-wrapper">
@@ -51,6 +69,11 @@ class Home extends Component {
               </div>
             </div>
           </div>
+          <div className="section-bg">
+
+          </div>
+          <div className="section-nobg">
+          </div>
         </Section>
         <Footer>
           <div className='footer-wrapper'>
@@ -60,7 +83,7 @@ class Home extends Component {
             <div className='footer-content-right'>
               <div className='footer-card-container'>
                 <FooterNavigation>
-                  <h3>Content:</h3>
+                  <h6>CONTACT</h6>
                     <ul>
                       <li><a href='#'>Something</a></li>
                       <li><a href='#'>Something</a></li>
@@ -70,7 +93,7 @@ class Home extends Component {
                     </ul>
                 </FooterNavigation>
                 <FooterNavigation>
-                  <h3>About:</h3>
+                  <h6>ABOUT</h6>
                     <ul>
                       <li><a href='#'>Something</a></li>
                       <li><a href='#'>Something</a></li>
@@ -78,7 +101,7 @@ class Home extends Component {
                     </ul>
                 </FooterNavigation>
                 <FooterNavigation>
-                  <h3>Help:</h3>
+                  <h6>HELP</h6>
                     <ul>
                       <li><a href='#'>Something</a></li>
                       <li><a href='#'>Something</a></li>

@@ -4,7 +4,7 @@ class Navbar extends Component{
   render() {
     return (
       <div>
-        <div id="navbar" className="navbar">
+        <div id="navbar" className="navbar" style={{backgroundColor:this.props.backgroundColor}}>
             <div className="navbar-placeholder"></div>
             <div className="navbar-logo">
                 <div className="navbar-logo-container">
@@ -12,14 +12,7 @@ class Navbar extends Component{
                 </div>
             </div>
             <div className="navbar-menu">
-                <div>
-                    <ul>
-                        <li>Take a test</li>
-                        <li>See the rules</li>
-                        <li><div className="navbar-buttons"><a href="#" className="btn btn-outline-light btn-lg">Sign up</a>
-                        <a href="#" onClick={this.props.loginButtonClick} className="btn btn-success btn-lg">Log in</a></div></li>
-                    </ul>
-                </div>
+                {this.props.children}
             </div>
             <div className="navbar-placeholder"></div>
         </div>

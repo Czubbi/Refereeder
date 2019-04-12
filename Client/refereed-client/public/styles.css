@@ -168,6 +168,16 @@
 .mobile-menu-content ul li:hover{
     opacity:0.9;
 }
+.navbarUser{
+    height:120px;
+    width:100%;
+    display:flex;
+    position: absolute;
+    top:0;
+    left:0;
+    z-index:2;
+    background-color: black;
+}
 .header{
     min-height: 700px;
     height: 80vh;
@@ -208,7 +218,7 @@
 .section{
     min-height:100vh;
     width:100%;
-    background-color:#EFEFEF;
+    background-color:white;
 }
 .btn{
     box-shadow:1px 3px 10px black;
@@ -349,8 +359,9 @@
     align-items: center;
     width: 100%;
     min-height: 300px;
-    background-color: #cccccc;
-    box-shadow:1px 1px 3px #444444;
+    background-color: #F3F4F5;
+    box-shadow:1px 1px 10px #AAAAAA;
+    padding-top:30px;
 }
 .footer-wrapper{
     display:flex;
@@ -375,23 +386,30 @@
 }
 .footer-card-container{
     display:grid;
-    grid-template-columns: repeat(4, 1fr);
-    justify-items: center;
+    grid-template-columns: repeat(3, 0.2fr);
+    align-items: flex-end;
+    justify-content: flex-end;
+    padding-right: 20%;
 }
 .footer-card{
-    width:250px;
+    width:200px;
     min-height:30vh;
     border:none;
+    display:flex;
+    flex-direction: column;
+}
+.footer-card ul{
+    padding:0;
 }
 .footer-card ul li{
     list-style-type:none;
     padding-top:9px;
-    font-size:16px;
+    font-size:14px;
     transition:opacity .6s;
 }
 .footer-card a{
     text-decoration: none;
-    color:#555555;
+    color:#888888;
 }
 .footer-card ul li:not(:nth-child(3n)):hover{
     opacity:0.7;
@@ -401,7 +419,16 @@
 .footer-content-left img{
     width: 300px;
 }
-
+.section-bg{
+    background-image:url('./images/bg.png');
+    background-size: cover;
+    width:100vw;
+    min-height:500px;
+}
+.section-nobg{
+    width:100vw;
+    min-height:500px;
+}
 @media only screen and (max-width: 1200px) {
     .navbar-placeholder {
       flex: 0.2;

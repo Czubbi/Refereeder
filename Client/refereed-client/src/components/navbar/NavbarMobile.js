@@ -23,14 +23,7 @@ class NavbarMobile extends Component {
             <div className="mobile-menu-logo">
                 <img src={process.env.PUBLIC_URL + "images/logo.png"} />
             </div>
-            <div className="mobile-menu-content">
-                <ul>
-                    <li>Take a test</li>
-                    <li>See the rules</li>
-                    <li><a href="#">Sign up</a></li>
-                    <li onClick={this.props.loginButtonClick}><a href="#">Log in</a></li>
-                </ul>
-            </div>
+            {this.props.children}
         </div>
         <div id="navbar-mobile" className="navbar-mobile">
           <div className="navbar-mobile-logo">
