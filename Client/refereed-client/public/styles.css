@@ -429,6 +429,35 @@
     width:100vw;
     min-height:500px;
 }
+.user-content-wrapper{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    min-height: 700px;
+    background: #444444;
+    margin-top: 120px;
+}
+.user-menu{
+    flex: 1;
+    min-height: 600px;
+    justify-content: center;
+    align-items: center;
+    background-color: red; 
+}
+.user-info-wrapper{
+    flex: 3;
+    min-height: 600px;
+    background-color: green;
+}
+.user-img{
+    width: 200px;
+    min-height: 200px;
+    background-color: #AAAAAA;
+}
+.user-menu-list{
+    
+}
 @media only screen and (max-width: 1200px) {
     .navbar-placeholder {
       flex: 0.2;
