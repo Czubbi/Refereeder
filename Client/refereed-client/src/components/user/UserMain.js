@@ -3,12 +3,44 @@ import Navbar from '../navbar/Navbar'
 import Footer from '../footer/Footer'
 import FooterNavigation from '../cards/FooterNavigation';
 import Section from '../section/Section';
+import PieChart from '../charts/PieChart'
+import BarChart from '../charts/BarChart'
 
 class UserMain extends Component {
   constructor()
   {
     super();
+    this.state={
+      chartDataPie:{},
+      chartDataBar:{},
+    }
   }
+
+  componentWillMount(){
+    this.getChartData();
+  }
+
+  getChartData(){
+    this.setState({
+      chartDataBar:{
+        labels: ['Weel: 1', 'Week: 2'],
+        datasets:[
+            {
+                label: 'Label',
+                data: [
+                    3,
+                    6,
+                ],
+                backgroundColor:[
+                    'rgba(54,162,235,0.6)',
+                    'rgba(54,162,235,0.6)',
+                ]
+              }
+          ]
+      }
+    })
+  }
+
   render() {
     return (
       <div>
@@ -38,8 +70,12 @@ class UserMain extends Component {
                 <div className='user-info-top'>
                   <div className="user-info-placeholder"></div>
                   <div className="user-info-chartholder">
-                    <div className="user-info-chartcard"></div>
-                    <div className="user-info-chartcard"></div>
+                    <div className="user-info-chartcard">
+                      <BarChart chartDataBar={this.state.chartDataBar}></BarChart>
+                    </div>
+                    <div className="user-info-chartcard">
+                      <PieChart chartDataPie={this.chartDataPie}></PieChart>
+                    </div>
                   </div>
                   <div className="user-info-placeholder"></div>
                 </div>
