@@ -422,11 +422,11 @@
 .section-bg{
     background-image:url('./images/bg.png');
     background-size: cover;
-    width:100vw;
+    width:100%;
     min-height:500px;
 }
 .section-nobg{
-    width:100vw;
+    width:100%;
     min-height:500px;
 }
 @media only screen and (max-width: 1200px) {
