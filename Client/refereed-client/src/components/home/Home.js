@@ -19,7 +19,7 @@ class Home extends Component {
   render() {
     return (
       <div>
-        <Navbar backgroundColor="transparent">
+        <Navbar position="absolute" backgroundColor="transparent">
             <div>
               <ul>
                 <li>Take a test</li>

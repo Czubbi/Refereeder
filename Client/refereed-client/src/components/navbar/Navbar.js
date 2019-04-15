@@ -4,7 +4,7 @@ class Navbar extends Component{
   render() {
     return (
       <div>
-        <div id="navbar" className="navbar" style={{backgroundColor:this.props.backgroundColor}}>
+        <div id="navbar" className="navbar" style={{backgroundColor:this.props.backgroundColor,position:this.props.position}}>
             <div className="navbar-placeholder"></div>
             <div className="navbar-logo">
                 <div className="navbar-logo-container">

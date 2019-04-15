@@ -73,3 +73,67 @@
 		]
 	}
 }
+
+
+"rules": [
+	{
+	  "id": "1.0.0.0.0",
+	  "name": "Text",
+	  "title": "Text",
+	  "text": "Text",
+	  "subRules": [
+		{
+		  "id": "1.1.0.0.0",
+		  "name": "Text",
+		  "title": "Text",
+		  "text": [
+			{
+			  "paragraph": [
+				{
+				  "id": "1.1.1.0.0",
+				  "title": "Text",
+				  "text": "Text",
+				  "alphaRules": [
+					{
+					  "id": "1.1.1.a.0",
+					  "text": "Text",
+					  "dashRules": [
+						{
+						  "id": "1.1.1.a.d1",
+						  "text": "Text"
+						}
+					  ],
+					  "numRules": [
+						{
+						  "id": "1.1.1.a.1",
+						  "text": "Text"
+						}
+					  ]
+					}
+				  ],
+				  "dashRules": [
+					{
+					  "id": "1.1.1.d1.0",
+					  "text": "Text"
+					}
+				  ],
+				  "notes": [
+					{
+					  "id": "XX",
+					  "text": "Text"
+					}
+				  ],
+				  "comments": [
+					{
+					  "id": "XX",
+					  "text": "Text"
+					}
+				  ]
+				}
+			  ]
+			}
+		  ],
+		}
+	]
+
+	

@@ -4,7 +4,7 @@ import UserMain from './components/user/UserMain'
 
 class App extends Component {
   render() {
-    if(window.location.href.includes('home'))
+    if(window.location.pathname=='/home')
     {
       return (
           <div>
@@ -12,7 +12,7 @@ class App extends Component {
           </div>
       );
     }
-    else if(window.location.href.includes('user')){
+    else if(window.location.pathname=='/user'){
       return(
         <div>
           <UserMain></UserMain>

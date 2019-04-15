@@ -12,7 +12,7 @@ class UserMain extends Component {
   render() {
     return (
       <div>
-          <Navbar backgroundColor="black">
+          <Navbar position="relative" backgroundColor="black">
           <div>
               <ul>
                 <li>Take a test</li>
@@ -35,8 +35,22 @@ class UserMain extends Component {
                 </div>
               </div>
               <div className='user-info-wrapper'>
-                CONTENT
+                <div className='user-info-top'>
+                  <div className="user-info-placeholder"></div>
+                  <div className="user-info-chartholder">
+                    <div className="user-info-chartcard"></div>
+                    <div className="user-info-chartcard"></div>
+                  </div>
+                  <div className="user-info-placeholder"></div>
+                </div>
+                <div className="user-info-bottom">
+
+                </div>
               </div>
+            </div>
+            <div className="section-bg">
+            </div>
+            <div className="section-nobg">
             </div>
           </Section>
           <Footer>
