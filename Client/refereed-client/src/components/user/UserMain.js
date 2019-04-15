@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Navbar from '../navbar/Navbar'
 import Footer from '../footer/Footer'
 import FooterNavigation from '../cards/FooterNavigation';
-import FederationCard from '../cards/FederationCard'
+import Section from '../section/Section';
 
 class UserMain extends Component {
   constructor()
@@ -22,6 +22,23 @@ class UserMain extends Component {
               </ul>
             </div>
           </Navbar>
+          <Section>
+            <div className='user-content-wrapper'>
+              <div className='user-menu'>
+                <div className='user-img'></div>
+                <div className='user-menu-list'>
+                <ul>
+                <li>Profile</li>
+                <li>Tests</li>
+                <li>Statistics</li>
+              </ul>
+                </div>
+              </div>
+              <div className='user-info-wrapper'>
+                CONTENT
+              </div>
+            </div>
+          </Section>
           <Footer>
           <div className='footer-wrapper'>
             <div className='footer-content-left'>
