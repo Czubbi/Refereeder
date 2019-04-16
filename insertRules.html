@@ -61,6 +61,34 @@
                             <label for="dashRuleText">Dash Rule Text:</label>
                             <input type="text" class="form-control" name="dashRuleText">
                         </div>
+
+                        <div name="notes">
+                            <label for="noteNumber">Note Number:</label>
+                            <input type="text" class="form-control" name="noteNumber">
+
+                            <div name="notesParagraphs">
+                                <label for="noteParagraphNumber">Note Paragraph Number:</label>
+                                <input type="text" class="form-control" name="noteParagraphNumber">
+                                <label for="noteParagraphTitle">Note Paragraph Title:</label>
+                                <input type="text" class="form-control" name="noteParagraphTitle">
+                                <label for="noteParagraphText">Note Paragraph Text:</label>
+                                <input type="text" class="form-control" name="noteParagraphText">
+                            </div>
+                        </div>
+
+                        <div name="comments">
+                            <label for="commentNumber">Comment Number:</label>
+                            <input type="text" class="form-control" name="commentNumber">
+
+                            <div name="commentsParagraphs">
+                                <label for="commentParagraphNumber">Comment Paragraph Number:</label>
+                                <input type="text" class="form-control" name="commentParagraphNumber">
+                                <label for="commentParagraphTitle">Comment Paragraph Title:</label>
+                                <input type="text" class="form-control" name="commentParagraphTitle">
+                                <label for="commentParagraphText">Comment Paragraph Text:</label>
+                                <input type="text" class="form-control" name="commentParagraphText">
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -70,3 +98,41 @@
     <input value= "Save" type="submit" class="btn btn-primary">
     </form>
 </html>
+
+{
+    "_id":{"$oid":""},
+    "elementType":"rule",
+    "number":"1",
+    "lang":{
+        "eng":{
+            "name":"Playing Court",
+            "title":"Rule 1",
+            "text":"",
+            "subRules":[{
+                "number":"1",
+                "name":"",
+                "title":"",
+                "paragraph":[{
+                    "number":"1",
+                    "title":"",
+                    "text":"Text",
+                    "alphaRules":[{
+                        "number":"",
+                        "text":"",
+                        "dashRules":[{
+                            "number":"",
+                            "text":""
+                        }],
+                        "numRules":[{
+                            "number":"",
+                            "text":""
+                        }]
+                    }],
+                    "dashRules":[{
+                        "number":"",
+                        "text":""}]
+                    }]
+                }]
+            }
+        }
+    }

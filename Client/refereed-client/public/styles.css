@@ -504,6 +504,11 @@
 .user-menu-list ul li{
     padding: 5px 0;
 }
+@media only screen and (max-width: 1400px) {
+    .navbar-placeholder {
+      flex: 0.2;
+    }
+}
 @media only screen and (max-width: 1200px) {
     .navbar-placeholder {
       flex: 0.2;
@@ -514,7 +519,7 @@
       flex: 0.1;
     }
 }
-@media only screen and (max-width: 970px) {
+@media only screen and (max-width: 1020px) {
     .navbar{
       display: none;
     }

@@ -23,7 +23,7 @@ class UserMain extends Component {
   getChartData(){
     this.setState({
       chartDataBar:{
-        labels: ['Weel: 1', 'Week: 2'],
+        labels: ['Week: 1', 'Week: 2'],
         datasets:[
             {
                 label: 'Label',

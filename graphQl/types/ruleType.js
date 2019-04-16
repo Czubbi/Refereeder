@@ -1,3 +1,4 @@
+var SubRuleType=require('./subRuleType');
 const {
     GraphQLID,
     GraphQLString,
@@ -10,9 +11,34 @@ const {
 const RuleType = new GraphQLObjectType({
     name: "Rule",
     fields: {
-        id: { type: GraphQLID },
-        title: { type: GraphQLString },
-        description: { type: GraphQLString }
+        _id: { type: GraphQLID },
+        number: { type: GraphQLString },
+        lang: { type: new GraphQLObjectType({
+            name:"Lang",
+            fields:
+            {
+                eng:{type:new GraphQLObjectType({
+                    name:"Eng",
+                    fields:
+                    {
+                        name:{type:GraphQLString},
+                        title:{type:GraphQLString},
+                        text:{type:GraphQLString},
+                        subRules:{type:new GraphQLList(SubRuleType)}
+                    }
+                })},
+                esp:{type:new GraphQLObjectType({
+                    name:"Esp",
+                    fields:
+                    {
+                        name:{type:GraphQLString},
+                        title:{type:GraphQLString},
+                        text:{type:GraphQLString},
+                        subRules:{type:new GraphQLList(SubRuleType)}
+                    }
+                })},
+            }
+        }) }
     }
 });
 module.exports = RuleType;

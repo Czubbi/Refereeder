@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-	"dev": "concurrently \"nodemon server.js\" \"cd Client && cd refereed-client && npm start\""
+    "dev": "concurrently \"nodemon server.js\" \"cd Client && cd refereed-client && npm start\" \"cd Client && cd refereeder-admin && npm start\""
   },
   "repository": {
     "type": "git",

@@ -49,6 +49,14 @@ app.get('/api/Users', (req,res)=>{
         console.log(err);
     })
 })
+
+app.get('/api/Rules', (req,res)=>{
+    graphQlCtr.fetchGraph(port,{ query: `{users{firstname, lastname}}`}).then(x=>{
+        res.json(x);
+    }).catch(err=>{
+        console.log(err);
+    })
+})
 //Starting server
 
 
