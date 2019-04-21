@@ -1,6 +1,6 @@
 .my-navbar{
     height:100%;
-    width:15%;
+    width:300px;
     background-color:#3b3b3b;
     box-shadow:1px 0px 10px black;
     position:fixed;
@@ -44,23 +44,23 @@
     align-items: flex-start;
     padding-top:50px;
     position:relative;
-    width: 85%;
+    width: calc(100% - 300px);
     background-color: rgb(241, 241, 241);
     min-height:calc(100vh - 120px);
     top:0;
-    left:15%;
+    left:300px;
     font-size: 40px;
     font-weight: bolder;
 }
 .my-topbar{
     display:flex;
     flex-direction: column;
-    width: 85%;
+    width: calc(100% - 300px);
     height:120px;
     justify-content: center;
     align-items: center;
     position: relative;
-    left:15%;
+    left:300px;
     font-size: 30px;
     color: white;
     font-weight: bolder;

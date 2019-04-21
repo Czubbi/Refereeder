@@ -3,7 +3,7 @@ import Home from './components/home/Home';
 import Rules from './components/rules/Rules';
 class App extends Component {
   render() {
-    if(window.location.pathname=='/rules')
+    if(window.location.pathname==='/rules')
     {
       return(
         <Rules/>

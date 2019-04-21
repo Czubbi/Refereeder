@@ -11,7 +11,12 @@ class Rules extends Component {
   }
   componentDidMount()
   {
-    fetch('/graphql/rules{}')
+    fetch('/graphql/rules?query=query{all{_id,number,lang{eng{title,text,name,subRules{number,name,title}}}}}').then(x=>x.json()).then(x=>{
+      this.setState({rules:x.data.all});
+    })
+  }
+  deleteRule=(id)=>{
+
   }
   render() {
     return (
@@ -30,24 +35,17 @@ class Rules extends Component {
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <th scope="row">1</th>
-                  <td>Mark</td>
-                  <td>Otto</td>
-                  <td><button className='btn btn-danger'>Delete</button>&emsp;<button className='btn btn-primary'>Edit</button></td>
-                </tr>
-                <tr>
-                  <th scope="row">2</th>
-                  <td>Jacob</td>
-                  <td>Thornton</td>
-                  <td>@fat</td>
-                </tr>
-                <tr>
-                  <th scope="row">3</th>
-                  <td>Larry</td>
-                  <td>the Bird</td>
-                  <td>@twitter</td>
-                </tr>
+                {this.state.rules.map(rule=>{
+                  console.log(rule);
+                  return(
+                    <tr key={rule.number}>
+                      <th scope="row">{rule.number}</th>
+                      <td>{rule.lang.eng.name}</td>
+                      <td><a href={`/subrules?id=${rule._id}`}> {rule.lang.eng.subRules?rule.lang.eng.subRules.length:0}</a></td>
+                      <td><button className='btn btn-danger' onClick={()=>{this.deleteRule(rule._id)}}>Delete</button>&emsp;<button className='btn btn-primary'>Edit</button></td>
+                    </tr>
+                  )
+                })}
               </tbody>
             </table>
           </div>
