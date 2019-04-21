@@ -1,12 +1,15 @@
 import React, { Component } from 'react';
 import Navbar from '../navbar/Navbar'
 import Topbar from '../navbar/Topbar'
+import AddButton from '../buttons/AddButton';
+import ModalBase from '../modals/ModalBase';
 
 class Rules extends Component {
   constructor(){
     super();
     this.state={
       rules:[],
+      modalOpen:true,
     }
   }
   componentDidMount()
@@ -18,10 +21,18 @@ class Rules extends Component {
   deleteRule=(id)=>{
 
   }
+  openAddModal=()=>{
+    this.setState({modalOpen:true});
+  }
   render() {
     return (
       <div>
         <Navbar/>
+        <ModalBase title="Add new rule" onCloseClick={()=>{this.setState({modalOpen:false})}} open={this.state.modalOpen}>
+          <div>
+            A whole lot things will come here
+          </div>
+        </ModalBase>
         <Topbar title="Rules management"/>
         <div className='content'>
           <div className="table-container">
@@ -50,6 +61,7 @@ class Rules extends Component {
             </table>
           </div>
         </div>
+        <AddButton onBtnClick={()=>{this.openAddModal()}}></AddButton>
       </div>
     );
   }
