@@ -29,8 +29,28 @@ class Rules extends Component {
       <div>
         <Navbar/>
         <ModalBase title="Add new rule" onCloseClick={()=>{this.setState({modalOpen:false})}} open={this.state.modalOpen}>
-          <div>
-            A whole lot things will come here
+          <div style={{flex:1,padding:25,height:'100%',overflowX:'auto'}}>
+            <form>
+              <div class="form-group">
+                <label for="number">#</label>
+                <input type="text" class="form-control" id="number" placeholder="Num of rule"/>
+              </div>
+              <div class="form-group">
+                <label for="number">Name</label>
+                <input type="text" class="form-control" id="number" placeholder="Name"/>
+              </div>
+              <div class="form-group">
+                <label for="title">Title</label>
+                <input type="text" class="form-control" id="number" placeholder="Title"/>
+              </div>
+              <div class="form-group">
+                <label for="number">Text</label>
+                <textarea rows={3} class="form-control" id="number" placeholder="Text description of the rule"></textarea>
+              </div>
+              <div class="form-group" style={{paddingTop:20}}>
+                <input type="submit" style={{fontWeight:'bold',transition:'.6s'}} class="form-control btn-primary" value="Submit"/>
+              </div>
+            </form>
           </div>
         </ModalBase>
         <Topbar title="Rules management"/>

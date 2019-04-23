@@ -77,7 +77,6 @@ class GraphqlRuleController
                 }
                 else{
                     var rules = JSON.parse(data);
-                    console.log(rules);
                     resolve(rules);
                 }
             })
@@ -93,7 +92,6 @@ class GraphqlRuleController
                 }
                 else{
                     var rule = JSON.parse(data);
-                    console.log(rule);
                     resolve(rule);
                 }
             })
