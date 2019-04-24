@@ -33,11 +33,10 @@ class RuleController{
     //Insert one rule
     insertRule(rule, callback){
         conn.insertOne(rule, (err, result)=>{
-            if(err) callback(err)
-            else callback(result)
+            if(err) callback(err,null)
+            else callback(null,result)
         })
     }
-
     //Delete one rule
     deleteRule(id,callback){
         conn.deleteOne({"_id" : ObjectId(id)},(err,result)=>{

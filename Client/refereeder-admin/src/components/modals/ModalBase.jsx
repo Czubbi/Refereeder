@@ -1,9 +1,6 @@
 import React, { Component } from 'react';
 
 class ModalBase extends Component {
-    constructor(){
-        super();
-    }
   render() {
     return (
         <div className="my-modal-filter" style={{display:this.props.open?'flex':'none'}}>

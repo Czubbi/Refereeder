@@ -8,8 +8,11 @@ var graphQlUserCtr = new GraphqlUserController(app);
 var graphQlRuleCtr = new GraphqlRuleController(app)
 var port = process.env.PORT || 4000;
 var userController = require('./User/userController.js')
+var ruleController = require('./database/rulesController');
+var ruleCtr = new ruleController();
 var userCtr = new userController();
-
+var bodyParser = require('body-parser')
+app.use(bodyParser.urlencoded({ extended: true }));
 //Functions used in the server
 function initFireBase(config){
     if(!firebase.apps.length)
@@ -40,7 +43,6 @@ app.get('/api/User/:id',(req,res)=>{
         console.log(err);
     })
 })
-
 //Get all users
 app.get('/api/Users', (req,res)=>{
     graphQlCtr.fetchGraph(port,{ query: `{users{firstname, lastname}}`}).then(x=>{
@@ -56,6 +58,39 @@ app.get('/api/Rules', (req,res)=>{
     }).catch(err=>{
         console.log(err);
     })
+})
+
+//RESTful api for RULES
+app.delete('/api/rules/:id',(req,res)=>{
+    ruleCtr.deleteRule(req.params.id,(err,result)=>{
+        if(err) res.status(500);
+        else res.status(200);
+        res.send('SUCCESS');
+    })
+})
+app.post('/api/rules',(req,res)=>{
+    var data=req.body;
+    console.log(data);
+    var rule={
+        number:req.body.number,
+        lang:{
+            eng:{
+                name:req.body.name,
+                title:req.body.title,
+                text:req.body.text,
+                subRules:[]
+            }
+        }
+    };
+    ruleCtr.insertRule(rule,(err,result)=>{
+        if(err) 
+        {
+            console.log(err);
+            res.status(500);
+        }
+        else res.status(200);
+        res.send('SUCCESS');
+    });
 })
 //Starting server
 
