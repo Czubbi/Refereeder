@@ -26,6 +26,13 @@ class BarChart extends Component {
                     },
                     legend:{
                         display: false,
+                    },
+                    scales: {
+                      yAxes: [{
+                        ticks:{
+                          beginAtZero: true
+                        }
+                      }]
                     }
                  }}
                 />
