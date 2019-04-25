@@ -28,6 +28,7 @@ class UserMain extends Component {
             {
                 label: 'Label',
                 data: [
+                    
                     3,
                     6,
                 ],
@@ -37,8 +38,24 @@ class UserMain extends Component {
                 ]
               }
           ]
-      }
-    })
+      }/* ,
+
+      chartDataPie: {
+        labels: ['Good Answers', 'Bad Answers'],
+        datasets:[
+            {
+                data: [
+                    123,
+                    620
+                ],
+                backgroundColor:[
+                    'rgba(54,162,235,0.6)',
+                    'rgba(255,99,132,0.6)',
+                ]
+            }
+        ]
+      }*/
+    }) 
   }
 
   render() {
