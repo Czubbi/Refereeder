@@ -35,31 +35,14 @@ function initGraph(app)
 
 
 //Final setup
-//Get user by ID
-app.get('/api/User/:id',(req,res)=>{
-    graphQlCtr.fetchGraph(port, { query: `{ user(id:${req.params.id}){firstname,lastname} }` }).then(x=>{
-        res.json(x);
-    }).catch(err=>{
-        console.log(err);
+//RESTful api for USERS
+app.delete('/api/users/:id',(req,res)=>{
+    userCtr.deleteUser(req.params.id,(err,result)=>{
+        if(err) res.status(500);
+        else res.status(200);
+        res.send('SUCCESS');
     })
 })
-//Get all users
-app.get('/api/Users', (req,res)=>{
-    graphQlCtr.fetchGraph(port,{ query: `{users{firstname, lastname}}`}).then(x=>{
-        res.json(x);
-    }).catch(err=>{
-        console.log(err);
-    })
-})
-
-app.get('/api/Rules', (req,res)=>{
-    graphQlCtr.fetchGraph(port,{ query: `{users{firstname, lastname}}`}).then(x=>{
-        res.json(x);
-    }).catch(err=>{
-        console.log(err);
-    })
-})
-
 //RESTful api for RULES
 app.delete('/api/rules/:id',(req,res)=>{
     ruleCtr.deleteRule(req.params.id,(err,result)=>{
