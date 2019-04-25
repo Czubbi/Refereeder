@@ -11,14 +11,52 @@ class UserMain extends Component {
   {
     super();
     this.state={
-      chartDataPie:{},
       chartDataBar:{},
+      chartDataPie:{}
     }
   }
 
   componentWillMount(){
-    this.getChartData();
+    this.setState({
+      chartDataBar:{
+        labels: ['Week: 1', 'Week: 2'],
+        datasets:[
+            {
+                label: 'Label',
+                data: [
+                    
+                    3,
+                    6,
+                ],
+                backgroundColor:[
+                    'rgba(54,162,235,0.6)',
+                    'rgba(54,162,235,0.6)',
+                ]
+              }
+          ]
+      }
+    });
+    this.setState({
+      chartDataPie: {
+        labels: ['Good Answers', 'Bad Answers'],
+        datasets:[
+            {
+                data: [
+                    123,
+                    620
+                ],
+                backgroundColor:[
+                    'rgba(54,162,235,0.6)',
+                    'rgba(255,99,132,0.6)',
+                ]
+            }
+        ]
+      }
+    }) 
   }
+  /* componentWillMount(){
+    this.getChartData();
+  } */
 
   getChartData(){
     this.setState({
@@ -38,8 +76,7 @@ class UserMain extends Component {
                 ]
               }
           ]
-      }/* ,
-
+      },
       chartDataPie: {
         labels: ['Good Answers', 'Bad Answers'],
         datasets:[
@@ -54,7 +91,7 @@ class UserMain extends Component {
                 ]
             }
         ]
-      }*/
+      }
     }) 
   }
 
@@ -66,7 +103,7 @@ class UserMain extends Component {
               <ul>
                 <li>Take a test</li>
                 <li>See the rules</li>
-                <li><div className="navbar-buttons"><a href="#" className="">Username</a>
+                <li><div className="navbar-buttons"><a href="#" className="btn btn-outline-secondary btn-lg">Czubbi</a>
                 <a href="#" onClick={()=>{this.setState({modalVisible:true})}} className="btn btn-outline-light btn-lg">Log out</a></div></li>
               </ul>
             </div>

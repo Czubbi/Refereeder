@@ -472,7 +472,7 @@
     display:grid;
     grid-template-columns: repeat(2,1fr);
     align-items: center;
-    grid-gap: 20%;
+    grid-gap: 15%;
 }
 .user-info-chartcard{
     display:flex;
@@ -482,7 +482,7 @@
     height:80%;
     background-color:white;
     border-radius: 10px;
-    box-shadow:2px 1px 10px #222222;
+    box-shadow:2px 1px 8px #888888;
 }
 .user-img{
     width: 200px;
@@ -503,6 +503,29 @@
 }
 .user-menu-list ul li{
     padding: 5px 0;
+}
+
+.test-content-wrapper{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    min-height: 100vh;
+    padding: 40px; 
+}
+.test-card-holder{
+    justify-content: center;
+    display:grid;
+    grid-template-columns: repeat(2,1fr);
+    align-items: center;
+    grid-gap: 3%;
+}
+.test-card{
+    width:800px;
+    min-height:45vh;
+    display:flex;
+    border-radius:10px;
+    box-shadow: 4px 1px 10px #AAAAAA;
 }
 @media only screen and (max-width: 1400px) {
     .navbar-placeholder {
