@@ -291,6 +291,9 @@
     right:10px;
     font-size: 30px;
 }
+.my-modal i:hover{
+    cursor:pointer;
+}
 .my-modal form h6{
     margin-top:40px;
     color:white;
