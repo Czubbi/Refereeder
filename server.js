@@ -75,6 +75,35 @@ app.post('/api/rules',(req,res)=>{
         res.send('SUCCESS');
     });
 })
+app.post('/api/rules/:id/subrules',(req,res)=>{
+    var data=req.body;
+    console.log(data);
+    var rule={
+        number:req.body.number,
+        name:req.body.name,
+        title:req.body.title,
+        text:req.body.text,
+        dashRules:[],
+        numRules:[]
+    };
+    console.log(rule);
+    ruleCtr.insertSubRule(req.params.id,rule,(err,result)=>{
+        if(err) 
+        {
+            console.log(err);
+            res.status(500);
+        }
+        else res.status(200);
+        res.send('SUCCESS');
+    });
+})
+app.delete('/api/rules/:id/subrules/:subid',(req,res)=>{
+    ruleCtr.deleteSubRule(req.params.id,req.params.subid,(err,result)=>{
+        if(err) res.status(500);
+        else res.status(200);
+        res.send('SUCCESS');
+    })
+})
 //Starting server
 
 

@@ -42,12 +42,12 @@ class GraphqlRuleController
                     one: {
                         type: RuleType,
                         args: {
-                            number: { type: GraphQLNonNull(GraphQLID) }
+                            id: { type: GraphQLNonNull(GraphQLID) }
                         },
                         resolve: (root, args, context, info) => {
-                            if(args.number)
+                            if(args.id)
                             {
-                                return this.getRuleByNumber(args.number).then(x=>{
+                                return this.getRuleById(args.id).then(x=>{
                                     return x;
                                 });
                             }
@@ -82,10 +82,10 @@ class GraphqlRuleController
             })
         })
     }
-    getRuleByNumber(number)
+    getRuleById(id)
     {
         return new Promise((resolve,reject)=>{
-            ruleCtr.getRuleByNumber(number,(err,data)=>{
+            ruleCtr.getRuleByID(id,(err,data)=>{
                 if(err){
                     console.log('Error: ' + err);
                     reject(err);

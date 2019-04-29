@@ -46,7 +46,32 @@ class RuleController{
             }
         })
     }
-
+    insertSubRule(id,subrule,callback){
+        conn.findOne({"_id":ObjectId(id)},(err,result)=>{
+            if(err) callback(err,null);
+            else{
+                result.lang.eng.subRules.push(subrule);
+                conn.replaceOne({"_id":ObjectId(id)},result,(error,res)=>{
+                    if(error) callback(error,null);
+                    callback(null,res);
+                })
+            }
+        })
+    }
+    deleteSubRule(id,subid,callback){
+        conn.findOne({"_id":ObjectId(id)},(err,result)=>{
+            if(err) callback(err,null);
+            else{
+                let newSubrules=null;
+                newSubrules = result.lang.eng.subRules.filter(x=>{x._id!=subid});
+                result.lang.eng.subRules=newSubrules;
+                conn.replaceOne({"_id":ObjectId(id)},result,(error,res)=>{
+                    if(error) callback(error,null);
+                    callback(null,res);
+                })
+            }
+        })
+    }
 }
 
 module.exports = RuleController;
