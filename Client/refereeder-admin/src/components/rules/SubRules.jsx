@@ -18,7 +18,7 @@ class Rules extends Component {
     this.refreshList();
   }
   deleteSubRule=(id)=>{
-    let val=window.confirm('Do you really want to delete this rule?');
+    let val=window.confirm('Do you really want to delete this subrule?');
     if(val){
       $.ajax({
         url:`/api/rules/${this.props.id}/subrules/${id}`,
@@ -80,7 +80,7 @@ class Rules extends Component {
             </div>
           </div>
         </ModalBase>
-        <Topbar title="Rules management"/>
+        <Topbar title={"Subrules management for rule "+this.props.id}/>
         <div className='content'>
           <div className="table-container">
             <table className="table">
@@ -92,7 +92,7 @@ class Rules extends Component {
                 </tr>
               </thead>
               <tbody>
-                {this.state.rule?this.state.rule.lang.eng.subRules.map(rule=>{
+                {this.state.rule&&this.state.rule.lang.eng.subRules.length>0?this.state.rule.lang.eng.subRules.map(rule=>{
                   return(
                     <tr key={rule.number}>
                       <th scope="row">{rule.number}</th>
