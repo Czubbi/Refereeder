@@ -43,8 +43,7 @@ class Rules extends Component {
     })
   }
   refreshList=()=>{
-    console.log(this.props.id);
-    fetch(`/graphql/rules?query=query{one(id:"${this.props.id}"){_id,number,lang{eng{title,text,name,subRules{number,name,title}}}}}`).then(x=>x.json()).then(x=>{
+    fetch(`/graphql/rules?query=query{one(id:"${this.props.id}"){_id,number,lang{eng{title,text,name,subRules{_id,number,name,title}}}}}`).then(x=>x.json()).then(x=>{
         this.setState({rule:x.data.one});
     })
   }
@@ -94,7 +93,6 @@ class Rules extends Component {
               </thead>
               <tbody>
                 {this.state.rule?this.state.rule.lang.eng.subRules.map(rule=>{
-                    console.log(rule);
                   return(
                     <tr key={rule.number}>
                       <th scope="row">{rule.number}</th>

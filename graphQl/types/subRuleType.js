@@ -11,6 +11,7 @@ const {
 const SubRuleType = new GraphQLObjectType({
     name: "SubRule",
     fields: {
+        _id:{type: GraphQLID},
         number: { type: GraphQLString },
         name:{type:GraphQLString},
         title:{type:GraphQLString},

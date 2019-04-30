@@ -47,6 +47,7 @@ class RuleController{
         })
     }
     insertSubRule(id,subrule,callback){
+        subrule._id=ObjectId();
         conn.findOne({"_id":ObjectId(id)},(err,result)=>{
             if(err) callback(err,null);
             else{
@@ -63,7 +64,7 @@ class RuleController{
             if(err) callback(err,null);
             else{
                 let newSubrules=null;
-                newSubrules = result.lang.eng.subRules.filter(x=>{x._id!=subid});
+                newSubrules = result.lang.eng.subRules.filter(x=>{return x._id!=subid});
                 result.lang.eng.subRules=newSubrules;
                 conn.replaceOne({"_id":ObjectId(id)},result,(error,res)=>{
                     if(error) callback(error,null);
