@@ -32,8 +32,18 @@ function initGraph(app)
 }
 
 //Endpoints setup
-
-
+app.post('/api/login',(req,res)=>{
+    console.log(req.body);
+    firebase.auth().signInWithEmailAndPassword(req.body.email,req.body.password).then(x=>{
+        console.log(x.user.uid);
+        res.end(x.user.uid);
+    }).catch(err=>{console.log(err.message);res.end(null)});
+})
+app.post('/api/forgotpass',(req,res)=>{
+    firebase.auth().sendPasswordResetEmail(req.body.email).then(()=>{
+        res.end(null);
+    })
+})
 //Final setup
 //RESTful api for USERS
 app.delete('/api/users/:id',(req,res)=>{
