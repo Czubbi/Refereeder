@@ -48,7 +48,7 @@ app.delete('/api/rules/:id',(req,res)=>{
     ruleCtr.deleteRule(req.params.id,(err,result)=>{
         if(err) res.status(500);
         else res.status(200);
-        res.send('SUCCESS');
+        res.send('SUCCESS');    
     })
 })
 app.post('/api/rules',(req,res)=>{
