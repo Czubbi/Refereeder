@@ -93,6 +93,7 @@ class Rules extends Component {
               </thead>
               <tbody>
                 {this.state.rule&&this.state.rule.lang.eng.subRules.length>0?this.state.rule.lang.eng.subRules.map(rule=>{
+                  console.log(rule);
                   return(
                     <tr key={rule.number}>
                       <th scope="row">{rule.number}</th>
