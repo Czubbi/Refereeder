@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Navbar from '../navbar/Navbar';
 import NavbarMobile from '../navbar/NavbarMobile';
-import Header from '../Header/Header.js';
+import SignupHeader from '../Header/SignupHeader';
 import Section from '../section/Section.js';
 import LoginModal from '../modals/LoginModal';
 import FederationCard from '../cards/FederationCard'
@@ -9,7 +9,7 @@ import Footer from '../footer/Footer'
 import FooterNavigation from '../cards/FooterNavigation';
 var $ = require('jquery');
 
-class Home extends Component {
+class Signup extends Component {
   constructor()
   {
     super();
@@ -70,78 +70,7 @@ class Home extends Component {
             </ul>
           </div>
         </NavbarMobile>
-        <Header></Header>
-        <Section>
-          <div className="card-wrapper">
-            <div>
-              <h3>Federations: </h3>
-              <div className="card-container">
-                <FederationCard>
-                  <div className="card-top"></div>
-                  <div className="card-bottom">
-                  <h4>Federation Name</h4>
-                  <p>Some text</p>
-                  </div>
-                </FederationCard>
-                <FederationCard>
-                  <div className="card-top"></div>
-                  <div className="card-bottom">
-                  <h4>Federation Name</h4>
-                  <p>Some text</p>
-                  </div>
-                </FederationCard>
-                <FederationCard>
-                  <div className="card-top"></div>
-                  <div className="card-bottom">
-                  <h4>Federation Name</h4>
-                  <p>Some text</p>
-                  </div>
-                </FederationCard>
-              </div>
-            </div>
-          </div>
-          <div className="section-bg">
-
-          </div>
-          <div className="section-nobg">
-          </div>
-        </Section>
-        <Footer>
-          <div className='footer-wrapper'>
-            <div className='footer-content-left'>
-              <a href="/"><img src={process.env.PUBLIC_URL+'images/logo.png'}></img></a>
-            </div>
-            <div className='footer-content-right'>
-              <div className='footer-card-container'>
-                <FooterNavigation>
-                  <h6>CONTACT</h6>
-                    <ul>
-                      <li><a href='#'>Something</a></li>
-                      <li><a href='#'>Something</a></li>
-                      <li><a href='#'>Something</a></li>
-                      <li><a href='#'>Something</a></li>
-                      <li><a href='#'>Something</a></li>
-                    </ul>
-                </FooterNavigation>
-                <FooterNavigation>
-                  <h6>ABOUT</h6>
-                    <ul>
-                      <li><a href='#'>Something</a></li>
-                      <li><a href='#'>Something</a></li>
-                      <li><a href='#'>Something</a></li>
-                    </ul>
-                </FooterNavigation>
-                <FooterNavigation>
-                  <h6>HELP</h6>
-                    <ul>
-                      <li><a href='#'>Something</a></li>
-                      <li><a href='#'>Something</a></li>
-                    </ul>
-                </FooterNavigation>
-              </div>
-            </div>
-          </div>
-        </Footer>
+        <SignupHeader></SignupHeader>
         <LoginModal modalVisible={this.state.modalVisible?'flex':'none'} modalPos={this.state.modalVisible?'0px':'-2000px'} onModalCloseClick={(e)=>{e.preventDefault();if(e.target==e.currentTarget){this.setState({modalVisible:false})}}}>
           <img style={{width:"70%",marginBottom:20,filter:'invert(100%)'}} src={process.env.PUBLIC_URL + "images/logo.png"} />
           <div>
@@ -165,4 +94,4 @@ class Home extends Component {
   }
 }
 
-export default Home;
+export default Signup;

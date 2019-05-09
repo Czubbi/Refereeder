@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import Home from './components/home/Home.js';
-import UserMain from './components/user/UserMain'
-import TestMain from './components/test/TestMain'
+import UserMain from './components/user/UserMain';
+import TestMain from './components/test/TestMain';
+import Signup from './components/signuppage/Signup';
 
 class App extends Component {
   render() {
@@ -24,6 +25,13 @@ class App extends Component {
       return(
         <div>
           <TestMain></TestMain>
+        </div>
+      )
+    }
+    else if(window.location.pathname=='/signup'){
+      return(
+        <div>
+          <Signup></Signup>
         </div>
       )
     }
