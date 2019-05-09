@@ -644,3 +644,35 @@
     opacity:0.9;
     cursor:pointer;
 }
+.signup-header-right p{
+    color:white;
+}
+.passwordMeterContainer{
+    width:100%;
+    height:20px;
+    display:flex;
+    justify-content: center;
+    align-items:center;
+}
+.passwordMeter{
+    flex:3;
+    background-color:white;
+    height:8px;
+    position: relative;
+    display:flex;
+}
+.passwordMeterUnit{
+    height:100%;
+    width:25%;
+    background-color:#28a745;
+    border:1px white solid;
+}
+.passwordStrength{
+    flex:1;
+    height:5px;
+    color:white;
+    font-size:16px;
+    display:flex;
+    justify-content: flex-end;
+    align-items: center;
+}
