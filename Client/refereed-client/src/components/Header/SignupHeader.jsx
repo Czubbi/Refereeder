@@ -11,6 +11,7 @@ class SignupHeader extends Component {
           startDate: new Date(),
           passwordStrength: "Empty",
           units:[],
+          loading:false,
           passwordScore:0,
           passwordTooWeak:false,
           passwordFeedback:"",
@@ -27,6 +28,7 @@ class SignupHeader extends Component {
     }
     signupUser=(e)=>{
         e.preventDefault();
+        this.setState({loading:true});
         var data=$('#signupform').serialize();
         if(this.state.passwordScore>=3)
         {
@@ -88,6 +90,9 @@ class SignupHeader extends Component {
     render() {
         return (
           <div>
+            <div className="loading_div" style={{display:this.state.loading?'flex':'none'}}>
+                <img src={process.env.PUBLIC_URL+'/images/loading.gif'}></img>
+            </div>
             <div id="signup-header" className="signup-header">
                 <div className="signup-header-left">
                     <div className="take-a-photo">

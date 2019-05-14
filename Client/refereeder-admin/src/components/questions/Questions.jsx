@@ -92,10 +92,8 @@ class Questions extends Component {
                 {this.state.rules.map(question=>{
                   return(
                     <tr key={question.nuleNumber}>
-                      <th scope="row">{rule.number}</th>
-                      <td>{rule.lang.eng.name}</td>
-                      <td><a href={`/subrules?id=${rule._id}`}> {rule.lang.eng.subRules?rule.lang.eng.subRules.length:0}</a></td>
-                      <td><button className='btn btn-danger' onClick={()=>{this.deleteRule(rule._id)}}>Delete</button>&emsp;<button className='btn btn-primary'>Edit</button></td>
+                      <th scope="row">{question.number}</th>
+                      <td>{question.name}</td>
                     </tr>
                   )
                 })}
