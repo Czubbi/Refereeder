@@ -12,6 +12,7 @@ class SignupHeader extends Component {
           passwordStrength: "Empty",
           units:[],
           loading:false,
+          errorMessage:"",
           passwordScore:0,
           passwordTooWeak:false,
           passwordFeedback:"",
@@ -43,7 +44,11 @@ class SignupHeader extends Component {
                     data:data,
                     method:'post',
                     success:()=>{window.location.replace('/')},
-                    url:'/api/users'
+                    url:'/api/users',
+                    error:(msg)=>{
+                        this.setState({errorMessage:msg.responseJSON.message});
+                        this.setState({loading:false});
+                    }
                 })
             }
             else this.setState({formInvalid:true});
@@ -104,6 +109,7 @@ class SignupHeader extends Component {
                 </div>
                 <div className="signup-header-right">
                     <div>
+                        <h5 style={{color:'red'}}>{this.state.errorMessage}</h5>
                         <form id="signupform">
                             <div className="form-group row">
                                 <label htmlFor="firstname" className="col-sm-3 col-form-label">Firstname</label>

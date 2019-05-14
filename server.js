@@ -112,6 +112,10 @@ app.post('/api/users',(req,res)=>{
             else res.status(200);
             res.end('SUCCESS');
         })
+    }).catch(err=>{
+        res.status(500);
+        res.json(err);
+        console.log(err.message);
     });
 })
 //RESTful api for RULES
