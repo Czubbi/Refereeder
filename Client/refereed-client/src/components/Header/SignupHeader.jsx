@@ -110,7 +110,7 @@ class SignupHeader extends Component {
                 <div className="signup-header-right">
                     <div>
                         <h5 style={{color:'red'}}>{this.state.errorMessage}</h5>
-                        <form id="signupform">
+                        <form id="signupform" style={{maxWidth:'372px'}}>
                             <div className="form-group row">
                                 <label htmlFor="firstname" className="col-sm-3 col-form-label">Firstname</label>
                                 <div className="col-sm-9">
@@ -152,7 +152,8 @@ class SignupHeader extends Component {
                                 
                                 <label htmlFor="password" className="col-sm-3 col-form-label">Password</label>
                                 <div className="col-sm-9">
-                                    <input type="password" id="password" name="password" onChange={this.passwordchange} className="form-control"></input>
+                                    <input type="password" id="password" name="password" onChange={this.passwordchange} className="form-control" style={{display:"inline"}}></input>
+                                    <i class="far fa-question-circle fa-lg" title={this.state.passwordFeedback.suggestions} style={{color:"white", marginLeft:"15px"}}></i>
                                 </div>
                             </div>
                             <div className="passwordMeterContainer">
@@ -168,7 +169,7 @@ class SignupHeader extends Component {
                                 </div>
                             </div>
                             <div style={{wordWrap:'normal'}}>
-                                <p style={{fontSize:14,marginTop:15}}>A strong password must contain at least 6 characters<br/> including lowercase and uppercase letters, at least<br/> one number and at least one non alphanumeric character.</p>
+                                <p style={{fontSize:14,marginTop:15}}>A strong password must contain at least 6 characters including lowercase and uppercase letters, at least one number and at least one non alphanumeric character.</p>
                             </div>
                             <h5 style={{color:'red',display:this.state.formInvalid?'block':'none'}}>No field can be empty!</h5>
                             <input type="submit" disabled={this.state.passwordScore>=3?false:true} value="Sign up" onClick={(e)=>{this.signupUser(e)}} className="btn btn-success col-sm-12" style={{marginTop:40}}></input>

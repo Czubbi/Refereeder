@@ -591,6 +591,8 @@
 .signup-header{
     min-height: 130vh;
     max-width: 100vw;
+    padding-top: 120px;
+    padding-bottom: 50px;
     display: flex;
     justify-content: center;
     align-items: center;
