@@ -42,8 +42,8 @@ class UserController{
     //Insert one user
     insertUser(user, callback){
         conn.insertOne(user, (err, result)=>{
-            if(err) callback(err)
-            else callback(result)
+            if(err) callback(err,null)
+            else callback(null,result)
         })
     }
 

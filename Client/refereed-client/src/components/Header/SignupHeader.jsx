@@ -12,6 +12,9 @@ class SignupHeader extends Component {
           passwordStrength: "Empty",
           units:[],
           passwordScore:0,
+          passwordTooWeak:false,
+          passwordFeedback:"",
+          formInvalid:false,
         };
         this.handleChange = this.handleChange.bind(this);
     }
@@ -21,6 +24,29 @@ class SignupHeader extends Component {
       });
     }    
     componentDidMount(){
+    }
+    signupUser=(e)=>{
+        e.preventDefault();
+        var data=$('#signupform').serialize();
+        if(this.state.passwordScore>=3)
+        {
+            let formValid=true;
+            $('#signupform input').each(function(){
+                if($(this).val()===''){
+                    formValid=false;
+                }
+            });
+            if(formValid){
+                $.ajax({
+                    data:data,
+                    method:'post',
+                    success:()=>{window.location.replace('/')},
+                    url:'/api/users'
+                })
+            }
+            else this.setState({formInvalid:true});
+        }
+        else this.setState({passwordTooWeak:true});
     }
     passwordchange=()=>{
        var result=passChecker($('#password').val());
@@ -52,6 +78,7 @@ class SignupHeader extends Component {
        }
        this.setState({passwordStrength:passText});
        this.setState({passwordScore:result.score});
+       this.setState({passwordFeedback:result.feedback});
        var unitArray=[];
        for(var i =0;i<result.score;i++){
            unitArray.push({key:i,value:""});
@@ -72,17 +99,17 @@ class SignupHeader extends Component {
                 </div>
                 <div className="signup-header-right">
                     <div>
-                        <form>
+                        <form id="signupform">
                             <div className="form-group row">
                                 <label htmlFor="firstname" className="col-sm-3 col-form-label">Firstname</label>
                                 <div className="col-sm-9">
-                                    <input type="text" id="firstname" name="firstname" className="form-control"></input>
+                                    <input type="text" id="firstName" name="firstName" className="form-control"></input>
                                 </div>
                             </div>
                             <div className="form-group row">
                                 <label htmlFor="lastname" className="col-sm-3 col-form-label">Lastname</label>
                                 <div className="col-sm-9">
-                                    <input type="text" id="lastname" name="lastname" className="form-control"></input>
+                                    <input type="text" id="lastName" name="lastName" className="form-control"></input>
                                 </div>
                             </div>
                             <div className="form-group row">
@@ -100,7 +127,7 @@ class SignupHeader extends Component {
                             <div className="form-group row">
                                 <label htmlFor="dob" className="col-sm-3 col-form-label">Birthday</label>
                                 <div className="col-sm-9">
-                                    <DatePicker name="dob" selected={this.state.startDate} onChange={this.handleChange} className="form-control"/>
+                                    <DatePicker name="dateOfBirth" selected={this.state.startDate} onChange={this.handleChange} className="form-control"/>
                                 </div>
                             </div>
                             <div className="form-group row">
@@ -109,7 +136,9 @@ class SignupHeader extends Component {
                                     <input type="email" id="email" name="email" className="form-control"></input>
                                 </div>
                             </div>
+                            <h2 style={{fontSize:16,fontWeight:'bold',color:'red'}}>{this.state.passwordFeedback.warning}</h2>
                             <div className="form-group row">
+                                
                                 <label htmlFor="password" className="col-sm-3 col-form-label">Password</label>
                                 <div className="col-sm-9">
                                     <input type="password" id="password" name="password" onChange={this.passwordchange} className="form-control"></input>
@@ -127,7 +156,11 @@ class SignupHeader extends Component {
                                     {this.state.passwordStrength}
                                 </div>
                             </div>
-                            <input type="submit" value="Sign up" className="btn btn-success col-sm-12" style={{marginTop:40}}></input>
+                            <div style={{wordWrap:'normal'}}>
+                                <p style={{fontSize:14,marginTop:15}}>A strong password must contain at least 6 characters<br/> including lowercase and uppercase letters, at least<br/> one number and at least one non alphanumeric character.</p>
+                            </div>
+                            <h5 style={{color:'red',display:this.state.formInvalid?'block':'none'}}>No field can be empty!</h5>
+                            <input type="submit" disabled={this.state.passwordScore>=3?false:true} value="Sign up" onClick={(e)=>{this.signupUser(e)}} className="btn btn-success col-sm-12" style={{marginTop:40}}></input>
                         </form>
                     </div>
                 </div>

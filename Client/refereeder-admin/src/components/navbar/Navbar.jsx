@@ -9,8 +9,7 @@ class Navbar extends Component {
             <ul>
               <li><a href='/rules'><i className="fas fa-book"></i>&emsp;Rules</a></li>
               <li><a href='/users'><i className="fas fa-user"></i>&emsp;Users</a></li>
-              <li><a href='/quizzes'><i className="fas fa-question"></i>&emsp;Quizzes</a></li>
-              <li><a href='/tests'><i className="fas fa-poll-h"></i>&emsp;Tests</a></li>
+              <li><a href='/questions'><i className="fas fa-question"></i>&emsp;Questions</a></li>
             </ul>
           </div>
           <div className="placeholder"></div>

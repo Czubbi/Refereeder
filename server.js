@@ -7,13 +7,25 @@ var GraphqlUserController = require('./graphQl/queries/graphQlUser.js');
 var graphQlUserCtr = new GraphqlUserController(app);
 var graphQlRuleCtr = new GraphqlRuleController(app)
 var port = process.env.PORT || 4000;
-var userController = require('./User/userController.js')
+var userController = require('./database/usersController.js');
 var ruleController = require('./database/rulesController');
 var ruleCtr = new ruleController();
 var userCtr = new userController();
+var rethinkdb = require('rethinkdb');
+var rethinkConf=require('./rethinkconfig.json');
+var rethinkConn;
 var bodyParser = require('body-parser')
 app.use(bodyParser.urlencoded({ extended: true }));
 //Functions used in the server
+function initRethinkdb()
+{
+    rethinkdb.connect(rethinkConf).then(x=>{
+        rethinkConn=x;
+        console.log('Rethinkdb initialized...');
+    }).catch(err=>{
+        console.log(err);
+    });
+}
 function initFireBase(config){
     if(!firebase.apps.length)
     {
@@ -45,6 +57,30 @@ app.post('/api/forgotpass',(req,res)=>{
     })
 })
 //Final setup
+//TEST RETHINK
+app.get('/api/questions',(req,res)=>{
+    rethinkdb.table('questions').run(rethinkConn).then(snap=>{
+        snap.toArray().then(x=>{
+            res.json(x);
+        })
+    })
+})
+app.delete('/api/questions/:id',(req,res)=>{
+    rethinkdb.table('questions').delete({id:req.params.id}).run(rethinkConn).then(result=>{
+        res.json(result);
+    })
+})
+/*app.post('/api/questions',(req,res)=>{
+    var question = {
+        ruleNumber:req.body.ruleNumber,
+        questionNumber:req.body.questionNumber,
+        question:req.body.question,
+        answers:[]        
+    }
+    rethinkdb.table('questions').insert({ }).run(rethinkConn).then(result=>{
+        res.json(result);
+    })
+})*/
 //RESTful api for USERS
 app.delete('/api/users/:id',(req,res)=>{
     userCtr.deleteUser(req.params.id,(err,result)=>{
@@ -53,12 +89,37 @@ app.delete('/api/users/:id',(req,res)=>{
         res.send('SUCCESS');
     })
 })
+app.post('/api/users',(req,res)=>{
+    var user={
+        firstName:req.body.firstName,
+        lastName:req.body.lastName,
+        phone:req.body.phone,
+        city:req.body.city,
+        dateOfBirth:req.body.dateOfBirth,
+        email:req.body.email
+    };
+    user.goodAnswers=0;
+    user.badAnswers=0;
+    user.testsTaken=[],
+    user.quizzesTaken=[];
+    firebase.auth().createUserWithEmailAndPassword(user.email,req.body.password).then(x=>{
+        user.uid=x.user.uid;
+        console.log(user);
+        userCtr.insertUser(user,(err,result)=>{
+            console.log(err);
+            console.log(result);
+            if(err) res.status(500);
+            else res.status(200);
+            res.end('SUCCESS');
+        })
+    });
+})
 //RESTful api for RULES
 app.delete('/api/rules/:id',(req,res)=>{
     ruleCtr.deleteRule(req.params.id,(err,result)=>{
         if(err) res.status(500);
         else res.status(200);
-        res.send('SUCCESS');    
+        res.send('SUCCESS');
     })
 })
 app.post('/api/rules',(req,res)=>{
@@ -120,5 +181,6 @@ app.delete('/api/rules/:id/subrules/:subid',(req,res)=>{
 app.listen(port, ()=>{
     initFireBase(fireBaseConfig);
     initGraph(app);
+    initRethinkdb();
     console.log(`Server started on port ${port}`);
 })

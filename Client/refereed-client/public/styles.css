@@ -589,8 +589,7 @@
     }
 }
 .signup-header{
-    min-height: 700px;
-    height: 100vh;;
+    min-height: 130vh;
     max-width: 100vw;
     display: flex;
     justify-content: center;
@@ -648,7 +647,7 @@
     color:white;
 }
 .passwordMeterContainer{
-    width:100%;
+    width:95%;
     height:20px;
     display:flex;
     justify-content: center;
@@ -676,3 +675,10 @@
     justify-content: flex-end;
     align-items: center;
 }
+.form-control{
+    width:auto;
+}
+
+:disabled {
+    cursor: not-allowed;
+  }
