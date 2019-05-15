@@ -8,12 +8,12 @@ class PieChart extends Component {
     super(props);
     this.state = {
         chartData: {
-            labels: ['Good Answers', 'Bad Answers'],
+            labels: ['Good answers', 'Bad Answers'],
             datasets:[
                 {
                     data: [
-                        123,
-                        620
+                        props.user.goodAnswers,
+                        props.user.badAnswers
                     ],
                     backgroundColor:[
                         'rgba(54,162,235,0.6)',

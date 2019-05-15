@@ -88,7 +88,7 @@ class GraphqlUserController
         return new Promise((resolve,reject)=>{
             app.use("/graphql/users", graphqlHTTP({
                 schema: schema,
-                graphiql: true
+                graphiql:true,
             }));
             resolve()
         })

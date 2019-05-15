@@ -23,7 +23,14 @@ class NavbarMobile extends Component {
             <div className="mobile-menu-logo">
                 <img src={process.env.PUBLIC_URL + "images/logo.png"} />
             </div>
-            {this.props.children}
+            <div className="mobile-menu-content">
+            <ul>
+                <li><a href="test">Take a test</a></li>
+                <li>See the rules</li>
+                <li><a href="#">Sign up</a></li>
+                <li onClick={()=>{this.setState({modalVisible:true})}}><a href="#">Log in</a></li>
+            </ul>
+          </div>
         </div>
         <div id="navbar-mobile" className="navbar-mobile">
           <div className="navbar-mobile-logo">

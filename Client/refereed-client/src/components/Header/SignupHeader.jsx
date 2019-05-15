@@ -101,10 +101,7 @@ class SignupHeader extends Component {
             <div id="signup-header" className="signup-header">
                 <div className="signup-header-left">
                     <div className="take-a-photo">
-                        <div style={{textAlign:'center'}}>
-                            <i className="fas fa-file-image"></i>
-                            <p>Upload an image of yourself</p>
-                        </div>
+                        <img src={process.env.PUBLIC_URL+'/images/referee_signup.jpg'}></img>
                     </div>
                 </div>
                 <div className="signup-header-right">
@@ -114,37 +111,37 @@ class SignupHeader extends Component {
                             <div className="form-group row">
                                 <label htmlFor="firstname" className="col-sm-3 col-form-label">Firstname</label>
                                 <div className="col-sm-9">
-                                    <input type="text" id="firstName" name="firstName" className="form-control"></input>
+                                    <input type="text" id="firstName" name="firstName" style={{width:'auto'}} className="form-control"></input>
                                 </div>
                             </div>
                             <div className="form-group row">
                                 <label htmlFor="lastname" className="col-sm-3 col-form-label">Lastname</label>
                                 <div className="col-sm-9">
-                                    <input type="text" id="lastName" name="lastName" className="form-control"></input>
+                                    <input type="text" id="lastName" name="lastName" style={{width:'auto'}} className="form-control"></input>
                                 </div>
                             </div>
                             <div className="form-group row">
                                 <label htmlFor="phone" className="col-sm-3 col-form-label">Phone</label>
                                 <div className="col-sm-9">
-                                    <input type="tel" id="phone" name="phone" className="form-control"></input>
+                                    <input type="tel" id="phone" name="phone" style={{width:'auto'}} className="form-control"></input>
                                 </div>
                             </div>
                             <div className="form-group row">
                                 <label htmlFor="city" className="col-sm-3 col-form-label">City</label>
                                 <div className="col-sm-9">
-                                    <input type="text" id="city" name="city" className="form-control"></input>
+                                    <input type="text" id="city" name="city" style={{width:'auto'}} className="form-control"></input>
                                 </div>
                             </div>
                             <div className="form-group row">
                                 <label htmlFor="dob" className="col-sm-3 col-form-label">Birthday</label>
                                 <div className="col-sm-9">
-                                    <DatePicker name="dateOfBirth" selected={this.state.startDate} onChange={this.handleChange} className="form-control"/>
+                                    <DatePicker name="dateOfBirth" selected={this.state.startDate} onChange={this.handleChange}  style={{width:'auto'}} className="form-control"/>
                                 </div>
                             </div>
                             <div className="form-group row">
                                 <label htmlFor="email" className="col-sm-3 col-form-label">Email</label>
                                 <div className="col-sm-9">
-                                    <input type="email" id="email" name="email" className="form-control"></input>
+                                    <input type="email" id="email" name="email" style={{width:'auto'}} className="form-control"></input>
                                 </div>
                             </div>
                             <h2 style={{fontSize:16,fontWeight:'bold',color:'red'}}>{this.state.passwordFeedback.warning}</h2>
@@ -152,8 +149,7 @@ class SignupHeader extends Component {
                                 
                                 <label htmlFor="password" className="col-sm-3 col-form-label">Password</label>
                                 <div className="col-sm-9">
-                                    <input type="password" id="password" name="password" onChange={this.passwordchange} className="form-control" style={{display:"inline"}}></input>
-                                    <i class="far fa-question-circle fa-lg" title={this.state.passwordFeedback.suggestions} style={{color:"white", marginLeft:"15px"}}></i>
+                                    <input type="password" id="password" name="password" onChange={this.passwordchange} className="form-control" style={{width:'auto',display:"inline"}}></input>
                                 </div>
                             </div>
                             <div className="passwordMeterContainer">

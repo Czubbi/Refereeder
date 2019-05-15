@@ -1,120 +1,89 @@
 import React, { Component } from 'react';
 import Navbar from '../navbar/Navbar'
+import NavbarMobile from '../navbar/NavbarMobile';
 import Footer from '../footer/Footer'
 import FooterNavigation from '../cards/FooterNavigation';
 import Section from '../section/Section';
-import PieChart from '../charts/PieChart'
-import BarChart from '../charts/BarChart'
+import PieChart from '../charts/PieChart';
+import BarChart from '../charts/BarChart';
+import Cookies from 'js-cookie';
 
 class UserMain extends Component {
   constructor()
   {
     super();
     this.state={
+      user:null,
       chartDataBar:{},
       chartDataPie:{}
     }
   }
-
-  componentWillMount(){
-    this.setState({
-      chartDataBar:{
-        labels: ['Week: 1', 'Week: 2'],
-        datasets:[
-            {
-                label: 'Label',
-                data: [
-                    
-                    3,
-                    6,
-                ],
-                backgroundColor:[
-                    'rgba(54,162,235,0.6)',
-                    'rgba(54,162,235,0.6)',
-                ]
+  getUser=()=>{
+    return new Promise((resolve,reject)=>{
+      var uid=Cookies.get('uid');
+      fetch(`/api/users/${uid}`).then(x=>x.json()).then(x=>{
+        resolve(x);
+      }).catch(err=>{
+        reject(err);
+      });
+    })
+  }
+  componentDidMount(){
+    this.getUser().then(x=>{
+      this.setState({user:x})
+      this.setState({
+        chartDataBar:{
+          labels: ['Tests', 'Quizzes'],
+          datasets:[
+              {
+                  label: 'Label',
+                  data: [
+                      3,
+                      3
+                  ],
+                  backgroundColor:[
+                      'rgba(54,162,235,0.6)',
+                      'rgba(54,162,235,0.6)',
+                  ]
+                }
+            ]
+        }
+      });
+      this.setState({
+        chartDataPie: {
+          labels: ['Good Answers', 'Bad Answers'],
+          datasets:[
+              {
+                  data: [
+                      123,
+                      620
+                  ],
+                  backgroundColor:[
+                      'rgba(54,162,235,0.6)',
+                      'rgba(255,99,132,0.6)',
+                  ]
               }
           ]
-      }
+        }
+      })
+    }).catch(err=>{
+      console.log(err);
     });
-    this.setState({
-      chartDataPie: {
-        labels: ['Good Answers', 'Bad Answers'],
-        datasets:[
-            {
-                data: [
-                    123,
-                    620
-                ],
-                backgroundColor:[
-                    'rgba(54,162,235,0.6)',
-                    'rgba(255,99,132,0.6)',
-                ]
-            }
-        ]
-      }
-    }) 
   }
-  /* componentWillMount(){
-    this.getChartData();
-  } */
-
-  getChartData(){
-    this.setState({
-      chartDataBar:{
-        labels: ['Week: 1', 'Week: 2'],
-        datasets:[
-            {
-                label: 'Label',
-                data: [
-                    
-                    3,
-                    6,
-                ],
-                backgroundColor:[
-                    'rgba(54,162,235,0.6)',
-                    'rgba(54,162,235,0.6)',
-                ]
-              }
-          ]
-      },
-      chartDataPie: {
-        labels: ['Good Answers', 'Bad Answers'],
-        datasets:[
-            {
-                data: [
-                    123,
-                    620
-                ],
-                backgroundColor:[
-                    'rgba(54,162,235,0.6)',
-                    'rgba(255,99,132,0.6)',
-                ]
-            }
-        ]
-      }
-    }) 
-  }
-
   render() {
+    if(this.state.user){
     return (
       <div>
           <Navbar position="relative" backgroundColor="black">
-          <div>
-              <ul>
-                <li>Take a test</li>
-                <li>See the rules</li>
-                <li><div className="navbar-buttons"><a href="#" className="btn btn-outline-secondary btn-lg">Czubbi</a>
-                <a href="#" onClick={()=>{this.setState({modalVisible:true})}} className="btn btn-outline-light btn-lg">Log out</a></div></li>
-              </ul>
-            </div>
           </Navbar>
+          <NavbarMobile></NavbarMobile>
           <Section>
             <div className='user-content-wrapper'>
               <div className='user-menu'>
                 <div className='user-img'></div>
                 <div className='user-menu-list'>
                 <ul>
-                <li>Profile</li>
+                <li>{this.state.user.firstName+' '+this.state.user.lastName}</li>
                 <li>Tests</li>
                 <li>Statistics</li>
               </ul>
@@ -125,10 +94,10 @@ class UserMain extends Component {
                   <div className="user-info-placeholder"></div>
                   <div className="user-info-chartholder">
                     <div className="user-info-chartcard">
-                      <BarChart chartDataBar={this.state.chartDataBar}></BarChart>
+                      <BarChart user={this.state.user}></BarChart>
                     </div>
                     <div className="user-info-chartcard">
-                      <PieChart chartDataPie={this.chartDataPie}></PieChart>
+                      <PieChart user={this.state.user}></PieChart>
                     </div>
                   </div>
                   <div className="user-info-placeholder"></div>
@@ -144,43 +113,10 @@ class UserMain extends Component {
             </div>
           </Section>
           <Footer>
-          <div className='footer-wrapper'>
-            <div className='footer-content-left'>
-              <a href="/"><img src={process.env.PUBLIC_URL+'images/logo.png'}></img></a>
-            </div>
-            <div className='footer-content-right'>
-              <div className='footer-card-container'>
-                <FooterNavigation>
-                  <h6>CONTACT</h6>
-                    <ul>
-                      <li><a href='#'>Something</a></li>
-                      <li><a href='#'>Something</a></li>
-                      <li><a href='#'>Something</a></li>
-                      <li><a href='#'>Something</a></li>
-                      <li><a href='#'>Something</a></li>
-                    </ul>
-                </FooterNavigation>
-                <FooterNavigation>
-                  <h6>ABOUT</h6>
-                    <ul>
-                      <li><a href='#'>Something</a></li>
-                      <li><a href='#'>Something</a></li>
-                      <li><a href='#'>Something</a></li>
-                    </ul>
-                </FooterNavigation>
-                <FooterNavigation>
-                  <h6>HELP</h6>
-                    <ul>
-                      <li><a href='#'>Something</a></li>
-                      <li><a href='#'>Something</a></li>
-                    </ul>
-                </FooterNavigation>
-              </div>
-            </div>
-          </div>
         </Footer>
       </div>
-    );
+    );}
+    else return null;
   }
 }
 

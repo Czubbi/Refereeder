@@ -33,7 +33,7 @@ class UserController{
 
     //Get one user by ID
     getUserByID(id,callback){
-        conn.findOne({"_id":ObjectId(id)},(err,result)=>{
+        conn.findOne({"uid":id},(err,result)=>{
             if(err) callback(err,null);
             else callback(null,JSON.stringify(result));
         })

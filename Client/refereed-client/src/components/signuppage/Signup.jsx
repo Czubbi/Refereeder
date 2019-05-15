@@ -2,11 +2,7 @@ import React, { Component } from 'react';
 import Navbar from '../navbar/Navbar';
 import NavbarMobile from '../navbar/NavbarMobile';
 import SignupHeader from '../Header/SignupHeader';
-import Section from '../section/Section.js';
 import LoginModal from '../modals/LoginModal';
-import FederationCard from '../cards/FederationCard'
-import Footer from '../footer/Footer'
-import FooterNavigation from '../cards/FooterNavigation';
 var $ = require('jquery');
 
 class Signup extends Component {
@@ -15,7 +11,6 @@ class Signup extends Component {
     super();
     this.state={
       modalVisible:false,
-      passwordForgot:false,
     }
   }
   login=()=>{
@@ -72,23 +67,7 @@ class Signup extends Component {
         </NavbarMobile>
         <SignupHeader></SignupHeader>
         <LoginModal modalVisible={this.state.modalVisible?'flex':'none'} modalPos={this.state.modalVisible?'0px':'-2000px'} onModalCloseClick={(e)=>{e.preventDefault();if(e.target==e.currentTarget){this.setState({modalVisible:false})}}}>
-          <img style={{width:"70%",marginBottom:20,filter:'invert(100%)'}} src={process.env.PUBLIC_URL + "images/logo.png"} />
-          <div>
-              {this.state.passwordForgot?
-                  (<form id="loginform"><input type="email" placeholder="Email" name="email" className="form-control"/>
-                  <input type="submit" value="Send email" style={{backgroundColor:"#28a745"}} onClick={this.passwordReset} className="form-control btn-success"/>
-                  <h6 onClick={()=>{this.setState({passwordForgot:false})}}>Sign in!</h6></form>)
-                  :
-                  (<form id="loginform">
-                  <input type="email" placeholder="Email" name="email" className="form-control"/>
-                  <input type="password" placeholder="Password" name="password" className="form-control"/>
-                  <input type="submit" value="Log in" style={{backgroundColor:"#28a745"}} onClick={this.login} className="form-control btn-success"/>
-                  <h6 onClick={()=>{this.setState({passwordForgot:true})}}>Forgot your password?</h6></form>)
-              }
-          </div>
         </LoginModal>
-        
-
       </div>
     );
   }

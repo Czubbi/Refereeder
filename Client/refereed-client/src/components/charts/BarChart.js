@@ -6,8 +6,24 @@ class BarChart extends Component {
   constructor(props)
   {
     super(props);
+    console.log(props);
     this.state = {
-        chartData: props.chartDataBar
+      chartData: {
+        labels: ['Tests', 'Quizzes'],
+        datasets:[
+            {
+                label: 'Label',
+                data: [
+                    props.user.testsTaken.length,
+                    props.user.quizzesTaken.length
+                ],
+                backgroundColor:[
+                    'rgba(54,162,235,0.6)',
+                    'rgba(54,162,235,0.6)',
+                ]
+              }
+          ]
+      }
     }
   }
   render() {

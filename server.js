@@ -45,9 +45,7 @@ function initGraph(app)
 
 //Endpoints setup
 app.post('/api/login',(req,res)=>{
-    console.log(req.body);
     firebase.auth().signInWithEmailAndPassword(req.body.email,req.body.password).then(x=>{
-        console.log(x.user.uid);
         res.end(x.user.uid);
     }).catch(err=>{console.log(err.message);res.end(null)});
 })
@@ -82,6 +80,14 @@ app.delete('/api/questions/:id',(req,res)=>{
     })
 })*/
 //RESTful api for USERS
+app.get('/api/users/:uid',(req,res)=>{
+    userCtr.getUserByID(req.params.uid,(err,result)=>{
+        if(err) res.status(500);
+        else res.status(200);
+        console.log(result);
+        res.end(result);
+    })
+})
 app.delete('/api/users/:id',(req,res)=>{
     userCtr.deleteUser(req.params.id,(err,result)=>{
         if(err) res.status(500);
@@ -104,7 +110,6 @@ app.post('/api/users',(req,res)=>{
     user.quizzesTaken=[];
     firebase.auth().createUserWithEmailAndPassword(user.email,req.body.password).then(x=>{
         user.uid=x.user.uid;
-        console.log(user);
         userCtr.insertUser(user,(err,result)=>{
             console.log(err);
             console.log(result);
