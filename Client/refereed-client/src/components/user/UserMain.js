@@ -31,41 +31,6 @@ class UserMain extends Component {
   componentDidMount(){
     this.getUser().then(x=>{
       this.setState({user:x})
-      this.setState({
-        chartDataBar:{
-          labels: ['Tests', 'Quizzes'],
-          datasets:[
-              {
-                  label: 'Label',
-                  data: [
-                      3,
-                      3
-                  ],
-                  backgroundColor:[
-                      'rgba(54,162,235,0.6)',
-                      'rgba(54,162,235,0.6)',
-                  ]
-                }
-            ]
-        }
-      });
-      this.setState({
-        chartDataPie: {
-          labels: ['Good Answers', 'Bad Answers'],
-          datasets:[
-              {
-                  data: [
-                      123,
-                      620
-                  ],
-                  backgroundColor:[
-                      'rgba(54,162,235,0.6)',
-                      'rgba(255,99,132,0.6)',
-                  ]
-              }
-          ]
-        }
-      })
     }).catch(err=>{
       console.log(err);
     });
@@ -80,7 +45,9 @@ class UserMain extends Component {
           <Section>
             <div className='user-content-wrapper'>
               <div className='user-menu'>
-                <div className='user-img'></div>
+                <div className='user-img'>
+
+                </div>
                 <div className='user-menu-list'>
                 <ul>
                 <li>{this.state.user.firstName+' '+this.state.user.lastName}</li>

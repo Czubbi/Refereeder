@@ -12,7 +12,7 @@ class BarChart extends Component {
         labels: ['Tests', 'Quizzes'],
         datasets:[
             {
-                label: 'Label',
+                label: 'Count',
                 data: [
                     props.user.testsTaken.length,
                     props.user.quizzesTaken.length
