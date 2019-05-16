@@ -32,8 +32,8 @@ class QuestionController{
         })
     }
     //Insert one question
-    insertQuestion(rule, callback){
-        conn.insertOne(rule, (err, result)=>{
+    insertQuestion(question, callback){
+        conn.insertOne(question, (err, result)=>{
             if(err) callback(err,null)
             else callback(null,result)
         })

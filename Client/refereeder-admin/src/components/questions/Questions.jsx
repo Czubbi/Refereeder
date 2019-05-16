@@ -32,7 +32,7 @@ class Questions extends Component {
   addQuestion=()=>{
     var body=$('#add-question-form').serialize();
     $.ajax({
-      url:`/api/question`,
+      url:`/api/questions`,
       type:'POST',
       data:body,
       success:()=>{
@@ -71,7 +71,7 @@ class Questions extends Component {
               </div>
             </form>
             <div className="form-group" style={{paddingTop:20}}>
-                <button onClick={this.addRule} style={{fontWeight:'bold',transition:'.6s'}} className="form-control btn-primary">Submit</button>
+                <button onClick={this.addQuestion} style={{fontWeight:'bold',transition:'.6s'}} className="form-control btn-primary">Submit</button>
             </div>
           </div>
         </ModalBase>
@@ -96,7 +96,7 @@ class Questions extends Component {
                       <td>{question.question}</td>
                       <td><a href={`/questions/${question._id}/answers`}>{question.answers.length}</a></td>
                       <td>{question.ruleNumber}</td>
-                      <td><a className="btn btn-danger" style={{color:'White'}}>Delete</a>&emsp;<a className="btn btn-primary" style={{color:'White'}}>Edit</a></td>
+                      <td><button className='btn btn-danger' onClick={()=>{this.deleteQuestion(question._id)}}>Delete</button>&emsp;<button className='btn btn-primary'>Edit</button></td>
                     </tr>
                   )
                 })}

@@ -127,7 +127,14 @@ app.delete('/api/questions/:id',(req,res)=>{
     })
 })
 app.post('/api/questions',(req,res)=>{
-    var newQuestion=req.body;
+    var newQuestion={
+        number:req.body.questionNumber,
+        question:req.body.question,
+        ruleNumber:req.body.ruleNumber,
+        answers:[],
+        rulesReference:[]
+    };
+    console.log(newQuestion);
     questionCtr.insertQuestion(newQuestion,(err,result)=>{
         if(err) res.status(500);
         else res.status(200);
