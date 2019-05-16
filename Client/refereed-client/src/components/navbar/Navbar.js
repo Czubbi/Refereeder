@@ -21,7 +21,7 @@ class Navbar extends Component{
     console.log(cookie);
     if(cookie)
     {
-      fetch('/graphql/users?query=query{one(id:"snJFsNnSnwZdynlBzeIEfVPNPkZ2"){firstName}}').then(x=>x.json()).then(x=>{
+      fetch(`/graphql/users?query=query{one(id:"${cookie}"){firstName}}`).then(x=>x.json()).then(x=>{
         this.setState({loggedIn:x.data.one.firstName});
        })
     }
@@ -42,7 +42,12 @@ class Navbar extends Component{
                   <li><a href="test">Take a test</a></li>
                   <li>See the rules</li>
                   <li><div className="navbar-buttons"><a href={this.state.loggedIn==""?'/signup':'/user'} style={{minWidth:100}} className="btn btn-outline-light btn-lg">{this.state.loggedIn==""?"Sign up":this.state.loggedIn}</a>
-                  <a href="#" onClick={this.state.loggedIn==""?()=>{this.setState({modalVisible:true})}:()=>{document.cookie="uid=";window.location.reload()}} className="btn btn-success btn-lg">{this.state.loggedIn==""?"Log in":"Log out"}</a></div></li>
+                  <a href="#" onClick={this.state.loggedIn==""
+                  ?
+                  ()=>{this.setState({modalVisible:true})}
+                  :
+                  ()=>{document.cookie="uid=";window.location.reload()}} 
+                  className="btn btn-success btn-lg">{this.state.loggedIn==""?"Log in":"Log out"}</a></div></li>
                 </ul>
               </div>
             </div>
