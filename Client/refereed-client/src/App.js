@@ -1,27 +1,45 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import Home from './components/home/Home.js';
+import UserMain from './components/user/UserMain';
+import TestMain from './components/test/TestMain';
+import Signup from './components/signuppage/Signup';
 
 class App extends Component {
   render() {
-    return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
-      </div>
-    );
+    if(window.location.pathname=='/home')
+    {
+      return (
+          <div>
+            <Home></Home>
+          </div>
+      );
+    }
+    else if(window.location.pathname=='/user'){
+      return(
+        <div>
+          <UserMain></UserMain>
+        </div>
+      )
+    }
+    else if(window.location.pathname=='/test'){
+      return(
+        <div>
+          <TestMain></TestMain>
+        </div>
+      )
+    }
+    else if(window.location.pathname=='/signup'){
+      return(
+        <div>
+          <Signup></Signup>
+        </div>
+      )
+    }
+    else{
+      return (<div>
+        <Home></Home>
+      </div>);
+    }
   }
 }
 

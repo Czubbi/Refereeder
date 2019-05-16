@@ -4,7 +4,8 @@
   "description": "4th semester project",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "concurrently \"nodemon server.js\" \"cd Client && cd refereed-client && npm start\" \"cd Client && cd refereeder-admin && npm start\""
   },
   "repository": {
     "type": "git",
@@ -17,10 +18,13 @@
   },
   "homepage": "https://github.com/Czubbi/Refereeder#readme",
   "dependencies": {
+    "body-parser": "^1.18.3",
     "express": "^4.16.4",
     "express-graphql": "^0.7.1",
-    "firebase": "^5.9.3",
+    "firebase": "^5.11.1",
     "graphql": "^14.2.1",
-    "mongodb": "^3.2.3"
+    "js-cookie": "^2.2.0",
+    "mongodb": "^3.2.3",
+    "rethinkdb": "^2.3.3"
   }
 }
