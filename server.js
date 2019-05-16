@@ -159,6 +159,31 @@ app.get('/api/questions/:id',(req,res)=>{
         else res.end(result);
     })
 })
+app.post('/api/questions/:id/answers',(req,res)=>{
+    var data=req.body;
+    console.log(data);
+    var answer={
+        answer:req.body.answer,
+        correct:req.body.correct
+    };
+    console.log(answer);
+    questionCtr.insertAnswer(req.params.id,answer,(err,result)=>{
+        if(err) 
+        {
+            console.log(err);
+            res.status(500);
+        }
+        else res.status(200);
+        res.send('SUCCESS');
+    });
+})
+app.delete('/api/questions/:id/answers/:subid',(req,res)=>{
+    questionCtr.deleteAnswer(req.params.id,req.params.subid,(err,result)=>{
+        if(err) res.status(500);
+        else res.status(200);
+        res.send('SUCCESS');
+    })
+})
 //RESTful api for RULES
 app.delete('/api/rules/:id',(req,res)=>{
     ruleCtr.deleteRule(req.params.id,(err,result)=>{

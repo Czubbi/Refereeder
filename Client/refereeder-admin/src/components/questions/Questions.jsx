@@ -91,10 +91,10 @@ class Questions extends Component {
               <tbody>
                 {this.state.questions.map(question=>{
                   return(
-                    <tr key={question.questionNumber}>
+                    <tr key={question.number}>
                       <th scope="row">{question.number}</th>
                       <td>{question.question}</td>
-                      <td><a href={`/questions/${question._id}/answers`}>{question.answers.length}</a></td>
+                      <td><a href={`/answers?id=${question._id}`}>{question.answers?question.answers.length:0}</a></td>
                       <td>{question.ruleNumber}</td>
                       <td><button className='btn btn-danger' onClick={()=>{this.deleteQuestion(question._id)}}>Delete</button>&emsp;<button className='btn btn-primary'>Edit</button></td>
                     </tr>
