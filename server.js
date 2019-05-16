@@ -4,13 +4,17 @@ var firebase = require('firebase');
 var fireBaseConfig=require('./firebase.json');
 var GraphqlRuleController = require('./graphQl/queries/graphQlRules.js');
 var GraphqlUserController = require('./graphQl/queries/graphQlUser.js');
+var GraphqlQuestionController = require('./graphQl/queries/graphQlQuestions.js');
 var graphQlUserCtr = new GraphqlUserController(app);
-var graphQlRuleCtr = new GraphqlRuleController(app)
+var graphQlRuleCtr = new GraphqlRuleController(app);
+var graphQlQuestionCtr = new GraphqlQuestionController(app);
 var port = process.env.PORT || 4000;
 var userController = require('./database/usersController.js');
 var ruleController = require('./database/rulesController');
+var questionController = require('./database/questionsController');
 var ruleCtr = new ruleController();
 var userCtr = new userController();
+var questionCtr = new questionController();
 var rethinkdb = require('rethinkdb');
 var rethinkConf=require('./rethinkconfig.json');
 var rethinkConn;
@@ -41,6 +45,9 @@ function initGraph(app)
     graphQlRuleCtr.initGraphQl(app).then(()=>{
         console.log('GraphQL Rules initialized...');
     });
+    graphQlQuestionCtr.initGraphQl(app).then(()=>{
+        console.log('GraphQL Questions initialized...');
+    });
 }
 
 //Endpoints setup
@@ -56,18 +63,6 @@ app.post('/api/forgotpass',(req,res)=>{
 })
 //Final setup
 //TEST RETHINK
-app.get('/api/questions',(req,res)=>{
-    rethinkdb.table('questions').run(rethinkConn).then(snap=>{
-        snap.toArray().then(x=>{
-            res.json(x);
-        })
-    })
-})
-app.delete('/api/questions/:id',(req,res)=>{
-    rethinkdb.table('questions').delete({id:req.params.id}).run(rethinkConn).then(result=>{
-        res.json(result);
-    })
-})
 /*app.post('/api/questions',(req,res)=>{
     var question = {
         ruleNumber:req.body.ruleNumber,
@@ -122,6 +117,40 @@ app.post('/api/users',(req,res)=>{
         res.json(err);
         console.log(err.message);
     });
+})
+//RESTful api for Questions
+app.delete('/api/questions/:id',(req,res)=>{
+    questionCtr.deleteQuestion(req.params.id,(err,result)=>{
+        if(err) res.status(500);
+        else res.status(200);
+        res.send('SUCCESS');
+    })
+})
+app.post('/api/questions',(req,res)=>{
+    var newQuestion=req.body;
+    questionCtr.insertQuestion(newQuestion,(err,result)=>{
+        if(err) res.status(500);
+        else res.status(200);
+        res.send('SUCCESS');
+    })
+})
+app.get('/api/questions',(req,res)=>{
+    questionCtr.getQuestions((err,result)=>{
+        if(err) {
+            res.status(500);
+            res.send('FAIL');
+        }
+        else res.end(result);
+    })
+})
+app.get('/api/questions/:id',(req,res)=>{
+    questionCtr.getQuestionByID(req.params.id,(err,result)=>{
+        if(err){
+            res.status(500);
+            res.send('FAIL');
+        }
+        else res.end(result);
+    })
 })
 //RESTful api for RULES
 app.delete('/api/rules/:id',(req,res)=>{

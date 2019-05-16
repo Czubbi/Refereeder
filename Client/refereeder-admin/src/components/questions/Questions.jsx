@@ -43,8 +43,8 @@ class Questions extends Component {
     })
   }
   refreshList=()=>{
-    fetch('/graphql/rules?query=query{all{_id,number,lang{eng{title,text,name,subRules{number,name,title}}}}}').then(x=>x.json()).then(x=>{
-      this.setState({rules:x.data.all});
+    fetch('/api/questions').then(x=>x.json()).then(x=>{
+      this.setState({questions:x});
     })
   }
   openAddModal=()=>{
@@ -58,11 +58,11 @@ class Questions extends Component {
           <div style={{flex:1,padding:25,height:'100%',overflowX:'auto'}}>
             <form id="add-question-form">
               <div className="form-group">
-                <label htmlFor="ruleNumber">#</label>
+                <label htmlFor="ruleNumber">Rule number</label>
                 <input type="text" className="form-control" id="ruleNumber" name="ruleNumber" placeholder="Num of rule"/>
               </div>
               <div className="form-group">
-                <label htmlFor="questionNumber">#</label>
+                <label htmlFor="questionNumber">Question number</label>
                 <input type="text" className="form-control" id="questionNumber" name="questionNumber" placeholder="Num of question"/>
               </div>
               <div className="form-group">
@@ -81,19 +81,22 @@ class Questions extends Component {
             <table className="table">
               <thead>
                 <tr>
-                  <th scope="col"># Rule</th>
-                  <th scope="col"># Question</th>
+                  <th scope="col">Question number</th>
                   <th scope="col">Question</th>
                   <th scope="col">Answers</th>
+                  <th scope="col">Rule number</th>
                   <th scope="col">Handle</th>
                 </tr>
               </thead>
               <tbody>
-                {this.state.rules.map(question=>{
+                {this.state.questions.map(question=>{
                   return(
-                    <tr key={question.nuleNumber}>
+                    <tr key={question.questionNumber}>
                       <th scope="row">{question.number}</th>
-                      <td>{question.name}</td>
+                      <td>{question.question}</td>
+                      <td><a href={`/questions/${question._id}/answers`}>{question.answers.length}</a></td>
+                      <td>{question.ruleNumber}</td>
+                      <td><a className="btn btn-danger" style={{color:'White'}}>Delete</a>&emsp;<a className="btn btn-primary" style={{color:'White'}}>Edit</a></td>
                     </tr>
                   )
                 })}
