@@ -70,7 +70,11 @@ class UserMain extends Component {
                   <div className="user-info-placeholder"></div>
                 </div>
                 <div className="user-info-bottom">
-
+                    <div className="user-info-bigcard">
+                      <div className="user-info-bigcard-grid">
+                        
+                      </div>
+                    </div>
                 </div>
               </div>
             </div>

@@ -16,8 +16,8 @@ class PieChart extends Component {
                         props.user.badAnswers
                     ],
                     backgroundColor:[
-                        'rgba(54,162,235,0.6)',
-                        'rgba(255,99,132,0.6)',
+                        'rgb(128,177,211)',
+                        'rgb(253,180,98)',
                     ]
                 }
             ]
