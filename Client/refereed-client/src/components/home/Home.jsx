@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import Navbar from '../navbar/Navbar';
 import NavbarMobile from '../navbar/NavbarMobile';
-import Header from '../Header/Header.js';
-import Section from '../section/Section.js';
+import Header from '../Header/Header';
+import Section from '../section/Section';
 import FederationCard from '../cards/FederationCard'
 import Footer from '../footer/Footer'
 import FooterNavigation from '../cards/FooterNavigation';

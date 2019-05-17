@@ -5,6 +5,9 @@ import AddButton from '../buttons/AddButton';
 import ModalBase from '../modals/ModalBase';
 var $ = require('jquery');
 
+//Modal doesn't close on outside click
+//Checkbox has to return true or false instead of on
+//I'm looking at it
 class Questions extends Component {
   constructor(){
     super();
@@ -63,7 +66,7 @@ class Questions extends Component {
               </div>
               <div className="form-group">
                 <label htmlFor="correct">Correct?</label>
-                <input type="checkbox" className="form-control" id="correct" name="correct" placeholder="Correct" value="true"/>
+                <input type="checkbox" className="form-control" id="correct" name="correct" placeholder="Correct"/>
               </div>
             </form>
             <div className="form-group" style={{paddingTop:20}}>
@@ -87,7 +90,7 @@ class Questions extends Component {
                   return(
                     <tr key={answer._id}>
                       <th scope="row">{answer.answer}</th>
-                      <td>{answer.correct}</td>
+                      <td>{answer.correct?'true':'false'}</td>
                       <td><button className='btn btn-danger' onClick={()=>{this.deleteAnswer(answer._id)}}>Delete</button>&emsp;<button className='btn btn-primary'>Edit</button></td>
                     </tr>
                   )

@@ -134,7 +134,7 @@ app.post('/api/questions',(req,res)=>{
         answers:[],
         rulesReference:[]
     };
-    console.log(newQuestion);
+    //console.log(newQuestion);
     questionCtr.insertQuestion(newQuestion,(err,result)=>{
         if(err) res.status(500);
         else res.status(200);
@@ -161,12 +161,12 @@ app.get('/api/questions/:id',(req,res)=>{
 })
 app.post('/api/questions/:id/answers',(req,res)=>{
     var data=req.body;
-    console.log(data);
+    //console.log(data);
     var answer={
         answer:req.body.answer,
-        correct:req.body.correct
+        correct:req.body.correct?true:false,
     };
-    console.log(answer);
+    //console.log(answer);
     questionCtr.insertAnswer(req.params.id,answer,(err,result)=>{
         if(err) 
         {
