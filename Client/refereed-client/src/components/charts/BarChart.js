@@ -18,8 +18,8 @@ class BarChart extends Component {
                     props.user.quizzesTaken.length
                 ],
                 backgroundColor:[
-                    'rgba(54,162,235,0.6)',
-                    'rgba(54,162,235,0.6)',
+                  'rgb(179,222,105)',
+                  'rgb(251,128,114)',
                 ]
               }
           ]
