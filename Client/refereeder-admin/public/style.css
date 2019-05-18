@@ -139,8 +139,9 @@
 .my-modal-box{
     background-color:white;
     width:70vw;
-    min-height:700px;
-    max-height:80vh;
+    height: 95vh;
+    /*min-height:500px;
+    max-height:80vh;*/
     border-radius:10px;
     position: relative;
     display:flex;
