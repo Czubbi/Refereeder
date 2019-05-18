@@ -377,6 +377,7 @@
     background-color: #F3F4F5;
     box-shadow:1px 1px 10px #AAAAAA;
     padding-top:30px;
+    position:relative;
 }
 .footer-wrapper{
     display:flex;
@@ -731,31 +732,86 @@
     display:flex;
     height:100%;
     width:100%;
-    background-color:red;
     position: absolute;
 }
 .rule-container-selector{
     flex:1;
     height:100%;
-    background-color:blue;
+    background-color:#303030;
+    box-shadow:0px 0px 10px #333333;
+    z-index:2;
+    overflow:auto;
 }
 .rule-container-content{
-    flex:3;
+    flex:4;
     height:100%;
     display:flex;
     flex-direction: column;
-    background-color:green;
 }
 .rule-content{
-    flex:4;
+    flex:8;
+    overflow:auto;
+    padding:30px 80px;
 }
-.rule-content-handle{
+.rule-content-handler{
     flex:1;
     display:flex;
     align-items: center;
     justify-content: center;
-    background: red;
+    background: white;
 }
-.rule-content-handle i{
+.rule-content-handler i{
+    font-size:50px;
+    margin:0px 10px;
+    background:black;
+    border-radius:50%;
+    color:white;
+    box-shadow:0px 0px 6px black;
+    transition:.3s;
+}
+.rule-content-handler i:hover{
+    box-shadow:0px 0px 3px black;
+}
+.rule-button-container{
+    height:50px;
+    width:100%;
+    background:#222222;
+    display:flex;
+    justify-content: center;
+    align-items:center;
+}
+.rule-button{
+    flex:9;
     font-size:20px;
+    height:100%;
+    color:white;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+}
+.rule-collapse-button{
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    color:white;
+    flex:1;
+    height:100%;
+}
+.rule-button:hover{
+    opacity:0.8;
+    cursor:pointer;
+}
+.rule-button-sub{
+    height:50px;
+    width:100%;
+    background:#111111;
+    display:flex;
+    justify-content: center;
+    align-items:center;
+    font-size:20px;
+    color:white;
+}
+.rule-button-sub:hover{
+    opacity:0.8;
+    cursor:pointer;
 }
