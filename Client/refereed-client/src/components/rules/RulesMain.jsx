@@ -36,7 +36,12 @@ class RulesMain extends Component
                             <RuleNavigator onBtnClick={(rule)=>{this.selectRule(rule)}} rules={this.state.rules}></RuleNavigator>
                             <div className="rule-container-content">
                                 <div className="rule-content">
-                                    {this.state.rulePicked?(this.state.rulePicked.type=='rule'?this.state.rulePicked.rule.lang.eng.text:this.state.rulePicked.rule. text):'Please select a rule'}
+                                    {this.state.rulePicked?(this.state.rulePicked.type=='rule'?(
+                                        <div>{this.state.rulePicked.rule.lang.eng.title} - {this.state.rulePicked.rule.lang.eng.name} <br/><br/>
+                                        <div>{(this.state.rulePicked.rule.lang.eng.subRules.map(subrule=>{
+                                            return(<div>{subrule.number}<br/>{subrule.text}<br/><br/></div>)
+                                        }))}</div></div>
+                                        ):this.state.rulePicked.rule.text):'Please select a rule'}
                                 </div>
                                 <div className="rule-content-handler">
                                     <i onClick={(e)=>{window.alert('Hi!')}} className="fas fa-chevron-circle-left"></i>

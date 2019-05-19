@@ -792,7 +792,8 @@
     height:100%;
     color:white;
     display:flex;
-    justify-content: center;
+    padding-left: 50px;
+    /*justify-content: center;*/
     align-items: center;
 }
 .rule-collapse-button{
