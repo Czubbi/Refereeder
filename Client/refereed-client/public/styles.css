@@ -735,12 +735,18 @@
     position: absolute;
 }
 .rule-container-selector{
-    flex:1;
+    flex:1.4;
     height:100%;
-    background-color:#303030;
+    background:#222222;
     box-shadow:0px 0px 10px #333333;
     z-index:2;
     overflow:auto;
+}
+.rule-container-selector a{
+    color:white;
+}
+.rule-container-selector a:hover{
+    text-decoration: none;
 }
 .rule-container-content{
     flex:4;

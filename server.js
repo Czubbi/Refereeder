@@ -74,6 +74,17 @@ app.post('/api/forgotpass',(req,res)=>{
         res.json(result);
     })
 })*/
+//GET all rules
+app.get('/api/rules',(req,res)=>{
+    ruleCtr.getRules((err,result)=>{
+        if(err)
+        {
+            res.status(500);
+            res.end('FAIL');
+        }
+        else res.end(result);
+    })
+})
 //RESTful api for USERS
 app.get('/api/users/:uid',(req,res)=>{
     userCtr.getUserByID(req.params.uid,(err,result)=>{
