@@ -44,19 +44,19 @@ class RulesMain extends Component
                             <div className="rule-container-content">
                                 <div className={this.state.rulePicked?"rule-content":"rule-content no-selection"}>
                                     {this.state.rulePicked?(this.state.rulePicked.type=='rule'?(
-                                        <div>{this.state.rulePicked.rule.lang.eng.title} - {this.state.rulePicked.rule.lang.eng.name} <br/><br/>
-                                        <div>{this.state.rulePicked.rule.lang.eng.text}<br/><br/></div>
+                                        <div><p>{this.state.rulePicked.rule.lang.eng.title} - {this.state.rulePicked.rule.lang.eng.name}</p>
+                                        <div><p>{this.state.rulePicked.rule.lang.eng.text}</p></div>
                                         <div>{(this.state.rulePicked.rule.lang.eng.subRules.map(subrule=>{
-                                            return(<div>{subrule.number}<br/>{subrule.text}<br/><br/></div>)
+                                            return(<div><p>{subrule.number}<br/>{subrule.text}</p></div>)
                                         }))}</div></div>
                                         ):
-                                        (<div>{this.state.rulePicked.rule.title}<br/><br/>
-                                         <div>{this.state.rulePicked.rule.number} - {this.state.rulePicked.rule.name}<br/><br/>
-                                         <div>{this.state.rulePicked.rule.text}</div></div></div>)):<div><i style={{fontSize:30}} className="fas fa-exclamation-triangle"></i><p>Please select a rule by clicking on one of the elements in the menu</p></div>}
+                                        (<div><p>{this.state.rulePicked.rule.title}</p>
+                                         <div><p>{this.state.rulePicked.rule.number} - {this.state.rulePicked.rule.name}</p>
+                                         <div>{this.state.rulePicked.rule.text}</div></div></div>)):<div><img style={{width:'300px',height:'auto'}} src={process.env.PUBLIC_URL+'images/IHF_logo.jpg'}></img><p>IHF Handball - Rules Of The Game</p><p>Indoor Handball</p></div>}
                                 </div>
                                 <div className="rule-content-handler">
                                     <i onClick={(e)=>{window.alert('Hi!')}} className="fas fa-chevron-circle-left"></i>
-                                    <i className="fas fa-sticky-note" onClick={(e)=>{this.setState({modalVisible:true})}} style={{borderRadius:''}}></i>
+                                    <i className="fas fa-sticky-note" onClick={(e)=>{this.setState({modalVisible:true})}}></i>
                                     <i className="fas fa-chevron-circle-right"></i>
                                 </div>
                             </div>
