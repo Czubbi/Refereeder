@@ -25,8 +25,55 @@ class RulesMain extends Component
         })
     }
     selectRule=(rule)=>{
+        console.log(rule);
         this.setState({rulePicked:rule});
     }
+
+    nextRule(selected){
+        console.log(selected);
+        if(selected.type=="rule"){
+            selected.rule=this.state.rules[this.state.rules.indexOf(selected.rule)+1];
+            selected.type="rule";
+            //console.log(selected);
+            this.selectRule(selected);
+        }else{
+            console.log(this.state.rules[0]);
+            /*selected.rule=this.state.rules[this.state.rules.indexOf(selected.rule)+1];
+            selected.type="subrule";
+            //console.log(selected);
+            this.selectRule(selected);*/
+        }
+    }
+    previousRule(selected){
+        if(selected.type=="rule"){
+            selected.rule=this.state.rules[this.state.rules.indexOf(selected.rule)-1];
+            selected.type="rule";
+            //console.log(selected);
+            this.selectRule(selected);
+        }
+    }
+    evaluatePosition(selected){
+
+        var position="";
+        //console.log(this.state.rules)
+        //console.log(selected.rule.lang.eng.subRules.length);
+        if(selected.type=="rule"){
+            if(this.state.rules.indexOf(selected.rule)==0){
+                position="first";
+            }else if(this.state.rules.indexOf(selected.rule)==this.state.rules.length-1){
+                position="last";
+            }
+        }else{
+             /*if(this.state.rules.indexOf(selected)==0){
+                position="first";
+             }else if(selected.rule.number===this.state.rulePicked.rule.lang.eng.subRules[this.state.rulePicked.rule.lang.eng.subRules.length-1].number){
+                position="last";
+            }*/
+        }
+        //console.log(position);
+        return position;
+    }
+
     takeNote=(e)=>{
         
     }
@@ -52,12 +99,19 @@ class RulesMain extends Component
                                         ):
                                         (<div><p>{this.state.rulePicked.rule.title}</p>
                                          <div><p>{this.state.rulePicked.rule.number} - {this.state.rulePicked.rule.name}</p>
-                                         <div>{this.state.rulePicked.rule.text}</div></div></div>)):<div><img style={{width:'300px',height:'auto'}} src={process.env.PUBLIC_URL+'images/IHF_logo.jpg'}></img><p>IHF Handball - Rules Of The Game</p><p>Indoor Handball</p></div>}
+                                         <div>{this.state.rulePicked.rule.text}</div></div></div>)
+                                    ):
+                                         <div><img style={{width:'300px',height:'auto'}} src={process.env.PUBLIC_URL+'images/IHF_logo.jpg'}></img><p>IHF</p><p>IX - Rules Of The Game</p><p>Indoor Handball</p></div>}
                                 </div>
                                 <div className="rule-content-handler">
-                                    <i onClick={(e)=>{window.alert('Hi!')}} className="fas fa-chevron-circle-left"></i>
-                                    <i className="fas fa-sticky-note" onClick={(e)=>{this.setState({modalVisible:true})}}></i>
-                                    <i className="fas fa-chevron-circle-right"></i>
+                                    {this.state.rulePicked?(
+                                    /*onClick next rule, rule n1 if rulePicked == null */
+                                    <div>{this.evaluatePosition(this.state.rulePicked)!="first"?<i onClick={(e)=>{this.previousRule(this.state.rulePicked)}} className="fas fa-chevron-circle-left"></i>:null}
+                                    {this.state.rulePicked?<i className="fas fa-sticky-note" onClick={(e)=>{this.setState({modalVisible:true})}}></i>:null}
+                                    {/*onClick previous rule */}
+                                    {this.evaluatePosition(this.state.rulePicked)!="last"?<i onClick={(e)=>{this.nextRule(this.state.rulePicked)}} className="fas fa-chevron-circle-right"></i>:null}
+                                    </div>
+                                    ):null}
                                 </div>
                             </div>
                         </div>

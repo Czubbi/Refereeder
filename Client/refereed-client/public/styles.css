@@ -868,7 +868,7 @@
     transition: transform 0.2s linear;
   }
   
-  .fa-arrow-down.open{
+.fa-arrow-down.open{
     transform: rotate(180deg);
     transition: transform 0.2s linear;
-  }
+}

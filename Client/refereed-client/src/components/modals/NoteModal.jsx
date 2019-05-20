@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Cookies from 'js-cookie';
+import LoginModal from '../modals/LoginModal';
 var $ = require('jquery');
 
 
@@ -10,6 +11,7 @@ class NoteModal extends Component{
         this.modalRef = React.createRef();
         this.state={
             loggedIn:null,
+            modalVisible:false,
         }
     }
     componentDidMount(){
@@ -60,13 +62,15 @@ class NoteModal extends Component{
                                 <span style={{fontSize:30}} className="fas fa-exclamation-triangle"></span>
                                 <h4>Disclaimer</h4>
                                 <p>You are not logged in!<br />
-                                In order to create notes you have to log in.<br />
+                                In order to create notes you have to <a href="#" onClick={(e)=>{this.props.onModalCloseClick(e);this.setState({modalVisible:true})}}>log in.</a> <br />
                                 Don't have an account? Register by clicking <a href='/signup' onClick={(e)=>{window.location.replace('/signup')}}>here</a>!</p>
                             </div>)
                         }
                     </div>
                 </div>
             </div>
+            <LoginModal modalVisible={this.state.modalVisible?'flex':'none'} modalPos={this.state.modalVisible?'0px':'-2000px'} onModalCloseClick={(e)=>{e.preventDefault();if(e.target==e.currentTarget){this.setState({modalVisible:false})}}}>
+            </LoginModal>
         </div>
     );
   }

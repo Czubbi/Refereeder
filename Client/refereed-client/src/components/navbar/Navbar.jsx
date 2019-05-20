@@ -47,7 +47,7 @@ class Navbar extends Component{
                   ()=>{this.setState({modalVisible:true})}
                   :
                   ()=>{document.cookie="uid=";window.location.reload()}} 
-                  className="btn btn-success btn-lg">{this.state.loggedIn==""?"Log in":"Log out"}</a></div></li>
+                  className={this.state.loggedIn==""?"btn btn-success btn-lg":"btn btn-danger btn-lg"}>{this.state.loggedIn==""?"Log in":"Log out"}</a></div></li>
                 </ul>
               </div>
             </div>

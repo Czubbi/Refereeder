@@ -12,6 +12,7 @@ class RuleNavigator extends Component
         }
     }
 
+
     changeHidden(id){
         var hidden=this.state.hidden;
         if(hidden[`${id}`])
@@ -22,7 +23,7 @@ class RuleNavigator extends Component
         {
             hidden[`${id}`]=true;
         }
-        console.log(hidden);
+        //console.log(hidden);
         this.setState({hidden:hidden});
     }
     render()
@@ -36,8 +37,7 @@ class RuleNavigator extends Component
                             <div onClick={()=>{this.props.onBtnClick({rule:rule,type:'rule'})}}  className="rule-button">
                                 <a href='#' title={rule.lang.eng.name} data-toggle="tooltip">{rule.number}. {rule.lang.eng.name.length>25?rule.lang.eng.name.substring(0,25)+'...':rule.lang.eng.name}</a>
                             </div>
-                                {rule.lang.eng.subRules.length>0?<div  className="rule-collapse-button" >{/*data-toggle="collapse" data-target={`#collapse_${rule._id}`}>*/}
-                                    {/*$((`#collapse_${rule._id}`)).is(':hidden')?<i className="fas fa-arrow-down"></i>:<i className="fas fa-arrow-down open"></i>*/}
+                                {rule.lang.eng.subRules.length>0?<div  className="rule-collapse-button" >
                                     {!this.state.hidden[`${rule._id}`]?<i className="fas fa-arrow-down"></i>:<i className="fas fa-arrow-down open"></i>}
                                 </div>:null}
                             </div>
