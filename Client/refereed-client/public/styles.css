@@ -759,6 +759,14 @@
     overflow:auto;
     padding:30px 80px;
 }
+.no-selection{
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    font-size:24px;
+    font-weight: bold;
+    text-align: center;
+}
 .rule-content-handler{
     flex:1;
     display:flex;
