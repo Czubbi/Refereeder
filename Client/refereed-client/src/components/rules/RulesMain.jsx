@@ -35,12 +35,26 @@ class RulesMain extends Component
                         <div className="rule-container">
                             <RuleNavigator onBtnClick={(rule)=>{this.selectRule(rule)}} rules={this.state.rules}></RuleNavigator>
                             <div className="rule-container-content">
+<<<<<<< HEAD
                                 <div className={this.state.rulePicked?"rule-content":"rule-content no-selection"}>
                                     {this.state.rulePicked?(this.state.rulePicked.type=='rule'?this.state.rulePicked.rule.lang.eng.text:this.state.rulePicked.rule. text):<div><i className="fas fa-bookmark"></i><p>Please select a rule</p></div>}
+=======
+                                <div className="rule-content">
+                                    {this.state.rulePicked?(this.state.rulePicked.type=='rule'?(
+                                        <div>{this.state.rulePicked.rule.lang.eng.title} - {this.state.rulePicked.rule.lang.eng.name} <br/><br/>
+                                        <div>{this.state.rulePicked.rule.lang.eng.text}<br/><br/></div>
+                                        <div>{(this.state.rulePicked.rule.lang.eng.subRules.map(subrule=>{
+                                            return(<div>{subrule.number}<br/>{subrule.text}<br/><br/></div>)
+                                        }))}</div></div>
+                                        ):
+                                        (<div>{this.state.rulePicked.rule.title}<br/><br/>
+                                         <div>{this.state.rulePicked.rule.number} - {this.state.rulePicked.rule.name}<br/><br/>
+                                         <div>{this.state.rulePicked.rule.text}</div></div></div>)):'Please select a rule'}
+>>>>>>> 1825010e18ffbc89f02a4fe1797ffb99558f1570
                                 </div>
                                 <div className="rule-content-handler">
                                     <i onClick={(e)=>{window.alert('Hi!')}} className="fas fa-chevron-circle-left"></i>
-                                    <i className="fas fa-check-circle" style={{color:'#28a745'}}></i>
+                                    <i className="fas fa-sticky-note" style={{borderRadius:''}}></i>
                                     <i className="fas fa-chevron-circle-right"></i>
                                 </div>
                             </div>
