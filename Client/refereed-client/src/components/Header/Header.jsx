@@ -10,11 +10,11 @@ class Header extends Component {
                 <h2>The new standard within referee and federation contact</h2>
                 <p>Become a member of the most prospering service for handball referees and their federations.</p>
                 <p>We help thousands of qualified referees and federations with contact and stuff...</p>
-                <h4>Sign up right now!</h4>
+                <h4><br/>Your Federation is not a partner yet? <br/>Let us know!</h4>
                 <div className="header-buttons">
-                  <a href="#" className="btn btn-success btn-lg">Sign up</a>
-                  <a href="#" className="btn btn-primary btn-lg">Contact</a>
-                  <a href="#" className="btn btn-warning btn-lg">Test your knowledge</a>
+                  {/*<a href="#" className="btn btn-success btn-lg">Sign up</a>*/}
+                  <a href="#" className="btn btn-primary btn-lg">Contact us!</a>
+                  {/*<a href="#" className="btn btn-warning btn-lg">Test your knowledge</a>*/}
                 </div>
             </div>
            </div>

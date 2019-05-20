@@ -210,14 +210,25 @@
     height:100%;
 }
 .header-login{
+    padding:20px;
+    background-color: rgba(0, 0, 0, 0.7);
+    border-radius: 10px;
     margin-top:20%;
     height: 60%;
-    width: 70%;
+    width: 80%;
     color:white;
 }
+.header-buttons {
+    display:flex;
+    justify-content: center;
+}
 .header-buttons a{
+    flex:1;
+    display:flex;
+    align-items: center;
+    justify-content: center;
     margin-right:10px;
-    margin-top:10px;
+    margin-top:25px;
 }
 .section{
     min-height:calc(100vh - 120px);
