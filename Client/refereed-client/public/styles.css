@@ -760,11 +760,13 @@
     padding:30px 80px;
 }
 .rule-content-handler{
-    flex:1;
+    /*flex:1;*/
+    z-index: 1;
     display:flex;
     align-items: center;
     justify-content: center;
-    background: white;
+    background: #222222;
+    padding: 5px;
 }
 .rule-content-handler i{
     font-size:50px;
@@ -801,6 +803,7 @@
     justify-content: center;
     align-items: center;
     color:white;
+    padding: 10px;
     flex:1;
     height:100%;
 }
@@ -822,3 +825,12 @@
     opacity:0.8;
     cursor:pointer;
 }
+.fa-arrow-down{
+    transform: rotate(0deg);
+    transition: transform 0.2s linear;
+  }
+  
+  .fa-arrow-down.open{
+    transform: rotate(180deg);
+    transition: transform 0.2s linear;
+  }
