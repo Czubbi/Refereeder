@@ -290,6 +290,35 @@
     align-items: center;
     text-align: center;
 }
+.note-modal{
+    background-color:rgba(255, 255, 255, 1);
+    width: 600px;
+    overflow: auto;
+}
+.my-submit-button{
+    background:#28a745;
+    color:white;
+    border:#28a745 solid 2px;
+    border-radius:3px;
+    padding:5px 20px;
+    transition:.3s;
+    margin:5px; 
+}
+.my-submit-button:hover{
+    opacity:0.8;
+}
+.my-clear-button{
+    background:#d12626;
+    color:white;
+    border:#d12626 solid 2px;
+    border-radius:3px;
+    padding:5px 20px;
+    transition:.3s;
+    margin:5px; 
+}
+.my-clear-button:hover{
+    opacity:0.8;
+}
 .my-modal i{
     position: absolute;
     top:10px;
@@ -763,8 +792,8 @@
     display:flex;
     justify-content: center;
     align-items: center;
-    font-size:24px;
-    font-weight: bold;
+    font-size:20px;
+    font-weight:bolder;
     text-align: center;
 }
 .rule-content-handler{
@@ -773,20 +802,22 @@
     display:flex;
     align-items: center;
     justify-content: center;
-    background: #222222;
+    background: white;
     padding: 5px;
 }
 .rule-content-handler i{
     font-size:50px;
     margin:0px 10px;
-    background:black;
+    background:white;
     border-radius:50%;
-    color:white;
-    box-shadow:0px 0px 6px black;
+    color:#000000;
     transition:.3s;
+    will-change:opacity;
 }
 .rule-content-handler i:hover{
-    box-shadow:0px 0px 3px black;
+    opacity: .7;
+    cursor:pointer;
+
 }
 .rule-button-container{
     height:50px;
@@ -803,7 +834,6 @@
     color:white;
     display:flex;
     padding-left: 50px;
-    /*justify-content: center;*/
     align-items: center;
 }
 .rule-collapse-button{
