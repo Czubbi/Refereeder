@@ -55,7 +55,16 @@ class Home extends Component {
             </div>
           </div>
           <div className="section-bg">
-
+             <div className='section-bg-info'>
+              <div className="section-bg-info-image">
+                <img src={process.env.PUBLIC_URL + '/images/refereeder_website.png'}></img>
+              </div>
+              <div className="section-bg-info-content">
+                <div style={{width:400}}>
+                  <h5>Refereeder is an E-learning platform for handball referees. You can view all the rules for the game in a convenient way, even during an ongoing match. We focused on creating an easy to use interface so it takes the smallest amount of clicks to find what you need. When you feel confident with your knowledge take tests and compete with others in quizzes!</h5>
+                </div>
+              </div>
+             </div>
           </div>
           <div className="section-nobg">
           </div>
