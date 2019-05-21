@@ -51,7 +51,10 @@ class SignupHeader extends Component {
                     }
                 })
             }
-            else this.setState({formInvalid:true});
+            else{
+                this.setState({formInvalid:true});
+                this.setState({loading:false});
+            } 
         }
         else this.setState({passwordTooWeak:true});
     }
@@ -109,37 +112,37 @@ class SignupHeader extends Component {
                         <h5 style={{color:'red'}}>{this.state.errorMessage}</h5>
                         <form id="signupform" style={{maxWidth:'372px'}}>
                             <div className="form-group row">
-                                <label htmlFor="firstname" className="col-sm-3 col-form-label">Firstname</label>
+                                <label htmlFor="firstname" className="col-sm-3 col-form-label">Firstname*</label>
                                 <div className="col-sm-9">
                                     <input type="text" id="firstName" name="firstName" style={{width:'auto'}} className="form-control"></input>
                                 </div>
                             </div>
                             <div className="form-group row">
-                                <label htmlFor="lastname" className="col-sm-3 col-form-label">Lastname</label>
+                                <label htmlFor="lastname" className="col-sm-3 col-form-label">Lastname*</label>
                                 <div className="col-sm-9">
                                     <input type="text" id="lastName" name="lastName" style={{width:'auto'}} className="form-control"></input>
                                 </div>
                             </div>
                             <div className="form-group row">
-                                <label htmlFor="phone" className="col-sm-3 col-form-label">Phone</label>
+                                <label htmlFor="phone" className="col-sm-3 col-form-label">Phone*</label>
                                 <div className="col-sm-9">
                                     <input type="tel" id="phone" name="phone" style={{width:'auto'}} className="form-control"></input>
                                 </div>
                             </div>
                             <div className="form-group row">
-                                <label htmlFor="city" className="col-sm-3 col-form-label">City</label>
+                                <label htmlFor="city" className="col-sm-3 col-form-label">City*</label>
                                 <div className="col-sm-9">
                                     <input type="text" id="city" name="city" style={{width:'auto'}} className="form-control"></input>
                                 </div>
                             </div>
                             <div className="form-group row">
-                                <label htmlFor="dob" className="col-sm-3 col-form-label">Birthday</label>
+                                <label htmlFor="dob" className="col-sm-3 col-form-label">Birthday*</label>
                                 <div className="col-sm-9">
                                     <DatePicker name="dateOfBirth" selected={this.state.startDate} onChange={this.handleChange}  style={{width:'auto'}} className="form-control"/>
                                 </div>
                             </div>
                             <div className="form-group row">
-                                <label htmlFor="email" className="col-sm-3 col-form-label">Email</label>
+                                <label htmlFor="email" className="col-sm-3 col-form-label">Email*</label>
                                 <div className="col-sm-9">
                                     <input type="email" id="email" name="email" style={{width:'auto'}} className="form-control"></input>
                                 </div>
@@ -147,7 +150,7 @@ class SignupHeader extends Component {
                             <h2 style={{fontSize:16,fontWeight:'bold',color:'red'}}>{this.state.passwordFeedback.warning}</h2>
                             <div className="form-group row">
                                 
-                                <label htmlFor="password" className="col-sm-3 col-form-label">Password</label>
+                                <label htmlFor="password" className="col-sm-3 col-form-label">Password*</label>
                                 <div className="col-sm-9">
                                     <input type="password" id="password" name="password" onChange={this.passwordchange} className="form-control" style={{width:'auto',display:"inline"}}></input>
                                 </div>
@@ -166,9 +169,10 @@ class SignupHeader extends Component {
                             </div>
                             <div style={{wordWrap:'normal'}}>
                                 <p style={{fontSize:14,marginTop:15}}>A strong password must contain at least 6 characters including lowercase and uppercase letters, at least one number and at least one non alphanumeric character.</p>
+                                <p style={{fontSize:14,marginTop:15}}>*Required fields</p>
                             </div>
                             <h5 style={{color:'red',display:this.state.formInvalid?'block':'none'}}>No field can be empty!</h5>
-                            <input type="submit" disabled={this.state.passwordScore>=3?false:true} value="Sign up" onClick={(e)=>{this.signupUser(e)}} className="btn btn-success col-sm-12" style={{marginTop:40}}></input>
+                            <input type="submit" disabled={this.state.passwordScore>=3?false:true} value="Sign up" onClick={(e)=>{this.signupUser(e)}} className="btn btn-success col-sm-12" style={{marginTop:20}}></input>
                         </form>
                     </div>
                 </div>
