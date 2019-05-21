@@ -61,7 +61,7 @@ class Home extends Component {
               </div>
               <div className="section-bg-info-content">
                 <div style={{width:400}}>
-                  <h5>Refereeder is an E-learning platform for handball referees. You can view all the rules for the game in a convenient way, even during an ongoing match. We focused on creating an easy to use interface so it takes the smallest amount of clicks to find what you need. When you feel confident with your knowledge take tests and compete with others in quizzes!</h5>
+                  <p>Refereeder is an E-learning platform for handball referees. You can view all the rules for the game in a convenient way, even during an ongoing match. We focused on creating an easy to use interface so it takes the smallest amount of clicks to find what you need. When you feel confident with your knowledge take tests and compete with others in quizzes!</p>
                 </div>
               </div>
              </div>
@@ -70,7 +70,7 @@ class Home extends Component {
             <div className='home-bottom-info'>
               <div className='home-bottom-info-content'>
                 <div style={{width:400}}>
-                  <h5>Are you a handball referee and looking for a good place to learn, test yourself or are you just looking to be part of the best handball referee community available? Don't hesitate, you are here!</h5>
+                  <p>Are you a handball referee and looking for a good place to learn, test yourself or are you just looking to be part of the best handball referee community available? Don't hesitate, you are here!</p>
                 </div>
               </div>
               <div className='home-bottom-info-image'>
