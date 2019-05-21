@@ -22,7 +22,7 @@ class App extends Component {
         </div>
       )
     }
-    else if(window.location.pathname=='/test'){
+    else if(window.location.pathname=='/testorquiz'){
       return(
         <div>
           <TestMain></TestMain>

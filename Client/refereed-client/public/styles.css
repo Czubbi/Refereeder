@@ -625,15 +625,25 @@
 }
 .test-card{
     width:45vw;
+    border:1px solid #AAAAAA;
     min-height:45vh;
     display:flex;
+    padding:0px 30px;
     border-radius:10px;
+    justify-content: center;
+    align-items: center;
+    font-size:20px;
     box-shadow: 4px 1px 10px #AAAAAA;
+    text-align: center;
+    transition:box-shadow .3s, opacity .3s;
+}
+.test-card i{
+    font-size:30px;
 }
 .test-card:hover{
     cursor:pointer;
-    opacity:0.9; 
-    box-shadow:1px 1px 10px #444444;
+    opacity:0.95; 
+    box-shadow:4px 1px 4px #999999;
 }
 .signup-header{
     min-height: 130vh;
@@ -672,7 +682,7 @@
     font-weight: 200;
 }
 .take-a-photo{
-    border-radius: 10px;
+    border-radius: 30px;
     width:30vw;
     height:30vw;
     display:flex;
@@ -920,7 +930,7 @@
     align-items: center;
 }
 .home-bottom-info-image img{
-    width:400px;
+    width:370px;
 }
 .home-bottom-info-content{
     flex:1;
@@ -928,6 +938,12 @@
     justify-content: flex-end;
     padding-right:300px;
     align-items: center;
+}
+.no-selection .text-transition .text-transition-inner{
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    height:100%;
 }
 /*MUST BE ON THE END*/
 @media only screen and (max-width: 1400px) {
@@ -1040,5 +1056,8 @@
     }
     .footer-card a {
         font-size:16px;
+    }
+    .test-card{
+        min-height:35   vh;
     }
 }

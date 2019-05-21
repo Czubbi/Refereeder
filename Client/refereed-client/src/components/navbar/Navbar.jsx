@@ -39,7 +39,7 @@ class Navbar extends Component{
             <div className="navbar-menu">
               <div>
                 <ul>
-                  <li><a href="test">Take a test</a></li>
+                  <li><a href="testorquiz">Practice</a></li>
                   <li><a href="rules">See the rules</a></li>
                   <li><div className="navbar-buttons"><a href={this.state.loggedIn==""?'/signup':'/user'} style={{minWidth:100}} className="btn btn-outline-light btn-lg">{this.state.loggedIn==""?"Sign up":this.state.loggedIn}</a>
                   <a href="#" onClick={this.state.loggedIn==""

@@ -7,6 +7,7 @@ import Section from '../section/Section';
 import RuleNavigator from './RuleNavigator';
 import Cookies from 'js-cookie';
 import NoteModal from '../modals/NoteModal';
+import TextTransition from 'react-text-transition';
 
 class RulesMain extends Component
 {
@@ -83,14 +84,15 @@ class RulesMain extends Component
             return(
                 <div>
                     <Navbar position="relative" backgroundColor="black"></Navbar>
-                    <NavbarMobile></NavbarMobile>
+                    <NavbarMobile position='relative' backgroundColor='black'></NavbarMobile>
                     <NoteModal modalVisible={this.state.modalVisible?'flex':'none'} modalPos={this.state.modalVisible?'0px':'-2000px'} onModalCloseClick={(e)=>{e.preventDefault();if(e.target==e.currentTarget){this.setState({modalVisible:false})}}}></NoteModal>
                     <Section>
                         <div className="rule-container">
                             <RuleNavigator onBtnClick={(rule)=>{this.selectRule(rule)}} rules={this.state.rules}></RuleNavigator>
                             <div className="rule-container-content">
                                 <div className={this.state.rulePicked?"rule-content":"rule-content no-selection"}>
-                                    {this.state.rulePicked?(this.state.rulePicked.type=='rule'?(
+                                    <TextTransition text={
+                                    this.state.rulePicked?(this.state.rulePicked.type=='rule'?(
                                         <div><div className="main-rule-content"><p>{this.state.rulePicked.rule.lang.eng.title} - {this.state.rulePicked.rule.lang.eng.name}</p>
                                         <div><p>{this.state.rulePicked.rule.lang.eng.text}</p></div></div>
                                         <div>{(this.state.rulePicked.rule.lang.eng.subRules.map(subrule=>{
@@ -101,7 +103,7 @@ class RulesMain extends Component
                                          <div><p>{this.state.rulePicked.rule.number} - {this.state.rulePicked.rule.name}</p>
                                          <div>{this.state.rulePicked.rule.text}</div></div></div>)
                                     ):
-                                         <div><img style={{width:'300px',height:'auto'}} src={process.env.PUBLIC_URL+'images/IHF_logo.jpg'}></img><p>IHF</p><p>IX - Rules Of The Game</p><p>Indoor Handball</p></div>}
+                                         <div><img style={{width:'300px',height:'auto'}} src={process.env.PUBLIC_URL+'images/IHF_logo.jpg'}></img><p>IHF</p><p>IX - Rules Of The Game</p><p>Indoor Handball</p></div>}></TextTransition>
                                 </div>
                                 <div className="rule-content-handler">
                                     {this.state.rulePicked?(
