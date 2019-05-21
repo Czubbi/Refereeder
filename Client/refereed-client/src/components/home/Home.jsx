@@ -67,6 +67,17 @@ class Home extends Component {
              </div>
           </div>
           <div className="section-nobg">
+            <div className='home-bottom-info'>
+              <div className='home-bottom-info-content'>
+                <div style={{width:400}}>
+                  <h5>Are you a handball referee and looking for a good place to learn, test yourself or are you just looking to be part of the best handball referee community available? Don't hesitate, you are here!</h5>
+                </div>
+              </div>
+              <div className='home-bottom-info-image'>
+                <img src={process.env.PUBLIC_URL + '/images/ball_homepage.png'}></img>
+              </div>
+              
+            </div>
           </div>
         </Section>
         <Footer>

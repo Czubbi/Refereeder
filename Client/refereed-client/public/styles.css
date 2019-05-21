@@ -501,7 +501,7 @@
 }
 .section-nobg{
     width:100%;
-    min-height:500px;
+    min-height:600px;
     box-shadow:1px 1px 10px #999999;
 }
 .user-content-wrapper{
@@ -850,6 +850,26 @@
 .fa-arrow-down.open{
     transform: rotate(180deg);
     transition: transform 0.2s linear;
+}
+.home-bottom-info{
+    display:flex;
+    height:600px;
+}
+.home-bottom-info-image{
+    flex:1;
+    display:flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+.home-bottom-info-image img{
+    width:400px;
+}
+.home-bottom-info-content{
+    flex:1;
+    display:flex;
+    justify-content: flex-end;
+    padding-right:300px;
+    align-items: center;
 }
 /*MUST BE ON THE END*/
 @media only screen and (max-width: 1400px) {
