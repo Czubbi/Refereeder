@@ -91,10 +91,10 @@ class RulesMain extends Component
                             <div className="rule-container-content">
                                 <div className={this.state.rulePicked?"rule-content":"rule-content no-selection"}>
                                     {this.state.rulePicked?(this.state.rulePicked.type=='rule'?(
-                                        <div><p>{this.state.rulePicked.rule.lang.eng.title} - {this.state.rulePicked.rule.lang.eng.name}</p>
-                                        <div><p>{this.state.rulePicked.rule.lang.eng.text}</p></div>
+                                        <div><div className="main-rule-content"><p>{this.state.rulePicked.rule.lang.eng.title} - {this.state.rulePicked.rule.lang.eng.name}</p>
+                                        <div><p>{this.state.rulePicked.rule.lang.eng.text}</p></div></div>
                                         <div>{(this.state.rulePicked.rule.lang.eng.subRules.map(subrule=>{
-                                            return(<div><p>{subrule.number}<br/>{subrule.text}</p></div>)
+                                            return(<div className="subrule-content"><div className="subrule-content-number">{subrule.number}:</div> <div className="subrule-content-text">{subrule.text}</div></div>)
                                         }))}</div></div>
                                         ):
                                         (<div><p>{this.state.rulePicked.rule.title}</p>

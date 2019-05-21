@@ -624,7 +624,7 @@
     grid-gap: 3%;
 }
 .test-card{
-    width:800px;
+    width:45vw;
     min-height:45vh;
     display:flex;
     border-radius:10px;
@@ -772,6 +772,11 @@
     overflow:auto;
     padding:30px 80px;
 }
+.main-rule-content{
+    margin-left: 15px;
+    font-size:20px;
+    font-weight:bolder;
+}
 .no-selection{
     display:flex;
     justify-content: center;
@@ -802,6 +807,30 @@
     opacity: .7;
     cursor:pointer;
 
+}
+.subrule-content{
+    display:flex;
+    position: relative;
+    padding: 15px;
+    transition: 0.3s;
+}
+.subrule-content-text{
+    position: relative;
+    left: 10px;
+    max-width: 95%;
+    text-align: justify;
+}
+.subrule-content-number{
+    font-weight:bolder;
+    color:#d12626;
+}
+.subrule-content.selected{
+    display:flex;
+    position: relative;
+    background-color:#111111;
+    color:white;
+    padding: 15px;
+    transition: 0.3s;
 }
 .rule-button-container{
     height:50px;
@@ -854,7 +883,6 @@
 .rule-button-sub.selected{
     background:white;
     transition:0.3s;
-    /*style={this.state.selected[`${subrule._id}`]?{color:"#111111"}:{color:"white"}}*/
 }
 .rule-button-sub:hover{
     cursor: pointer;
