@@ -8,6 +8,7 @@ import RuleNavigator from './RuleNavigator';
 import Cookies from 'js-cookie';
 import NoteModal from '../modals/NoteModal';
 import TextTransition from 'react-text-transition';
+import $ from 'jquery';
 
 class RulesMain extends Component
 {
@@ -37,12 +38,6 @@ class RulesMain extends Component
             selected.type="rule";
             //console.log(selected);
             this.selectRule(selected);
-        }else{
-            console.log(this.state.rules[0]);
-            /*selected.rule=this.state.rules[this.state.rules.indexOf(selected.rule)+1];
-            selected.type="subrule";
-            //console.log(selected);
-            this.selectRule(selected);*/
         }
     }
     previousRule(selected){
@@ -64,17 +59,40 @@ class RulesMain extends Component
             }else if(this.state.rules.indexOf(selected.rule)==this.state.rules.length-1){
                 position="last";
             }
-        }else{
-             /*if(this.state.rules.indexOf(selected)==0){
-                position="first";
-             }else if(selected.rule.number===this.state.rulePicked.rule.lang.eng.subRules[this.state.rulePicked.rule.lang.eng.subRules.length-1].number){
-                position="last";
-            }*/
         }
         //console.log(position);
         return position;
     }
+    highlightRule=(rule)=>{
+        setTimeout(()=>{
+            $('.subrule-content').removeClass('selected');
+            $(`#subrule-${rule.id}`).addClass('selected');
+            var target=document.getElementById(`subrule-${rule.id}`);
+            document.getElementById('rule-content').scrollTop=target.offsetTop;
+        },100)
+    }
+    goToTop(id){
 
+        var target=$(`#rule-${id}`);
+        document.getElementById('rule-content').scrollTop=target.offsetTop;
+    }
+    setRuleActive=(ruleFromFunction)=>{
+        return new Promise((resolve,reject)=>{
+            console.log(ruleFromFunction);
+            var ruleNrFromSubrule=ruleFromFunction.number.split('.')[0];
+            console.log(ruleNrFromSubrule)
+            var rule = this.state.rules.filter(x=>x.number*1==ruleNrFromSubrule*1);
+            this.setState({rulePicked:{rule:rule[0],type:'rule'}});
+            resolve();
+        })
+    }
+    handleSubruleSelect=(rule)=>{
+        if(!this.state.rulePicked || this.state.rulePicked.rule.number*1!=rule.number.split('.')[0]*1)
+        {
+            this.setRuleActive(rule).then(this.highlightRule(rule));
+        }
+        else(this.highlightRule(rule));
+    }
     takeNote=(e)=>{
         
     }
@@ -88,20 +106,17 @@ class RulesMain extends Component
                     <NoteModal modalVisible={this.state.modalVisible?'flex':'none'} modalPos={this.state.modalVisible?'0px':'-2000px'} onModalCloseClick={(e)=>{e.preventDefault();if(e.target==e.currentTarget){this.setState({modalVisible:false})}}}></NoteModal>
                     <Section>
                         <div className="rule-container">
-                            <RuleNavigator onBtnClick={(rule)=>{this.selectRule(rule)}} rules={this.state.rules}></RuleNavigator>
+                            <RuleNavigator onSubBtnClick={this.handleSubruleSelect} onBtnClick={(rule)=>{this.selectRule(rule);this.goToTop(rule.rule._id)}} rules={this.state.rules}></RuleNavigator>
                             <div className="rule-container-content">
-                                <div className={this.state.rulePicked?"rule-content":"rule-content no-selection"}>
-                                    <TextTransition text={
+                                <div id='rule-content' className={this.state.rulePicked?"rule-content":"rule-content no-selection"}>
+                                    <TextTransition order={this.state.rules.indexOf(this.state.rulePicked?this.state.rulePicked.rule:0)} text={
                                     this.state.rulePicked?(this.state.rulePicked.type=='rule'?(
-                                        <div><div className="main-rule-content"><p>{this.state.rulePicked.rule.lang.eng.title} - {this.state.rulePicked.rule.lang.eng.name}</p>
+                                        <div><div className="main-rule-content" id={`rule-${this.state.rulePicked.rule._id}`}><p>{this.state.rulePicked.rule.lang.eng.title} - {this.state.rulePicked.rule.lang.eng.name}</p>
                                         <div><p>{this.state.rulePicked.rule.lang.eng.text}</p></div></div>
                                         <div>{(this.state.rulePicked.rule.lang.eng.subRules.map(subrule=>{
-                                            return(<div className="subrule-content"><div className="subrule-content-number">{subrule.number}:</div> <div className="subrule-content-text">{subrule.text}</div></div>)
+                                            return(<div className="subrule-content" id={`subrule-${subrule._id}`}><div className="subrule-content-number">{subrule.number}:</div> <div className="subrule-content-text">{subrule.text}</div></div>)
                                         }))}</div></div>
-                                        ):
-                                        (<div><p>{this.state.rulePicked.rule.title}</p>
-                                         <div><p>{this.state.rulePicked.rule.number} - {this.state.rulePicked.rule.name}</p>
-                                         <div>{this.state.rulePicked.rule.text}</div></div></div>)
+                                        ):null
                                     ):
                                          <div><img style={{width:'300px',height:'auto'}} src={process.env.PUBLIC_URL+'images/IHF_logo.jpg'}></img><p>IHF</p><p>IX - Rules Of The Game</p><p>Indoor Handball</p></div>}></TextTransition>
                                 </div>

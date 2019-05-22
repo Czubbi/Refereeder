@@ -4,6 +4,9 @@ import UserMain from './components/user/UserMain';
 import TestMain from './components/test/TestMain';
 import Signup from './components/signuppage/Signup';
 import RulesMain from './components/rules/RulesMain';
+import Test from './components/test/Test';
+import Quiz from './components/test/Quiz';
+import Cookies from 'js-cookie';
 
 class App extends Component {
   render() {
@@ -16,11 +19,15 @@ class App extends Component {
       );
     }
     else if(window.location.pathname=='/user'){
-      return(
-        <div>
-          <UserMain></UserMain>
-        </div>
-      )
+      var uid=Cookies.get('uid');
+      if(uid){
+        return(
+          <div>
+            <UserMain></UserMain>
+          </div>
+        )
+      }
+      else window.location.replace('/');
     }
     else if(window.location.pathname=='/testorquiz'){
       return(
@@ -40,6 +47,29 @@ class App extends Component {
       return(
         <div>
           <RulesMain></RulesMain>
+        </div>
+      )
+    }
+    else if(window.location.pathname=='/test'){
+      var url_string = window.location.href;
+      var url=new URL(url_string);
+      var mode = url.searchParams.get('mode');
+      return(
+        <div>
+          <Test mode={mode}></Test>
+        </div>
+      )
+    }
+    else if(window.location.pathname=='/quiz'){
+      var url_string = window.location.href;
+      var url=new URL(url_string);
+      var mode = url.searchParams.get('mode');
+      if(!Cookies.get('uid') && mode=='compete'){
+        window.location.replace('/testorquiz');
+      }
+      else return(
+        <div>
+          <Quiz mode={mode}></Quiz>
         </div>
       )
     }
