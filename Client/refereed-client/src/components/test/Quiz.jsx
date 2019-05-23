@@ -3,6 +3,7 @@ import Navbar from '../navbar/Navbar';
 import NavbarMobile from '../navbar/NavbarMobile';
 import Footer from '../footer/Footer';
 import QuizQuestions from './QuizQuestions';
+//import ProgressBar from 'react-bootstrap/ProgressBar'
 class Quiz extends Component{
     constructor(){
         super();
@@ -57,9 +58,10 @@ class Quiz extends Component{
                 </div>
                 <div className="quiz-container">
                     <div>
-                        <div className="logo-container">
+                        {/*<ProgressBar now={60} />*/}
+                        {/*<div className="logo-container">
                             <a href="/"><img style={{filter:'invert(100%)',marginBottom:30}} src={process.env.PUBLIC_URL+'images/logo.png'}></img></a>
-                        </div> 
+                        </div> */}
                         {this.state.started?<QuizQuestions questions={this.state.gameQuestions}></QuizQuestions>:<span className='btn btn-lg btn-primary' onClick={this.startQuiz}>Start now</span>}
                     </div>
                 </div>
