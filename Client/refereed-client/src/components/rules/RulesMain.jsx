@@ -32,7 +32,7 @@ class RulesMain extends Component
     }
 
     nextRule(selected){
-        console.log(selected);
+        //console.log(selected);
         if(selected.type=="rule"){
             selected.rule=this.state.rules[this.state.rules.indexOf(selected.rule)+1];
             selected.type="rule";
@@ -67,14 +67,11 @@ class RulesMain extends Component
         setTimeout(()=>{
             $('.subrule-content').removeClass('selected');
             $(`#subrule-${rule.id}`).addClass('selected');
-            var target=document.getElementById(`subrule-${rule.id}`);
-            document.getElementById('rule-content').scrollTop=target.offsetTop;
+            $('#rule-content').animate({scrollTop:$(`#subrule-${rule.id}`).position().top - ($('#rule-content').height() - $(`#subrule-${rule.id}`).height())/2 +15}, 'slow');
         },100)
     }
-    goToTop(id){
-
-        var target=$(`#rule-${id}`);
-        document.getElementById('rule-content').scrollTop=target.offsetTop;
+    goToTop(){
+        document.getElementById('rule-content').scrollTop=0;
     }
     setRuleActive=(ruleFromFunction)=>{
         return new Promise((resolve,reject)=>{
@@ -106,7 +103,7 @@ class RulesMain extends Component
                     <NoteModal modalVisible={this.state.modalVisible?'flex':'none'} modalPos={this.state.modalVisible?'0px':'-2000px'} onModalCloseClick={(e)=>{e.preventDefault();if(e.target==e.currentTarget){this.setState({modalVisible:false})}}}></NoteModal>
                     <Section>
                         <div className="rule-container">
-                            <RuleNavigator onSubBtnClick={this.handleSubruleSelect} onBtnClick={(rule)=>{this.selectRule(rule);this.goToTop(rule.rule._id)}} rules={this.state.rules}></RuleNavigator>
+                            <RuleNavigator onSubBtnClick={this.handleSubruleSelect} onBtnClick={(rule)=>{this.selectRule(rule);this.goToTop()}} rules={this.state.rules}></RuleNavigator>
                             <div className="rule-container-content">
                                 <div id='rule-content' className={this.state.rulePicked?"rule-content":"rule-content no-selection"}>
                                     <TextTransition order={this.state.rules.indexOf(this.state.rulePicked?this.state.rulePicked.rule:0)} text={

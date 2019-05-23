@@ -11,7 +11,7 @@ class QuestionController{
 
     //Get all question 
     getQuestions(callback){
-        conn.find({}).toArray((err, docs)=>{
+        conn.find().sort({"number":1}).collation({locale: "en_US", numericOrdering: true}).toArray((err, docs)=>{
             if(err) callback(err,null)
             else callback(null,JSON.stringify(docs))
         })

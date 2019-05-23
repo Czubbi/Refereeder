@@ -74,7 +74,7 @@ class Questions extends Component {
             </div>
           </div>
         </ModalBase>
-        <Topbar title="Answers management"/>
+        <Topbar title={"Answers management for "+this.props.id}/>
         <div className='content'>
           <div className="table-container">
             <table className="table">

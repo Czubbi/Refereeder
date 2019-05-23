@@ -824,7 +824,7 @@
     display:flex;
     position: relative;
     padding: 15px;
-    transition: 0.3s;
+    transition: 1s;
 }
 .subrule-content-text{
     position: relative;
@@ -842,7 +842,7 @@
     background-color:#111111;
     color:white;
     padding: 15px;
-    transition: 0.3s;
+    transition: 1s;
 }
 .rule-button-container{
     height:50px;
