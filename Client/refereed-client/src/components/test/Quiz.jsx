@@ -26,15 +26,12 @@ class Quiz extends Component{
                 falseCounter++;
             }
         });
-        console.log('False: ' + falseCounter);
         return falseCounter>=3;
     }
     shuffleArray=(myArray)=>{
         var array=[...myArray];
-        console.log(array);
         array=array.filter(question=>question.answers.length>3 && this.checkIfValidQuizQuestion(question));
-        console.log(array);
-        for (let i = array.length - 1; i > 0; i--) 
+        for (let i = array.length - 1; i > 0; i--)
         {
           let j = Math.floor(Math.random() * (i + 1));
           [array[i], array[j]] = [array[j], array[i]];
@@ -55,8 +52,8 @@ class Quiz extends Component{
     render(){
         return(
             <div>
-                <div className="loading_div" style={{display:this.state.loading?'flex':'none'}}>
-                    <div onClick={(e)=>window.location.replace('/')}><img src={process.env.PUBLIC_URL+'/images/loading.gif'}/></div>
+                <div className="loading_div" style={{display:this.state.loading?'flex':'none'}}>       
+                    <div onClick={(e)=>window.location.replace('/')}><img src={process.env.PUBLIC_URL+'/images/loading.gif'}/></div>        
                 </div>
                 <div className="quiz-container">
                     <div>
