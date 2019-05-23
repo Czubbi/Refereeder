@@ -3,6 +3,7 @@ import Navbar from '../navbar/Navbar';
 import NavbarMobile from '../navbar/NavbarMobile';
 import Footer from '../footer/Footer';
 import QuizQuestions from './QuizQuestions';
+//import ProgressBar from 'react-bootstrap/ProgressBar'
 class Quiz extends Component{
     constructor(){
         super();
@@ -32,7 +33,7 @@ class Quiz extends Component{
     shuffleArray=(myArray)=>{
         var array=[...myArray];
         console.log(array);
-        array=array.filter(question=>question.answers.length>3 && this.checkIfValidQuizQuestion(question));
+        array=array.filter(question=>question.answers.length=4 /*&& this.checkIfValidQuizQuestion(question)*/);
         console.log(array);
         for (let i = array.length - 1; i > 0; i--) 
         {
@@ -60,9 +61,10 @@ class Quiz extends Component{
                 </div>
                 <div className="quiz-container">
                     <div>
-                        <div className="logo-container">
+                        {/*<ProgressBar now={60} />*/}
+                        {/*<div className="logo-container">
                             <a href="/"><img style={{filter:'invert(100%)',marginBottom:30}} src={process.env.PUBLIC_URL+'images/logo.png'}></img></a>
-                        </div> 
+                        </div> */}
                         {this.state.started?<QuizQuestions questions={this.state.gameQuestions}></QuizQuestions>:<span className='btn btn-lg btn-primary' onClick={this.startQuiz}>Start now</span>}
                     </div>
                 </div>
