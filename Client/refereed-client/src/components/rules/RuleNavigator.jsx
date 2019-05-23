@@ -45,7 +45,7 @@ class RuleNavigator extends Component
                                 </div>:null}
                             </div>
                             {rule.lang.eng.subRules.length>0?<div className="collapse" id={`collapse_${rule._id}`}>
-                                {rule.lang.eng.subRules.sort((a,b)=>a.number > b.number).map(subrule=>{
+                                {rule.lang.eng.subRules.sort((a,b)=>{return a.number.split('.')[1]*1 - b.number.split('.')[1]*1}).map(subrule=>{
                                     return(<div onClick={()=>{this.props.onSubBtnClick({id:subrule._id,number:subrule.number});this.state.selected={};this.state.selected[`${rule._id}`]=true}} className="rule-button-sub">
                                         <a href='#' style={this.state.selected[`${subrule._id}`]?{color:"#111111"}:{color:"white"}} title={subrule.number} data-toggle="tooltip">{subrule.number}</a>
                                     </div>)

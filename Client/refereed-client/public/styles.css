@@ -966,6 +966,75 @@
 .test-card-overlay i{
     font-size:40px;
 }
+.quiz-container{
+    height:100vh;
+    width:100vw;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    background-image: url('./images/court_background.png');
+    background-color: rgba(0, 0, 0, 0.6);
+    background-blend-mode: darken;
+    background-size:100% 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+    text-align: center;
+}
+.quiz-container img{
+    width:300px;
+}
+.quiz-question-container{
+    width:80vw;
+    display:flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    height:85vh;
+    background-color:rgba(255,255,255,0.8);
+    border-radius: 10px;
+    box-shadow:0px 4px 10px #777777;
+    padding:10px;
+}
+.quiz-question{
+    width: 80%;
+    height: 20%;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    text-align:center;
+    flex:1;
+}
+.quiz-question h5{
+    font-size:24px;
+    font-weight: bolder;
+}
+.quiz-answers-container{
+    flex:1;
+    padding:10px;
+    width:80%;
+    position:relative;
+    display: flex;
+    justify-content: center;
+    align-items:center;
+}
+.quiz-answer{
+    background-color:#333333;
+    width:100%;
+    margin-bottom:20px;
+    font-size:20px;
+    padding:0px 50px;
+    height: 12vh;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    color:white;
+    border-radius: 10px;
+    box-shadow:0px 4px 10px #444444;
+}
+.quiz-answer:hover{
+    opacity:0.8;
+    cursor:pointer;
+}
 /*MUST BE ON THE END*/
 @media only screen and (max-width: 1400px) {
     .navbar-placeholder {

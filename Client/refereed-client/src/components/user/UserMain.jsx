@@ -78,10 +78,6 @@ class UserMain extends Component {
                 </div>
               </div>
             </div>
-            <div className="section-bg">
-            </div>
-            <div className="section-nobg">
-            </div>
           </Section>
           <Footer>
         </Footer>

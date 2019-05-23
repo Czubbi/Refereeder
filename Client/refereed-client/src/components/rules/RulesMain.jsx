@@ -67,7 +67,7 @@ class RulesMain extends Component
         setTimeout(()=>{
             $('.subrule-content').removeClass('selected');
             $(`#subrule-${rule.id}`).addClass('selected');
-            $('#rule-content').animate({scrollTop:$(`#subrule-${rule.id}`).position().top - ($('#rule-content').height() - $(`#subrule-${rule.id}`).height())/2 +15}, 'slow');
+            $('#rule-content').animate({scrollTop:$(`#subrule-${rule.id}`).position().top - ($('#rule-content').height() - $(`#subrule-${rule.id}`).height())/2 +15}, "slow");
         },100)
     }
     goToTop(){
