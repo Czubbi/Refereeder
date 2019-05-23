@@ -18,8 +18,22 @@ class Quiz extends Component{
             this.setState({questions:x});
         })
     }
+    checkIfValidQuizQuestion=(question)=>{
+        var answers=question.answers;
+        var falseCounter=0;
+        answers.forEach(element => {
+            if(element.correct==false){
+                falseCounter++;
+            }
+        });
+        console.log('False: ' + falseCounter);
+        return falseCounter>=3;
+    }
     shuffleArray=(myArray)=>{
         var array=[...myArray];
+        console.log(array);
+        array=array.filter(question=>question.answers.length>3 && this.checkIfValidQuizQuestion(question));
+        console.log(array);
         for (let i = array.length - 1; i > 0; i--) 
         {
           let j = Math.floor(Math.random() * (i + 1));
