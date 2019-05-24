@@ -18,9 +18,60 @@ var questionCtr = new questionController();
 var rethinkdb = require('rethinkdb');
 var rethinkConf=require('./rethinkconfig.json');
 var rethinkConn;
-var bodyParser = require('body-parser')
+var http=require('http');
+var server=http.createServer()
+server.listen(5000);
+var io = require('socket.io')(server);
+var bodyParser = require('body-parser');
+var clients=[];
 app.use(bodyParser.urlencoded({ extended: true }));
-//Functions used in the server
+//SOCKET.IO SETUP
+generateRoomId=()=>{
+    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+        var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
+        return v.toString(16);
+    });
+}
+io.on('connection',(client)=>{
+    clients.push(client);
+    console.log('Client connected. Connected: ' + clients.length)
+    client.on('disconnect',(socket)=>{
+        clients.splice(clients.indexOf(client),1);
+        console.log(`Disconnected:=>Connected clients:${clients.length}`);
+    })
+    var foundRoom=null;
+    rethinkdb.db('refereeder').table('quizrooms').run(rethinkConn).then(x=>{
+        x.toArray().then(x=>{
+            x.forEach(element=>{
+                if(!element.player2){
+                    foundRoom=element;
+                }
+            })
+            if(!foundRoom){
+                var id=generateRoomId();
+                var newRoom={
+                        player1:client.id,
+                        player2:null,
+                        questions:[]}
+                rethinkdb.db('refereeder').table('quizrooms').insert(newRoom).run(rethinkConn).then(result=>{
+                    newRoom.id=result.generated_keys;
+                    io.emit('newRoom',newRoom);
+                })
+            }
+            else{
+                console.log(foundRoom);
+                rethinkdb.db('refereeder').table('quizrooms').get(foundRoom.id).update({player2:client.id}).run(rethinkConn).then(result=>{
+                    if(io.clients[foundRoom.player1]){
+                        io.clients[foundRoom.player1].emit('connectedToRoom',client.id);
+                    }  
+                })
+            }
+        });
+    })
+    client.on('message',(message)=>{
+        io.emit('message',message);
+    })
+})
 function initRethinkdb()
 {
     rethinkdb.connect(rethinkConf).then(x=>{
@@ -254,7 +305,6 @@ app.delete('/api/rules/:id/subrules/:subid',(req,res)=>{
     })
 })
 //Starting server
-
 
 app.listen(port, ()=>{
     initFireBase(fireBaseConfig);

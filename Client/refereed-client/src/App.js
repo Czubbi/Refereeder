@@ -7,6 +7,7 @@ import RulesMain from './components/rules/RulesMain';
 import Test from './components/test/Test';
 import Quiz from './components/test/Quiz';
 import Cookies from 'js-cookie';
+import QuizMulti from './components/test/QuizMulti';
 
 class App extends Component {
   render() {
@@ -67,9 +68,12 @@ class App extends Component {
       if(!Cookies.get('uid') && mode=='compete'){
         window.location.replace('/testorquiz');
       }
-      else return(
+      else if(Cookies.get('uid') && mode=='compete'){
+        return <QuizMulti></QuizMulti>
+      }
+      else if(mode=='single') return(
         <div>
-          <Quiz mode={mode}></Quiz>
+          <Quiz></Quiz>
         </div>
       )
     }

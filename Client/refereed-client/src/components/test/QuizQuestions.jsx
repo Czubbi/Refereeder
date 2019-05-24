@@ -142,7 +142,7 @@ class QuizQuestions extends Component{
                 <div className='quiz-question-container' id="quiz-question-container">
                     <div style={{width:'10vw',height:'10vw',maxWidth:100,maxHeight:100}}><CircularProgressbar circleRatio={0.75} styles={buildStyles({ rotation: 1 / 2 + 1 / 8, strokeLinecap: "butt", trailColor: "#eee"})} value={this.numMap(this.state.timeLeft,0,30,0,100)} text={this.state.timeLeft}></CircularProgressbar></div>
                     <div className="quiz-question">
-                        <h5>{currentQuestion.number} - {currentQuestion.question}</h5>
+                        <h5>{(this.state.counter+1) + '/10'} - {currentQuestion.question}</h5>
                     </div>
                     <div className="quiz-answers-container" id="quiz-answers-container">
                         <div>
