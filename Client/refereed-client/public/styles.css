@@ -232,6 +232,9 @@
 .btn:hover{
     cursor: pointer;
 }
+.btn:disabled{
+    cursor: not-allowed !important;
+}
 .btn-warning {
     color: white;
     background-color: #555555;
@@ -252,6 +255,7 @@
     color: white;
     background-color: #444444;
     border-color: #444444;
+    cursor: not-allowed !important;
   }
   
   .btn-warning:not(:disabled):not(.disabled):active, .btn-warning:not(:disabled):not(.disabled).active,
@@ -738,9 +742,7 @@
     align-items: center;
 }
 
-:disabled {
-    cursor: not-allowed !important;
-  }
+
 .loading_div{
     background:rgba(0,0,0,0.5);
     position:fixed;
