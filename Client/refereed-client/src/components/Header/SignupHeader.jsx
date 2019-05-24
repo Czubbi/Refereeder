@@ -172,7 +172,7 @@ class SignupHeader extends Component {
                                 <p style={{fontSize:14,marginTop:15}}>*Required fields</p>
                             </div>
                             <h5 style={{color:'red',display:this.state.formInvalid?'block':'none'}}>No field can be empty!</h5>
-                            <input type="submit" disabled={this.state.passwordScore>=3?false:true} value="Sign up" onClick={(e)=>{this.signupUser(e)}} className="btn btn-success col-sm-12" style={{marginTop:20}}></input>
+                            <input type="submit" value="Sign up" onClick={(e)=>{this.signupUser(e)}} className={this.state.passwordScore>=3?"btn btn-success col-sm-12":"btn btn-success col-sm-12 disabled"} style={{marginTop:20}}></input>
                         </form>
                     </div>
                 </div>
