@@ -58,10 +58,9 @@ class Quiz extends Component{
                 </div>
                 <div className="quiz-container">
                     <div>
-                        {/*<ProgressBar now={60} />*/}
-                        {/*<div className="logo-container">
+                        <div className="logo-container">
                             <a href="/"><img style={{filter:'invert(100%)',marginBottom:30}} src={process.env.PUBLIC_URL+'images/logo.png'}></img></a>
-                        </div> */}
+                        </div>
                         {this.state.started?<QuizQuestions questions={this.state.gameQuestions}></QuizQuestions>:<span className='btn btn-lg btn-primary' onClick={this.startQuiz}>Start now</span>}
                     </div>
                 </div>

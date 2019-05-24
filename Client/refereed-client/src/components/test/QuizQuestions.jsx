@@ -124,7 +124,7 @@ class QuizQuestions extends Component{
             }
             else return(
                 <div className='quiz-question-container' id="quiz-question-container">
-                    <div style={{width:100,height:100}}><CircularProgressbar circleRatio={0.75} styles={buildStyles({ rotation: 1 / 2 + 1 / 8, strokeLinecap: "butt", trailColor: "#eee"})} value={this.numMap(this.state.timeLeft,0,30,0,100)} text={this.state.timeLeft}></CircularProgressbar></div>
+                    <div style={{width:'10vw',height:'10vw',maxWidth:100,maxHeight:100}}><CircularProgressbar circleRatio={0.75} styles={buildStyles({ rotation: 1 / 2 + 1 / 8, strokeLinecap: "butt", trailColor: "#eee"})} value={this.numMap(this.state.timeLeft,0,30,0,100)} text={this.state.timeLeft}></CircularProgressbar></div>
                     <div className="quiz-question">
                         <h5>{currentQuestion.number} - {currentQuestion.question}</h5>
                     </div>
