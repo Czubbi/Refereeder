@@ -25,13 +25,42 @@ var io = require('socket.io')(server);
 var bodyParser = require('body-parser');
 var clients=[];
 app.use(bodyParser.urlencoded({ extended: true }));
-//SOCKET.IO SETUP
+//FUNCTIONS
 generateRoomId=()=>{
     return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
         var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
         return v.toString(16);
     });
 }
+checkIfValidQuizQuestion=(question)=>{
+    var answers=question.answers;
+    var falseCounter=0;
+    answers.forEach(element => {
+        if(element.correct==false){
+            falseCounter++;
+        }
+    });
+    return falseCounter>=3;
+}
+shuffleArray=(myArray)=>{
+    var array=[...myArray];
+    array=array.filter(question=>question.answers.length>3 && checkIfValidQuizQuestion(question));
+    for (let i = array.length - 1; i > 0; i--)
+    {
+      let j = Math.floor(Math.random() * (i + 1));
+      [array[i], array[j]] = [array[j], array[i]];
+    }
+    return(array);
+}
+getRandomQuestions=()=>{
+    return new Promise((resolve,reject)=>{
+        fetch('http://localhost:4000/api/questions').then(x=>x.json()).then(x=>{
+            var shuffled = shuffleArray(x);
+            resolve(shuffled.slice(0,10));
+        })
+    }) 
+}
+//SOCKET.IO SETUP
 io.on('connection',(client)=>{
     clients.push(client);
     console.log('Client connected. Connected: ' + clients.length)
@@ -48,22 +77,22 @@ io.on('connection',(client)=>{
                 }
             })
             if(!foundRoom){
-                var id=generateRoomId();
-                var newRoom={
+                getRandomQuestions().then((questions)=>{
+                    var newRoom={
                         player1:client.id,
                         player2:null,
-                        questions:[]}
-                rethinkdb.db('refereeder').table('quizrooms').insert(newRoom).run(rethinkConn).then(result=>{
-                    newRoom.id=result.generated_keys;
-                    io.emit('newRoom',newRoom);
+                        questions:questions}
+                    rethinkdb.db('refereeder').table('quizrooms').insert(newRoom).run(rethinkConn).then(result=>{
+                        newRoom.id=result.generated_keys;
+                        client.emit('newRoom',newRoom);
+                    })
                 })
             }
             else{
                 console.log(foundRoom);
                 rethinkdb.db('refereeder').table('quizrooms').get(foundRoom.id).update({player2:client.id}).run(rethinkConn).then(result=>{
-                    if(io.clients[foundRoom.player1]){
-                        io.clients[foundRoom.player1].emit('connectedToRoom',client.id);
-                    }  
+                        client.emit('connectedToRoom',foundRoom);
+                        io.emit('connectedToRoom_' + foundRoom.id, client.id);
                 })
             }
         });

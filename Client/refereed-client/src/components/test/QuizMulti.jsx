@@ -14,6 +14,7 @@ class QuizMulti extends Component{
             started:false,
             loading:false,
             userReady:true,
+            room:{},
         }
     }
     componentWillUnmount() {
@@ -32,7 +33,16 @@ class QuizMulti extends Component{
         if(this.state.opponent=='null'){
             socket=io('localhost:5000');
             socket.on('connectedToRoom',(x)=>{
-                this.setState({opponent:x});
+                console.log('Connected to someone elses room: ' + x.id);
+                this.setState({opponent:x.player1});
+                this.setState({room:x});
+            })
+            socket.on('newRoom',(x)=>{
+                console.log('I created a new room: ', x.id);
+                this.setState({room:x});
+                socket.on(`connectedToRoom_${x.id}`,(opponent)=>{
+                    this.setState({opponent:opponent});
+                })
             })
             window.addEventListener('beforeunload',()=>{
                 socket.close();
@@ -47,7 +57,7 @@ class QuizMulti extends Component{
                 <div>
                     <img src={process.env.PUBLIC_URL+'/images/loading.gif'}/>
                     <h3 style={{color:'white'}}>Please wait while we are finding you an opponent!</h3>
-                    <h3>{this.state.opponent}</h3>
+                    <h3 style={{color:'white'}}>{this.state.opponent=='null'?'':'Found opponent:' + this.state.opponent}</h3>
                 </div>
             </div>
             <div className="quiz-container">
