@@ -252,10 +252,6 @@
     color: white;
     background-color: #444444;
     border-color: #444444;
-    cursor: not-allowed !important;
-  }
-  .btn.btn-success.disabled{
-    cursor: not-allowed !important;
   }
   
   .btn-warning:not(:disabled):not(.disabled):active, .btn-warning:not(:disabled):not(.disabled).active,
