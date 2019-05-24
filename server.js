@@ -62,18 +62,6 @@ app.post('/api/forgotpass',(req,res)=>{
     })
 })
 //Final setup
-//TEST RETHINK
-/*app.post('/api/questions',(req,res)=>{
-    var question = {
-        ruleNumber:req.body.ruleNumber,
-        questionNumber:req.body.questionNumber,
-        question:req.body.question,
-        answers:[]        
-    }
-    rethinkdb.table('questions').insert({ }).run(rethinkConn).then(result=>{
-        res.json(result);
-    })
-})*/
 //GET all rules
 app.get('/api/rules',(req,res)=>{
     ruleCtr.getRules((err,result)=>{
@@ -127,6 +115,15 @@ app.post('/api/users',(req,res)=>{
         res.status(500);
         res.json(err);
         console.log(err.message);
+    });
+})
+app.post('/api/users/:id/quiz', (req,res)=>{
+    userCtr.updateAnswers(req.params.id, req.body, (err, result)=>{
+        if(err) res.status(500);
+        else{
+            res.status(200)
+            res.json(result);
+        }
     });
 })
 //RESTful api for Questions

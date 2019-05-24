@@ -56,7 +56,24 @@ class UserController{
             }
         })
     }
-
+    //update number of good and bad answers
+    updateAnswers(id,body,callback){
+        conn.findOne({"uid" : id}, (err,result)=>{
+            if(err) callback(err,null);
+            else{
+               var goodAnswers=body.answers.filter(x=>x.correct=='true').length;
+               var badAnswers=body.answers.filter(x=>x.correct=='false').length;
+               var user=result;
+               user.goodAnswers=user.goodAnswers+goodAnswers;
+               user.badAnswers=user.badAnswers+badAnswers;
+               user.quizzesTaken.push(body);
+               conn.replaceOne({"uid":id},user,(error,res)=>{
+                    if(error) callback(error,null);
+                    callback(null,res);
+                })
+            }
+        });
+    }
 }
 
 module.exports = UserController;

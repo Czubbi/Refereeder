@@ -31,13 +31,25 @@ class TestMain extends Component {
           <Section>
             <div className='test-content-wrapper'>
             <div className='test-card-holder'>
-              <TestCard onClick={()=>{window.location.replace('/test?mode=selection')}} bgcolor='#222222'>
+              <TestCard onClick={()=>{/**window.location.replace('/test?mode=selection')*/}} style={{width:'calc(25vw - 30px)',height:'calc(30vh - 30px)'}} cursor="not-allowed" bgcolor='#222222'>
+              <div className="test-card-overlay construction"  style={{backgroundColor:'#ffd632',border:'5px solid black'}}>
+                  <div>
+                    <i style={{color:'black'}} className="fas fa-tools"></i><br></br>
+                    <font color='black'>Under construction</font>
+                  </div>
+                </div>
                 <div>
                   <i style={{color:'white'}} className="fas fa-clipboard-check"></i><br/>
                   <font color="white">Take a test in a selected topic</font>
                 </div>
               </TestCard>
-              <TestCard onClick={()=>{window.location.replace('/test?mode=all')}} bgcolor='#F1F1F1'>
+              <TestCard onClick={()=>{/*window.location.replace('/test?mode=all')*/}} cursor="not-allowed" bgcolor='#F1F1F1'>
+              <div className="test-card-overlay construction" style={{backgroundColor:'#ffd632',border:'5px solid black'}}>
+                  <div>
+                    <i style={{color:'black'}} className="fas fa-tools"></i><br></br>
+                    <font color='black'>Under construction</font>
+                  </div>
+                </div>
                 <div>
                 <i className="fas fa-envelope-open-text"></i><br/>
                   Test your knowledge broadly

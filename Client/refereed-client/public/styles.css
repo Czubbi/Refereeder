@@ -640,6 +640,7 @@
     text-align: center;
     transition:box-shadow .3s, opacity .3s;
     position: relative;
+    z-index:1;
 }
 .test-card i{
     font-size:30px;
@@ -1169,6 +1170,20 @@
     opacity: 0.8;
     cursor: pointer;
 	/*height: 100px;*/
+}
+.construction::before{
+    content:"";
+    width:calc(98% + 30px);
+    height:calc(95% + 30px);
+    border-radius:10px;
+    position: absolute;
+    background:rgb(255, 214, 50);
+    z-index:-1;
+    transition:.3s;
+}
+.construction::before:hover{
+    cursor:not-allowed;
+    opacity:0;
 }
 /*MUST BE ON THE END*/
 @media only screen and (max-width: 1400px) {

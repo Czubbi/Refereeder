@@ -4,6 +4,7 @@ import Quiz from './Quiz';
 import QuizAnswer from './QuizAnswers';
 import { CircularProgressbar, buildStyles } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
+import Cookies from 'js-cookie';
 
 class QuizQuestions extends Component{
     constructor()
@@ -79,7 +80,7 @@ class QuizQuestions extends Component{
         Array.from(document.getElementsByClassName('bad-answer')).forEach(x=>{
             x.classList.remove('bad-answer');
         })
-        if(this.state.counter+1==9){
+        if(this.state.counter+1==this.state.questions.length-1){
             this.setState({lastQuestion:true});
         }
         this.setState({counter:this.state.counter+1});
@@ -87,6 +88,21 @@ class QuizQuestions extends Component{
     }
     numMap = (num, in_min, in_max, out_min, out_max) => {
         return (num - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
+    }
+    saveData=()=>{
+        var uid=Cookies.get("uid");
+        if(uid){
+            $.ajax({
+                url:`/api/users/${uid}/quiz`,
+                method:'POST',
+                data:{questions:this.state.questions,answers:this.state.answers},
+                success:()=>{alert('Quiz has been saved to your history!');},
+                error:()=>{alert('An error occured while saving your quiz. Sorry for the inconvenience :(');}
+            })
+        }
+        else{
+            alert('You were not logged in, the results can not be saved');
+        }
     }
     render(){
         if(this.state.questions.length>0){
@@ -135,7 +151,7 @@ class QuizQuestions extends Component{
                             )}
                         </div>
                     </div>
-                    <div onClick={this.state.lastQuestion?()=>{this.setState({finished:true})}:this.nextQuestion} style={{display:this.state.answered?"block":"none"}} className="quiz-next-button">
+                    <div onClick={this.state.lastQuestion?()=>{this.setState({finished:true});this.saveData();}:this.nextQuestion} style={{display:this.state.answered?"block":"none"}} className="quiz-next-button">
                         <i className={this.state.lastQuestion?"fas fa-check":"fas fa-chevron-right"}></i>
                     </div>
 
