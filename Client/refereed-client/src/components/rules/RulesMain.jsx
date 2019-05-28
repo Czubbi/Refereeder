@@ -24,8 +24,16 @@ class RulesMain extends Component
     componentDidMount(){
         fetch('/api/rules').then(x=>x.json()).then(x=>{
             this.setState({rules:x});
-        })
+        });
+        document.getElementById("rule-container").onscroll = function(){this.topBarScroll()};
     }
+    topBarScroll() {
+        var winScroll = document.getElementById("rule-container").scrollTop;
+        var height = document.getElementById("rule-container").scrollHeight -document.getElementById("rule-container").clientHeight;
+        var scrolled = (winScroll / height) * 100;
+        document.getElementById("myBar").style.width = scrolled + "%";
+    }
+    
     selectRule=(rule)=>{
         console.log(rule);
         this.setState({rulePicked:rule});
@@ -102,10 +110,11 @@ class RulesMain extends Component
                     <NavbarMobile position='relative' backgroundColor='black'></NavbarMobile>
                     <NoteModal modalVisible={this.state.modalVisible?'flex':'none'} modalPos={this.state.modalVisible?'0px':'-2000px'} onModalCloseClick={(e)=>{e.preventDefault();if(e.target==e.currentTarget){this.setState({modalVisible:false})}}}></NoteModal>
                     <Section>
-                        <div className="rule-container">
+                        <div className="rule-container" id="rule-container">
                             <RuleNavigator onSubBtnClick={this.handleSubruleSelect} onBtnClick={(rule)=>{this.selectRule(rule);this.goToTop()}} rules={this.state.rules}></RuleNavigator>
                             <div className="rule-container-content">
-                                <div id='rule-content' className={this.state.rulePicked?"rule-content":"rule-content no-selection"}>
+                            <div class="progress-bar" id="myBar"></div>
+                                <div id='rule-content' className={this.state.rulePicked?"rule-content":"rule-content no-selection"}>       
                                     <TextTransition order={this.state.rules.indexOf(this.state.rulePicked?this.state.rulePicked.rule:0)} text={
                                     this.state.rulePicked?(this.state.rulePicked.type=='rule'?(
                                         <div><div className="main-rule-content" id={`rule-${this.state.rulePicked.rule._id}`}><p>{this.state.rulePicked.rule.lang.eng.title} - {this.state.rulePicked.rule.lang.eng.name}</p>

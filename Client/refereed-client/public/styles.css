@@ -790,6 +790,11 @@
     padding:30px 80px;
     /*scroll-behavior: smooth;*/
 }
+.progress-bar {
+    height: 8px;
+    background: #d12626;
+    width: 0%;
+  }
 .main-rule-content{
     margin-left: 15px;
     font-size:20px;
