@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import Navbar from '../navbar/Navbar'
-import NavbarMobile from '../navbar/NavbarMobile';
 import Footer from '../footer/Footer'
 import FooterNavigation from '../cards/FooterNavigation';
 import Section from '../section/Section';
@@ -26,7 +25,6 @@ class TestMain extends Component {
       <div>
           <Navbar position="relative" backgroundColor="black">
           </Navbar>
-          <NavbarMobile position='relative' backgroundColor='black'></NavbarMobile>
           <Section>
             <div className='test-content-wrapper'>
             <div className='test-card-holder'>

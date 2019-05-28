@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import Navbar from '../navbar/Navbar';
-import NavbarMobile from '../navbar/NavbarMobile';
 import Header from '../Header/Header';
 import Section from '../section/Section';
 import FederationCard from '../cards/FederationCard'
@@ -22,8 +21,6 @@ class Home extends Component {
       <div>
         <Navbar position="absolute" backgroundColor="transparent">
         </Navbar>
-        <NavbarMobile>
-        </NavbarMobile>
         <Header></Header>
         <Section>
           <div className="card-wrapper">

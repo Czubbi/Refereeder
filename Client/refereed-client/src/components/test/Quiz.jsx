@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import Cookies from 'js-cookie';
 import Navbar from '../navbar/Navbar';
-import NavbarMobile from '../navbar/NavbarMobile';
 import Footer from '../footer/Footer';
 import QuizQuestions from './QuizQuestions';
 import LoginModal from '../modals/LoginModal';

@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import Navbar from '../navbar/Navbar'
-import NavbarMobile from '../navbar/NavbarMobile';
 import Footer from '../footer/Footer'
 import FooterNavigation from '../cards/FooterNavigation';
 import Section from '../section/Section';
@@ -112,7 +111,6 @@ class RulesMain extends Component
             return(
                 <div>
                     <Navbar position="relative" backgroundColor="black"></Navbar>
-                    <NavbarMobile position='relative' backgroundColor='black'></NavbarMobile>
                     <NoteModal modalVisible={this.state.modalVisible?'flex':'none'} modalPos={this.state.modalVisible?'0px':'-2000px'} onModalCloseClick={(e)=>{e.preventDefault();if(e.target==e.currentTarget){this.setState({modalVisible:false})}}}></NoteModal>
                     <Section>
                         <div className="rule-container" id="rule-container">

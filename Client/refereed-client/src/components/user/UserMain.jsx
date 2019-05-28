@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import Navbar from '../navbar/Navbar'
-import NavbarMobile from '../navbar/NavbarMobile';
 import Footer from '../footer/Footer'
 //import FooterNavigation from '../cards/FooterNavigation';
 import Section from '../section/Section';
@@ -41,7 +40,6 @@ class UserMain extends Component {
       <div>
           <Navbar position="relative" backgroundColor="black">
           </Navbar>
-          <NavbarMobile></NavbarMobile>
           <Section>
             <div className='user-content-wrapper'>
               <div className='user-menu'>
