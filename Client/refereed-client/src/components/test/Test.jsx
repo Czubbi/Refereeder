@@ -22,7 +22,7 @@ class Test extends Component{
             }
             rules = rules.sort((a,b)=>{return parseFloat(b.number) - parseFloat(a.number*1)});
             var array = new Set(rules);
-            this.state.rules= [...array];
+            this.setState({rules:[...array]});
             console.log(this.state.rules);
     }
 

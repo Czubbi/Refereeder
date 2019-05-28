@@ -11,7 +11,7 @@ import QuizMulti from './components/test/QuizMulti';
 
 class App extends Component {
   render() {
-    if(window.location.pathname=='/home')
+    if(window.location.pathname==='/home')
     {
       return (
           <div>
@@ -19,7 +19,7 @@ class App extends Component {
           </div>
       );
     }
-    else if(window.location.pathname=='/user'){
+    else if(window.location.pathname==='/user'){
       var uid=Cookies.get('uid');
       if(uid){
         return(
@@ -30,28 +30,28 @@ class App extends Component {
       }
       else window.location.replace('/');
     }
-    else if(window.location.pathname=='/testorquiz'){
+    else if(window.location.pathname==='/testorquiz'){
       return(
         <div>
           <TestMain></TestMain>
         </div>
       )
     }
-    else if(window.location.pathname=='/signup'){
+    else if(window.location.pathname==='/signup'){
       return(
         <div>
           <Signup></Signup>
         </div>
       )
     }
-    else if(window.location.pathname=='/rules'){
+    else if(window.location.pathname==='/rules'){
       return(
         <div>
           <RulesMain></RulesMain>
         </div>
       )
     }
-    else if(window.location.pathname=='/test'){
+    else if(window.location.pathname==='/test'){
       var url_string = window.location.href;
       var url=new URL(url_string);
       var mode = url.searchParams.get('mode');
@@ -61,17 +61,17 @@ class App extends Component {
         </div>
       )
     }
-    else if(window.location.pathname=='/quiz'){
+    else if(window.location.pathname==='/quiz'){
       var url_string = window.location.href;
       var url=new URL(url_string);
       var mode = url.searchParams.get('mode');
-      if(!Cookies.get('uid') && mode=='compete'){
+      if(!Cookies.get('uid') && mode==='compete'){
         window.location.replace('/testorquiz');
       }
-      else if(Cookies.get('uid') && mode=='compete'){
+      else if(Cookies.get('uid') && mode==='compete'){
         return <QuizMulti></QuizMulti>
       }
-      else if(mode=='single') return(
+      else if(mode==='single') return(
         <div>
           <Quiz></Quiz>
         </div>

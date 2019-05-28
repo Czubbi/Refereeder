@@ -15,26 +15,26 @@ class Footer extends Component{
                 <FooterNavigation>
                   <h6>CONTACT</h6>
                     <ul>
-                      <li><a href='#'>Something</a></li>
-                      <li><a href='#'>Something</a></li>
-                      <li><a href='#'>Something</a></li>
-                      <li><a href='#'>Something</a></li>
-                      <li><a href='#'>Something</a></li>
+                      <li><a href='javascript:void(0)'>Something</a></li>
+                      <li><a href='javascript:void(0)'>Something</a></li>
+                      <li><a href='javascript:void(0)'>Something</a></li>
+                      <li><a href='javascript:void(0)'>Something</a></li>
+                      <li><a href='javascript:void(0)'>Something</a></li>
                     </ul>
                 </FooterNavigation>
                 <FooterNavigation>
                   <h6>ABOUT</h6>
                     <ul>
-                      <li><a href='#'>Something</a></li>
-                      <li><a href='#'>Something</a></li>
-                      <li><a href='#'>Something</a></li>
+                      <li><a href='javascript:void(0)'>Something</a></li>
+                      <li><a href='javascript:void(0)'>Something</a></li>
+                      <li><a href='javascript:void(0)'>Something</a></li>
                     </ul>
                 </FooterNavigation>
                 <FooterNavigation>
                   <h6>HELP</h6>
                     <ul>
-                      <li><a href='#'>Something</a></li>
-                      <li><a href='#'>Something</a></li>
+                      <li><a href='javascript:void(0)'>Something</a></li>
+                      <li><a href='javascript:void(0)'>Something</a></li>
                     </ul>
                 </FooterNavigation>
               </div>

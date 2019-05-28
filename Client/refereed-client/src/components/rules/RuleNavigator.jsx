@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-var $ = require('jquery');
 
 class RuleNavigator extends Component
 {
@@ -24,7 +23,6 @@ class RuleNavigator extends Component
         {
             hidden[`${id}`]=true;
         }
-        //console.log(hidden);
         this.setState({hidden:hidden});
     }
     render()
@@ -35,8 +33,13 @@ class RuleNavigator extends Component
                     return(
                         <div>
                             <div className={this.state.selected[`${rule._id}`]?"rule-button-container selected":"rule-button-container"}>
-                            <div onClick={()=>{this.props.onBtnClick({rule:rule,type:'rule'});this.state.selected={};this.state.selected[`${rule._id}`]=true}}  className={this.state.selected[`${rule._id}`]?"rule-button selected":"rule-button"}>
-                                <a href='#' style={this.state.selected[`${rule._id}`]?{color:"#222222"}:{color:"white"}} title={rule.lang.eng.name} data-toggle="tooltip">{rule.number}. {rule.lang.eng.name.length>25?rule.lang.eng.name.substring(0,25)+'...':rule.lang.eng.name}</a>
+                            <div onClick={()=>{
+                                this.props.onBtnClick({rule:rule,type:'rule'});
+                                this.setState({selected:{}});
+                                var selected=this.state.selected;
+                                selected[`${rule._id}`]=true;
+                                this.setState({selected:selected})}} className={this.state.selected[`${rule._id}`]?"rule-button selected":"rule-button"}>
+                                <span style={this.state.selected[`${rule._id}`]?{color:"#222222"}:{color:"white"}} title={rule.lang.eng.name} data-toggle="tooltip">{rule.number}. {rule.lang.eng.name.length>25?rule.lang.eng.name.substring(0,25)+'...':rule.lang.eng.name}</span>
                             </div>
                                 {rule.lang.eng.subRules.length>0?<div  className="rule-collapse-button" data-toggle="collapse" data-target={`#collapse_${rule._id}`} onClick={()=>{this.changeHidden(rule._id);}}>
                                     {!this.state.hidden[`${rule._id}`]?
@@ -46,8 +49,13 @@ class RuleNavigator extends Component
                             </div>
                             {rule.lang.eng.subRules.length>0?<div className="collapse" id={`collapse_${rule._id}`}>
                                 {rule.lang.eng.subRules.sort((a,b)=>{return a.number.split('.')[1]*1 - b.number.split('.')[1]*1}).map(subrule=>{
-                                    return(<div onClick={()=>{this.props.onSubBtnClick({id:subrule._id,number:subrule.number});this.state.selected={};this.state.selected[`${rule._id}`]=true}} className="rule-button-sub">
-                                        <a href='#' style={this.state.selected[`${subrule._id}`]?{color:"#111111"}:{color:"white"}} title={subrule.number} data-toggle="tooltip">{subrule.number}</a>
+                                    return(<div onClick={()=>{
+                                        this.props.onSubBtnClick({id:subrule._id,number:subrule.number});
+                                        this.setState({selected:{}});
+                                        var selected=this.state.selected;
+                                        selected[`${rule._id}`]=true;
+                                        this.setState({selected:selected})}} className="rule-button-sub">
+                                        <span style={this.state.selected[`${subrule._id}`]?{color:"#111111"}:{color:"white"}} title={subrule.number} data-toggle="tooltip">{subrule.number}</span>
                                     </div>)
                                 })}
                             </div>:null}

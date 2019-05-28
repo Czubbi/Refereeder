@@ -31,6 +31,12 @@ class Quiz extends Component{
             this.setState({loggedIn:null});
         }
     }
+    componentDidUpdate(){
+        $(window).blur(function() {
+            alert("page left");
+        });
+          
+    }
     checkIfValidQuizQuestion=(question)=>{
         var answers=question.answers;
         var falseCounter=0;
@@ -79,7 +85,7 @@ class Quiz extends Component{
                             <p>You have 30 seconds to answer each question.</p>
                             <p>There's only one correct answer for each question.</p>
                             <p>If you leave the page the quiz will be disabled.</p>
-                            {!this.state.loggedIn?<p>You can <a href="#" onClick={()=>{this.setState({modalVisible:true})}}>log in</a> or <a href='/signup' onClick={(e)=>{window.location.replace('/signup')}}>sign up</a> to store your results.</p>:<p>Your results will be stored in your profile</p>}
+                            {!this.state.loggedIn?<p>You can <a href="javascript:void(0)" onClick={()=>{this.setState({modalVisible:true})}}>log in</a> or <a href='/signup' onClick={(e)=>{window.location.replace('/signup')}}>sign up</a> to store your results.</p>:<p>Your results will be stored in your profile</p>}
                         </div>
                         {this.state.started?<QuizQuestions questions={this.state.gameQuestions}></QuizQuestions>:<span className='btn btn-lg btn-primary' onClick={()=>{$('#explainig-rules').hide();this.startQuiz()}}>Start now</span>}
                     </div>

@@ -6,7 +6,6 @@ import FooterNavigation from '../cards/FooterNavigation';
 import Section from '../section/Section';
 import TestCard from '../cards/TestCard'
 import Cookies from 'js-cookie';
-
 class TestMain extends Component {
   constructor()
   {

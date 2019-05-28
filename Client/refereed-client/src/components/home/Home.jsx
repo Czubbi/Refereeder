@@ -5,8 +5,8 @@ import Header from '../Header/Header';
 import Section from '../section/Section';
 import FederationCard from '../cards/FederationCard'
 import Footer from '../footer/Footer'
-import FooterNavigation from '../cards/FooterNavigation';
-var $ = require('jquery');
+//import FooterNavigation from '../cards/FooterNavigation';
+//var $ = require('jquery');
 
 class Home extends Component {
   constructor()

@@ -82,6 +82,10 @@ class SignupHeader extends Component {
             passText="Strong";
             break;
            }
+           default:{
+            passText="Unknown";
+            break;
+           }
        }
        if($('#password').val()==""){
            passText="Empty";
@@ -99,12 +103,12 @@ class SignupHeader extends Component {
         return (
           <div>
             <div className="loading_div" style={{display:this.state.loading?'flex':'none'}}>
-                <img src={process.env.PUBLIC_URL+'/images/loading.gif'}></img>
+                <img alt="Loading" src={process.env.PUBLIC_URL+'/images/loading.gif'}></img>
             </div>
             <div id="signup-header" className="signup-header">
                 <div className="signup-header-left">
                     <div className="take-a-photo">
-                        <img src={process.env.PUBLIC_URL+'/images/referee_signup.jpg'}></img>
+                        <img alt="signup" src={process.env.PUBLIC_URL+'/images/referee_signup.jpg'}></img>
                     </div>
                 </div>
                 <div className="signup-header-right">

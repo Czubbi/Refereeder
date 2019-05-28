@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Navbar from '../navbar/Navbar'
 import NavbarMobile from '../navbar/NavbarMobile';
 import Footer from '../footer/Footer'
-import FooterNavigation from '../cards/FooterNavigation';
+//import FooterNavigation from '../cards/FooterNavigation';
 import Section from '../section/Section';
 import PieChart from '../charts/PieChart';
 import BarChart from '../charts/BarChart';
