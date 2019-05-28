@@ -794,6 +794,7 @@
     height: 8px;
     background: #d12626;
     width: 0%;
+    transition:.1s;
   }
 .main-rule-content{
     margin-left: 15px;

@@ -25,13 +25,20 @@ class RulesMain extends Component
         fetch('/api/rules').then(x=>x.json()).then(x=>{
             this.setState({rules:x});
         });
-        document.getElementById("rule-container").onscroll = function(){this.topBarScroll()};
+    }
+    componentDidUpdate(){
+        document.getElementById("rule-content").addEventListener('scroll',()=>{this.topBarScroll()})
+    }
+    numMap = (num, in_min, in_max, out_min, out_max) => {
+        return (num - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
     }
     topBarScroll() {
-        var winScroll = document.getElementById("rule-container").scrollTop;
-        var height = document.getElementById("rule-container").scrollHeight -document.getElementById("rule-container").clientHeight;
-        var scrolled = (winScroll / height) * 100;
-        document.getElementById("myBar").style.width = scrolled + "%";
+        var height=$('#rule-content').prop('scrollHeight') - $('#rule-content').innerHeight();
+        var scroll = $('#rule-content')[0].scrollTop;
+        console.log(height);
+        console.log(scroll)
+        var percent=this.numMap(scroll,0,height,0,100);
+        document.getElementById('myBar').style.width=`${percent}%`;
     }
     
     selectRule=(rule)=>{
