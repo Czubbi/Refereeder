@@ -51,13 +51,22 @@ class QuizMulti extends Component{
             this.setState({loading:true})
         }
     }
+    cancelConnection=()=>{
+        this.setState({started:false});
+        this.setState({opponent:'null'});
+        this.setState({room:{}});
+        socket.emit('disconnect',socket.id);
+        this.setState({loading:false});
+    }
     render(){
-        return( <div>
+        return( 
+        <div>
             <div className="loading_div" style={{textAlign:'center',backgroundColor:'rgba(0,0,0,0.8)', display:this.state.loading?'flex':'none'}}>   
                 <div>
                     <img src={process.env.PUBLIC_URL+'/images/loading.gif'}/>
                     <h3 style={{color:'white'}}>Please wait while we are finding you an opponent!</h3>
                     <h3 style={{color:'white'}}>{this.state.opponent=='null'?'':'Found opponent:' + this.state.opponent}</h3>
+                    {this.state.opponent=='null'?<span className='btn btn-lg btn-danger' onClick={this.cancelConnection}>Cancel</span>:null}
                 </div>
             </div>
             <div className="quiz-container">
@@ -65,6 +74,17 @@ class QuizMulti extends Component{
                     <div className="logo-container">
                         <a href="/"><img style={{filter:'invert(100%)',marginBottom:30}} src={process.env.PUBLIC_URL+'images/logo.png'}></img></a>
                     </div>
+                    <div className="quiz-question-container rules">
+                            <p><h5>The rules for the quizzes 1v1 are the following:</h5></p>
+                            <p>You will compete against another player.</p>
+                            <p>The player that click on the correct answer first wins the round.</p>
+                            <p>To win you have to get more correct answers than your opponent.</p>
+                            <p>In case of draw it will appear an extra question to break it.</p>
+                            <p>You have to answer 10 random questions.</p>
+                            <p>You have 30 seconds to answer each question.</p>
+                            <p>There's only one correct answer for each question.</p>
+                            <p>If you leave the page the quiz will be disabled.</p>
+                        </div>
                     {this.state.started?<QuizQuestions questions={this.state.gameQuestions}></QuizQuestions>:<span className='btn btn-lg btn-primary' onClick={this.connectToQuiz}>Start now</span>}
                 </div>
             </div>

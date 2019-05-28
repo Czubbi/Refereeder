@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Cookies from 'js-cookie';
-import LoginModal from '../modals/LoginModal';
+import LoginModal from './LoginModal';
 var $ = require('jquery');
 
 

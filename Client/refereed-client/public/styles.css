@@ -1091,6 +1091,13 @@
     border-radius: 10px;
     box-shadow:0px 4px 10px #777777;
     padding:25px;
+    transition:1s;
+}
+.rules{
+    width:45vw !important;
+    height:60vh !important;
+    margin-bottom: 30px;
+    transition:1s;
 }
 .quiz-question{
     width: 80%;

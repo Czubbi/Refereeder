@@ -1,8 +1,10 @@
 import React, {Component} from 'react';
+import Cookies from 'js-cookie';
 import Navbar from '../navbar/Navbar';
 import NavbarMobile from '../navbar/NavbarMobile';
 import Footer from '../footer/Footer';
 import QuizQuestions from './QuizQuestions';
+import LoginModal from '../modals/LoginModal';
 //import ProgressBar from 'react-bootstrap/ProgressBar'
 class Quiz extends Component{
     constructor(){
@@ -12,12 +14,21 @@ class Quiz extends Component{
             started:false,
             loading:false,
             gameQuestions:[],
+            loggedIn:"",
+            modalVisible:false,
         }
     }
     componentDidMount(){
         fetch('/api/questions').then(x=>x.json()).then(x=>{
             this.setState({questions:x});
-        })
+        });
+        var uid=Cookies.get('uid');
+        if(uid){
+            this.setState({loggedIn:uid});
+        }
+        else{
+            this.setState({loggedIn:null});
+        }
     }
     checkIfValidQuizQuestion=(question)=>{
         var answers=question.answers;
@@ -59,11 +70,21 @@ class Quiz extends Component{
                 <div className="quiz-container">
                     <div>
                         <div className="logo-container">
-                            <a href="/"><img style={{filter:'invert(100%)',marginBottom:30}} src={process.env.PUBLIC_URL+'images/logo.png'}></img></a>
+                            <a href="/"><img style={{filter:'invert(100%)',marginBottom:30}} src={process.env.PUBLIC_URL+'images/logo.png'}></img></a>                          
+                        </div>
+                        <div className="quiz-question-container rules">
+                            <p><h5>The rules for the quizzes are the following:</h5></p>
+                            <p>You have to answer 10 random questions.</p>
+                            <p>You have 30 seconds to answer each question.</p>
+                            <p>There's only one correct answer for each question.</p>
+                            <p>If you leave the page the quiz will be disabled.</p>
+                            {!this.state.loggedIn?<p>You can <a href="#" onClick={()=>{this.setState({modalVisible:true})}}>log in</a> or <a href='/signup' onClick={(e)=>{window.location.replace('/signup')}}>sign up</a> to store your results.</p>:<p>Your results will be stored in your profile</p>}
                         </div>
                         {this.state.started?<QuizQuestions questions={this.state.gameQuestions}></QuizQuestions>:<span className='btn btn-lg btn-primary' onClick={this.startQuiz}>Start now</span>}
                     </div>
                 </div>
+                <LoginModal modalVisible={this.state.modalVisible?'flex':'none'} modalPos={this.state.modalVisible?'0px':'-2000px'} onModalCloseClick={(e)=>{e.preventDefault();if(e.target==e.currentTarget){this.setState({modalVisible:false})}}}>
+                </LoginModal>
             </div>
         )
     }
