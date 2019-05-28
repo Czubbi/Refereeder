@@ -792,7 +792,7 @@
 }
 .progress-bar {
     height: 8px;
-    background: #d12626;
+    background: #444444;
     width: 0%;
     transition:.1s;
   }

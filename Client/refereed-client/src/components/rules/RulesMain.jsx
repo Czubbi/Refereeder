@@ -35,8 +35,6 @@ class RulesMain extends Component
     topBarScroll() {
         var height=$('#rule-content').prop('scrollHeight') - $('#rule-content').innerHeight();
         var scroll = $('#rule-content')[0].scrollTop;
-        console.log(height);
-        console.log(scroll)
         var percent=this.numMap(scroll,0,height,0,100);
         document.getElementById('myBar').style.width=`${percent}%`;
     }
