@@ -36,7 +36,7 @@ class RulesMain extends Component
         var height=$('#rule-content').prop('scrollHeight') - $('#rule-content').innerHeight();
         var scroll = $('#rule-content')[0].scrollTop;
         var percent=this.numMap(scroll,0,height,0,100);
-        document.getElementById('myBar').style.width=`${percent}%`;
+        document.getElementById('scroll-progress-bar').style.width=`${percent}%`;
     }
     
     selectRule=(rule)=>{
@@ -118,7 +118,7 @@ class RulesMain extends Component
                         <div className="rule-container" id="rule-container">
                             <RuleNavigator onSubBtnClick={this.handleSubruleSelect} onBtnClick={(rule)=>{this.selectRule(rule);this.goToTop()}} rules={this.state.rules}></RuleNavigator>
                             <div className="rule-container-content">
-                            <div class="progress-bar" id="myBar"></div>
+                            <div class="scroll-progress-bar" id="scroll-progress-bar"></div>
                                 <div id='rule-content' className={this.state.rulePicked?"rule-content":"rule-content no-selection"}>       
                                     <TextTransition order={this.state.rules.indexOf(this.state.rulePicked?this.state.rulePicked.rule:0)} text={
                                     this.state.rulePicked?(this.state.rulePicked.type=='rule'?(

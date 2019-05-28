@@ -74,7 +74,7 @@ class QuizMulti extends Component{
                     <div className="logo-container">
                         <a href="/"><img style={{filter:'invert(100%)',marginBottom:30}} src={process.env.PUBLIC_URL+'images/logo.png'}></img></a>
                     </div>
-                    <div className="quiz-question-container rules">
+                    <div className="quiz-question-container rules" id="explaining-rules">
                             <p><h5>The rules for the quizzes 1v1 are the following:</h5></p>
                             <p>You will compete against another player.</p>
                             <p>The player that click on the correct answer first wins the round.</p>
@@ -85,7 +85,7 @@ class QuizMulti extends Component{
                             <p>There's only one correct answer for each question.</p>
                             <p>If you leave the page the quiz will be disabled.</p>
                         </div>
-                    {this.state.started?<QuizQuestions questions={this.state.gameQuestions}></QuizQuestions>:<span className='btn btn-lg btn-primary' onClick={this.connectToQuiz}>Start now</span>}
+                    {this.state.started?<QuizQuestions questions={this.state.gameQuestions}></QuizQuestions>:<span className='btn btn-lg btn-primary' onClick={()=>{$('#explainig-rules').hide();this.connectToQuiz()}}>Start now</span>}
                 </div>
             </div>
         </div>)

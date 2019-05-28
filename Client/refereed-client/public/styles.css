@@ -790,12 +790,18 @@
     padding:30px 80px;
     /*scroll-behavior: smooth;*/
 }
-.progress-bar {
+.scroll-progress-bar {
     height: 8px;
     background: #444444;
     width: 0%;
     transition:.1s;
   }
+.question-progress-bar {
+    background: #444444;
+    width: 0%;
+    transition:.1s;
+    color: white;
+}
 .main-rule-content{
     margin-left: 15px;
     font-size:20px;
@@ -1163,6 +1169,7 @@
 }
 .good-answer{
     background-color:#28a745;
+    font-weight: bolder;
     transition: .3s;
 }
 .test-rule-selector-container{

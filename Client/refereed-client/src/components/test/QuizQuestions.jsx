@@ -139,10 +139,11 @@ class QuizQuestions extends Component{
                 )
             }
             else return(
-                <div className='quiz-question-container' id="quiz-question-container">
-                    <div style={{width:'10vw',height:'10vw',maxWidth:100,maxHeight:100}}><CircularProgressbar circleRatio={0.75} styles={buildStyles({ rotation: 1 / 2 + 1 / 8, strokeLinecap: "butt", trailColor: "#eee"})} value={this.numMap(this.state.timeLeft,0,30,0,100)} text={this.state.timeLeft}></CircularProgressbar></div>
+                <div className='quiz-question-container' id="quiz-question-container">                    
+                    <div style={{width:'10vw',height:'10vw',maxWidth:100,maxHeight:100}}><CircularProgressbar circleRatio={0.75} styles={buildStyles({ rotation: 1 / 2 + 1 / 8, strokeLinecap: "butt", trailColor: "#eee", pathColor:"#444444", textColor: (this.state.timeLeft>15?'#28a745':(this.state.timeLeft>5?'#FFA500':'#d12626'))})} value={this.numMap(this.state.timeLeft,0,30,0,100)} text={this.state.timeLeft}></CircularProgressbar></div>
+                    <div class="question-progress-bar" id="question-progress-bar" style={{width:`${(this.state.counter+1)*10}%`}}>{(this.state.counter+1) + '/10'}</div>
                     <div className="quiz-question">
-                        <h5>{(this.state.counter+1) + '/10'} - {currentQuestion.question}</h5>
+                        <h5>{currentQuestion.question}</h5>
                     </div>
                     <div className="quiz-answers-container" id="quiz-answers-container">
                         <div>
