@@ -30,12 +30,6 @@ class Quiz extends Component{
             this.setState({loggedIn:null});
         }
     }
-    componentDidUpdate(){
-        $(window).blur(function() {
-            alert("page left");
-        });
-          
-    }
     checkIfValidQuizQuestion=(question)=>{
         var answers=question.answers;
         var falseCounter=0;
@@ -80,13 +74,13 @@ class Quiz extends Component{
                         </div>
                         <div className="quiz-question-container rules" id="explainig-rules">
                             <p><h5>The rules for the quizzes are the following:</h5></p>
-                            <p>You have to answer 10 random questions.</p>
-                            <p>You have 30 seconds to answer each question.</p>
-                            <p>There's only one correct answer for each question.</p>
-                            <p>If you leave the page the quiz will be disabled.</p>
-                            {!this.state.loggedIn?<p>You can <a href="javascript:void(0)" onClick={()=>{this.setState({modalVisible:true})}}>log in</a> or <a href='/signup' onClick={(e)=>{window.location.replace('/signup')}}>sign up</a> to store your results.</p>:<p>Your results will be stored in your profile</p>}
+                            <p>You have to answer <b>10</b> random questions.</p>
+                            <p>You have <b>30</b> seconds to answer each question.</p>
+                            <p>There's only <font color="green"><b>one</b> correct</font> answer for each question.</p>
+                            <p>If you leave the page the quiz will be <font color="red">terminated</font>.</p>
+                            {!this.state.loggedIn?<p>You can <a href="javascript:void(0)" onClick={()=>{this.setState({modalVisible:true})}}>log in</a> or <a href='/signup' onClick={(e)=>{window.location.replace('/signup')}}>sign up</a> to store your results.</p>:<p>Your results will be stored in your profile!</p>}
                         </div>
-                        {this.state.started?<QuizQuestions questions={this.state.gameQuestions}></QuizQuestions>:<span className='btn btn-lg btn-primary' onClick={()=>{$('#explainig-rules').hide();this.startQuiz()}}>Start now</span>}
+                        {this.state.started?<QuizQuestions uid={this.state.loggedIn} questions={this.state.gameQuestions}></QuizQuestions>:<span className='btn btn-lg btn-primary' onClick={()=>{$('#explainig-rules').hide();this.startQuiz()}}>Start now</span>}
                     </div>
                 </div>
                 <LoginModal modalVisible={this.state.modalVisible?'flex':'none'} modalPos={this.state.modalVisible?'0px':'-2000px'} onModalCloseClick={(e)=>{e.preventDefault();if(e.target==e.currentTarget){this.setState({modalVisible:false})}}}>

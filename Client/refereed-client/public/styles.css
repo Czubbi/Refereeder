@@ -781,6 +781,7 @@
 }
 .rule-container-selector{
     flex:1.4;
+    width:400px;
     height:100%;
     background:#222222;
     box-shadow:0px 0px 10px #333333;
@@ -795,7 +796,6 @@
     justify-content: center;
     align-items: center;
     background-color:#444444;
-    box-shadow:0px 5px 5px #999999;
     border-radius: 0px 5px 5px 0px;
     left:80vw;
     transition:.3s;
@@ -1149,13 +1149,11 @@
     border-radius: 10px;
     box-shadow:0px 4px 10px #777777;
     padding:25px;
-    transition:1s;
 }
 .rules{
     width:45vw !important;
     height:60vh !important;
     margin-bottom: 30px;
-    transition:1s;
 }
 .quiz-question{
     width: 80%;
@@ -1197,6 +1195,17 @@
 .quiz-answer:hover{
     opacity:0.8;
     cursor:pointer;
+}
+.quiz-user{
+    position:absolute;
+    top:40px;
+    left:4%;
+}
+.quiz-user i{
+    font-size: 40px;
+}
+.quiz-user p{
+    font-size:24px;
 }
 .quiz-next-button{
     position:absolute;
@@ -1371,8 +1380,16 @@
     .footer-card a {
         font-size:16px;
     }
+    .test-content-wrapper{
+        padding:70px;
+    }
+    .test-card-holder{
+        grid-template-columns: repeat(1,2fr);
+        grid-gap: 30px;
+    }
     .test-card{
-        min-height:35   vh;
+        min-height:35vh;
+        width:80vw;
     }
     .rule-container-selector{
         position: absolute;
@@ -1386,5 +1403,19 @@
     }
     .rule-content{
         padding:30px 40px;
+    }
+    .signup-header{
+        flex-direction: column;
+    }
+    .signup-header .form-control{
+        width:75vw !important;
+    }
+    .take-a-photo{
+        margin-top:30px;
+        width:70vw;
+        height:70vw;
+    }
+    .rules{
+        width:auto !important;
     }
 }
