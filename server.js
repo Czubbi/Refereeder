@@ -42,7 +42,6 @@ checkIfValidQuizQuestion=(question)=>{
     });
     return falseCounter>=3;
 }
-//shuffle
 shuffleArray=(myArray)=>{
     var array=[...myArray];
     array=array.filter(question=>question.answers.length>3 && checkIfValidQuizQuestion(question));
