@@ -13,6 +13,7 @@ class Navbar extends Component{
     this.state={
       loggedIn:"",
       modalVisible:false,
+      fullScreen:false,
     }
     this.filterRef=React.createRef();
   }
@@ -32,6 +33,33 @@ class Navbar extends Component{
     setTimeout(() => {
       this.filterRef.current.style.opacity=this.state.menuVisible?1:0
     }, 100);
+  }
+  openFullscreen= ()=> {
+    this.setState({fullScreen:true});
+    var elem = document.documentElement;
+    if (elem.requestFullscreen) {
+      elem.requestFullscreen();
+    } else if (elem.mozRequestFullScreen) { /* Firefox */
+      elem.mozRequestFullScreen();
+    } else if (elem.webkitRequestFullscreen) { /* Chrome, Safari and Opera */
+      elem.webkitRequestFullscreen();
+    } else if (elem.msRequestFullscreen) { /* IE/Edge */
+      elem.msRequestFullscreen();
+    }
+  }
+  
+  /* Close fullscreen */
+  closeFullscreen=()=> {
+    this.setState({fullScreen:false});
+    if (document.exitFullscreen) {
+      document.exitFullscreen();
+    } else if (document.mozCancelFullScreen) { /* Firefox */
+      document.mozCancelFullScreen();
+    } else if (document.webkitExitFullscreen) { /* Chrome, Safari and Opera */
+      document.webkitExitFullscreen();
+    } else if (document.msExitFullscreen) { /* IE/Edge */
+      document.msExitFullscreen();
+    }
   }
   render() {
     return (
@@ -82,6 +110,9 @@ class Navbar extends Component{
         <div id="navbar-mobile" style={{backgroundColor:this.props.backgroundColor,position:this.props.position}} className="navbar-mobile">
           <div className="navbar-mobile-logo">
             <a href='/' style={{paddingLeft:30,paddingRight:0}}><img src={process.env.PUBLIC_URL + "images/logo.png"} /></a>
+          </div>
+          <div className="navbar-mobile-fullscreen" onClick={this.state.fullScreen?this.closeFullscreen:this.openFullscreen}>
+            <i className="fas fa-expand" />
           </div>
           <div className="navbar-mobile-button" onClick={() => {this.setState({ menuVisible: !this.state.menuVisible });}}>
             <i className="fas fa-bars" />

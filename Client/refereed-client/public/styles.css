@@ -99,11 +99,26 @@
     top:0;
     left:80%;
 }
+.navbar-mobile-fullscreen{
+    height: 100%;
+    width:20%;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top:0;
+    left:60%;
+}
 .navbar-mobile-logo img{
     width:70%;
     filter:invert(100%);
 }
 .navbar-mobile-button i{
+    color:white;
+    font-size:40px;
+
+}
+.navbar-mobile-fullscreen i{
     color:white;
     font-size:40px;
 
