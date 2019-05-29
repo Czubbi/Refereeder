@@ -112,7 +112,7 @@ class Navbar extends Component{
             <a href='/' style={{paddingLeft:30,paddingRight:0}}><img src={process.env.PUBLIC_URL + "images/logo.png"} /></a>
           </div>
           <div className="navbar-mobile-fullscreen" onClick={this.state.fullScreen?this.closeFullscreen:this.openFullscreen}>
-            <i className="fas fa-expand" />
+            <i className={this.state.fullScreen?"fas fa-compress":"fas fa-expand"}/>
           </div>
           <div className="navbar-mobile-button" onClick={() => {this.setState({ menuVisible: !this.state.menuVisible });}}>
             <i className="fas fa-bars" />
