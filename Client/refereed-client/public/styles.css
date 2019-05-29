@@ -773,7 +773,7 @@
     overflow:auto;
 }
 .rule-selector-mobile-handle{
-    position: fixed;
+    position: absolute;
     height:50px;
     width:40px;
     display:none;
@@ -784,8 +784,8 @@
     border-radius: 0px 5px 5px 0px;
     left:80vw;
     transition:.3s;
-    z-index:10;
-    top:calc(50vh);
+    z-index:2;
+    top:calc(50vh - 95px);
 }
 .rule-selector-mobile-handle i{
     color:white;
