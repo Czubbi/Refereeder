@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { DEFAULT_ECDH_CURVE } from 'tls';
 var $ = require('jquery');
+var moment = require('moment');
 
 class LoginModal extends Component{
     constructor(){
@@ -37,7 +38,8 @@ class LoginModal extends Component{
           success:(x)=>{
             if(x)
             {
-              document.cookie=`uid=${x}`;
+              var date=new Date(moment().add(1,'month').toDate());
+              document.cookie=`uid=${x}; expires=${date.toUTCString()}`;
               window.location.reload();
             }
             else{

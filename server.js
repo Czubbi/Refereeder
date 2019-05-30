@@ -56,12 +56,42 @@ getRandomQuestions=()=>{
 }
 //SOCKET.IO SETUP
 io.on('connection',(client)=>{
+    var timer;
     clients[`${client.id}`]=client;
-    console.log(clients[`${client.id}`]);
     console.log('Client connected. Connected: ' + Object.keys(clients).length)
+    client.on('stopTimer',()=>{
+        clearTimeout(timer);
+    })
     client.on('disconnect',(socket)=>{
-        delete clients[`${socket.id}`];
-        console.log(`Disconnected:=>Connected clients:${Object.keys(clients).length}`);
+        rethinkdb.db('refereeder').table('quizrooms').filter((user)=>{return user("player1")("socket_id").eq(client.id).or((user("player2")("socket_id").eq(client.id)))}).run(rethinkConn).then(result=>{
+            result.toArray().then(x=>{
+                x.forEach(y=>{
+                    if(y.player2 && y.player2.socket_id===client.id&&y.status==='matched'){
+                        rethinkdb.db('refereeder').table('quizrooms').get(y.id).update({player2:null}).run(rethinkConn).then(res=>{
+                            delete clients[`${client.id}`];
+                            console.log(`Disconnected:=>Connected clients:${Object.keys(clients).length}`);
+                            clearTimeout(timer);
+                            clients[`${y.player1.socket_id}`].emit('playerLeft',2);
+                        })
+                    }
+                    else if(y.player1.socket_id===client.id&&y.status==='created'){
+                        rethinkdb.db('refereeder').table('quizrooms').get(y.id).delete().run(rethinkConn).then(res=>{
+                            delete clients[`${client.id}`];
+                            console.log(`Disconnected:=>Connected clients:${Object.keys(clients).length}`);
+                            clients[`${y.player2.socket_id}`].emit('playerLeft',1);
+                        })
+                    }
+                    else if(y.player1.socket_id===client.id&&y.status==='matched'){
+                        rethinkdb.db('refereeder').table('quizrooms').get(y.id).update({player2:null,player1:y.player2,status:'created'}).run(rethinkConn).then(res=>{
+                            delete clients[`${client.id}`];
+                            console.log(`Disconnected:=>Connected clients:${Object.keys(clients).length}`);
+                            clearTimeout(timer);
+                            clients[`${y.player2.socket_id}`].emit('playerLeft',1);
+                        })
+                    }
+                })
+            });
+        })
     })
     var foundRoom=null;
     rethinkdb.db('refereeder').table('quizrooms').run(rethinkConn).then(x=>{
@@ -76,7 +106,8 @@ io.on('connection',(client)=>{
                     var newRoom={
                         player1:{socket_id:client.id,uid:client.handshake.query['uid']},
                         player2:null,
-                        questions:questions}
+                        questions:questions,
+                        status:'created'}
                     rethinkdb.db('refereeder').table('quizrooms').insert(newRoom).run(rethinkConn).then(result=>{
                         newRoom.id=result.generated_keys;
                         client.emit('newRoom',newRoom);
@@ -84,9 +115,12 @@ io.on('connection',(client)=>{
                 })
             }
             else{
-                rethinkdb.db('refereeder').table('quizrooms').get(foundRoom.id).update({player2:{socket_id:client.id,uid:client.handshake.query['uid']}}).run(rethinkConn).then(result=>{
+                rethinkdb.db('refereeder').table('quizrooms').get(foundRoom.id).update({status:'matched',player2:{socket_id:client.id,uid:client.handshake.query['uid']}}).run(rethinkConn).then(result=>{
                         client.emit('connectedToRoom',foundRoom);
                         io.emit('connectedToRoom_' + foundRoom.id, client.id);
+                        timer=setTimeout(()=>{
+                            rethinkdb.db('refereeder').table('quizrooms').get(foundRoom.id).update({status:'started'}).run(rethinkConn).then(x=>{})
+                        },5000)
                 })
             }
         });

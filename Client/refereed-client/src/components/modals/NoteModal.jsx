@@ -50,7 +50,7 @@ class NoteModal extends Component{
         <div>
             <div className="modal-filter" ref={this.filterRef} onClick={(e)=>{this.props.onModalCloseClick(e)}}>
                 <div className="my-modal note-modal" ref={this.modalRef}>
-                    <i className="fas fa-times-circle" onClick={(e)=>{this.props.onModalCloseClick(e)}}></i>
+                    <i className="fas fa-times-circle" style={{filter:'invert(100%)', top:'5px', "z-index":'1'}}onClick={(e)=>{this.props.onModalCloseClick(e)}}></i>
                     <div>
                         {this.state.loggedIn?
                             (<div>

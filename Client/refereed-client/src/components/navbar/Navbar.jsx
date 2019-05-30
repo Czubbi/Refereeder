@@ -96,9 +96,9 @@ class Navbar extends Component{
             </div>
             <div className="mobile-menu-content">
             <ul>
-                <li><a href="testorquiz">Practice</a></li>
-                <li><a href="rules">See the rules</a></li>
-                <li><a href={this.state.loggedIn==""?'/signup':'/user'}>{this.state.loggedIn==""?"Sign up":this.state.loggedIn}</a></li>
+                <a href="testorquiz"><li>Practice</li></a>
+                <a href="rules"><li>See the rules</li></a>
+                <a href={this.state.loggedIn==""?'/signup':'/user'}><li>{this.state.loggedIn==""?"Sign up":this.state.loggedIn}</li></a>
                 <li onClick={this.state.loggedIn==""
                   ?
                   ()=>{this.setState({modalVisible:true})}
