@@ -12,6 +12,7 @@ class NoteModal extends Component{
         this.state={
             loggedIn:null,
             modalVisible:false,
+            mode:"reading",
         }
     }
     componentDidMount(){
@@ -43,6 +44,7 @@ class NoteModal extends Component{
             }, 300);
         }
     }
+      
     render() {
         return (
         <div>
@@ -52,10 +54,21 @@ class NoteModal extends Component{
                     <div>
                         {this.state.loggedIn?
                             (<div>
-                                <p align="left"><span className="far fa-sticky-note"></span> Write your notes about the rule here:</p>
-                                <textarea className="form-control" style={{resize:'none'}} id="comment-field" rows="8" cols="50"></textarea>
-                                <button className="my-submit-button" onClick={(e)=>{console.log($('#comment-field').val())}}>Submit</button>
-                                <button className="my-clear-button" onClick={(e)=>{$('#comment-field').val('')}}>Clear</button>
+                                <div className="tablink-container">
+                                    <button className={this.state.mode==='reading'?'tabLink selected':'tabLink'} onClick={()=>this.setState({mode:'reading'})} id="defaultOpen">Read Notes</button>
+                                    <button className={this.state.mode==='writing'?'tabLink selected':'tabLink'}  onClick={()=>this.setState({mode:'writing'})}>Write Notes</button>
+                                </div>
+                                {this.state.mode==='reading'?
+                                    <div id="read-notes" className="tabContent">
+                                        <p align="left"><span className="far fa-sticky-note"></span> Read your notes about the rule here:</p>
+                                    </div>
+                                    :
+                                    <div id="write-notes" class="tabContent">
+                                        <p align="left"><span className="far fa-sticky-note"></span> Write your notes about the rule here:</p>
+                                        <textarea className="form-control" style={{resize:'none'}} id="comment-field" rows="8" cols="50"></textarea>
+                                        <button className="my-submit-button" onClick={(e)=>{console.log($('#comment-field').val())}}>Submit</button>
+                                        <button className="my-clear-button" onClick={(e)=>{$('#comment-field').val('')}}>Clear</button>
+                                    </div>}
                             </div>)
                             :
                             (<div>

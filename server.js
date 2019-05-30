@@ -23,15 +23,9 @@ var server=http.createServer()
 server.listen(5000);
 var io = require('socket.io')(server);
 var bodyParser = require('body-parser');
-var clients=[];
+var clients={};
 app.use(bodyParser.urlencoded({ extended: true }));
 //FUNCTIONS
-generateRoomId=()=>{
-    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
-        var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
-        return v.toString(16);
-    });
-}
 checkIfValidQuizQuestion=(question)=>{
     var answers=question.answers;
     var falseCounter=0;
@@ -62,11 +56,12 @@ getRandomQuestions=()=>{
 }
 //SOCKET.IO SETUP
 io.on('connection',(client)=>{
-    clients.push(client);
-    console.log('Client connected. Connected: ' + clients.length)
+    clients[`${client.id}`]=client;
+    console.log(clients[`${client.id}`]);
+    console.log('Client connected. Connected: ' + Object.keys(clients).length)
     client.on('disconnect',(socket)=>{
-        clients.splice(clients.indexOf(client),1);
-        console.log(`Disconnected:=>Connected clients:${clients.length}`);
+        delete clients[`${socket.id}`];
+        console.log(`Disconnected:=>Connected clients:${Object.keys(clients).length}`);
     })
     var foundRoom=null;
     rethinkdb.db('refereeder').table('quizrooms').run(rethinkConn).then(x=>{
@@ -79,7 +74,7 @@ io.on('connection',(client)=>{
             if(!foundRoom){
                 getRandomQuestions().then((questions)=>{
                     var newRoom={
-                        player1:client.id,
+                        player1:{socket_id:client.id,uid:client.handshake.query['uid']},
                         player2:null,
                         questions:questions}
                     rethinkdb.db('refereeder').table('quizrooms').insert(newRoom).run(rethinkConn).then(result=>{
@@ -89,8 +84,7 @@ io.on('connection',(client)=>{
                 })
             }
             else{
-                console.log(foundRoom);
-                rethinkdb.db('refereeder').table('quizrooms').get(foundRoom.id).update({player2:client.id}).run(rethinkConn).then(result=>{
+                rethinkdb.db('refereeder').table('quizrooms').get(foundRoom.id).update({player2:{socket_id:client.id,uid:client.handshake.query['uid']}}).run(rethinkConn).then(result=>{
                         client.emit('connectedToRoom',foundRoom);
                         io.emit('connectedToRoom_' + foundRoom.id, client.id);
                 })
@@ -158,7 +152,6 @@ app.get('/api/users/:uid',(req,res)=>{
     userCtr.getUserByID(req.params.uid,(err,result)=>{
         if(err) res.status(500);
         else res.status(200);
-        console.log(result);
         res.end(result);
     })
 })
@@ -186,7 +179,6 @@ app.post('/api/users',(req,res)=>{
         user.uid=x.user.uid;
         userCtr.insertUser(user,(err,result)=>{
             console.log(err);
-            console.log(result);
             if(err) res.status(500);
             else res.status(200);
             res.end('SUCCESS');
@@ -249,12 +241,10 @@ app.get('/api/questions/:id',(req,res)=>{
 })
 app.post('/api/questions/:id/answers',(req,res)=>{
     var data=req.body;
-    //console.log(data);
     var answer={
         answer:req.body.answer,
         correct:req.body.correct?true:false,
     };
-    //console.log(answer);
     questionCtr.insertAnswer(req.params.id,answer,(err,result)=>{
         if(err) 
         {
@@ -282,7 +272,6 @@ app.delete('/api/rules/:id',(req,res)=>{
 })
 app.post('/api/rules',(req,res)=>{
     var data=req.body;
-    console.log(data);
     var rule={
         number:req.body.number,
         lang:{
@@ -306,7 +295,6 @@ app.post('/api/rules',(req,res)=>{
 })
 app.post('/api/rules/:id/subrules',(req,res)=>{
     var data=req.body;
-    console.log(data);
     var rule={
         number:req.body.number,
         name:req.body.name,
@@ -315,7 +303,6 @@ app.post('/api/rules/:id/subrules',(req,res)=>{
         dashRules:[],
         numRules:[]
     };
-    console.log(rule);
     ruleCtr.insertSubRule(req.params.id,rule,(err,result)=>{
         if(err) 
         {

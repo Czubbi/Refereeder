@@ -315,6 +315,7 @@
 .note-modal{
     background-color:rgba(255, 255, 255, 1);
     width: 600px;
+    min-height:500px;
     overflow: auto;
 }
 .my-submit-button{
@@ -1267,6 +1268,39 @@
 .construction::before:hover{
     cursor:not-allowed;
     opacity:0;
+}
+.tabContent {
+    color: black;
+    padding: 50px;
+    text-align: center;
+}
+.tabLink {
+    background-color: #222;
+    color: white;
+    outline: none;
+    border:none;
+    cursor: pointer;
+    font-size: 14px;
+    padding:10px 25px;
+    display:inline-flex;
+    justify-content: center;
+    align-items: center;
+}
+.tabLink:active,.tabLink:focus{
+    outline: none;
+    border:none;
+}
+.tabLink.selected{
+    background-color: #FFF;
+    color: black;
+}
+.tabLink:hover{
+    opacity:.8;
+}
+.tablink-container{
+    position:absolute;
+    top:0px;
+    left:0px;
 }
 /*MUST BE ON THE END*/
 @media only screen and (max-width: 1400px) {

@@ -31,7 +31,7 @@ class QuizMulti extends Component{
     }
     connectToQuiz=()=>{
         if(this.state.opponent=='null'){
-            socket=io('localhost:5000');
+            socket=io('localhost:5000',{query:`uid=${Cookies.get('uid')}`});
             socket.on('connectedToRoom',(x)=>{
                 console.log('Connected to someone elses room: ' + x.id);
                 this.setState({opponent:x.player1});
@@ -52,11 +52,11 @@ class QuizMulti extends Component{
         }
     }
     cancelConnection=()=>{
-        this.setState({started:false});
+        /*this.setState({started:false});
         this.setState({opponent:'null'});
         this.setState({room:{}});
         socket.emit('disconnect',socket.id);
-        this.setState({loading:false});
+        this.setState({loading:false});*/
     }
     render(){
         return( 
