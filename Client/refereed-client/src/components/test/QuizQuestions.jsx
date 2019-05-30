@@ -45,6 +45,17 @@ class QuizQuestions extends Component{
     stopCounter=()=>{
         clearInterval(this.state.timer);
     }
+    selectAnswerMulti=(answer)=>{
+        $.ajax({
+            method:'POST',
+            url:`/api/quiz/${sessionStorage.getItem('roomid')}/${this.state.counter}/${Cookies.get('uid')}`,
+            data:answer,
+            success:()=>{
+                this.stopCounter();
+                this.setState({selected:true});
+            }
+        })
+    }
     selectAnswer=(answer)=>{
         this.stopCounter();
         var userAnswers = this.state.answers;
@@ -149,14 +160,14 @@ class QuizQuestions extends Component{
                         <p>{this.state.loggedInName?this.state.loggedInName:'Guest'}</p>
                     </div>                  
                     <div style={{width:'10vw',height:'10vw',maxWidth:100,maxHeight:100}}><CircularProgressbar circleRatio={0.75} styles={buildStyles({ rotation: 1 / 2 + 1 / 8, strokeLinecap: "butt", trailColor: "#eee", pathColor:"#444444", textColor: (this.state.timeLeft>15?'#28a745':(this.state.timeLeft>5?'#FFA500':'#d12626'))})} value={this.numMap(this.state.timeLeft,0,30,0,100)} text={this.state.timeLeft}></CircularProgressbar></div>
-                    <div class="question-progress-bar" id="question-progress-bar" style={{width:`${(this.state.counter+1)*10}%`}}>{(this.state.counter+1) + '/10'}</div>
+                    <div className="question-progress-bar" id="question-progress-bar" style={{width:`${(this.state.counter+1)*10}%`}}>{(this.state.counter+1) + '/10'}</div>
                     <div className="quiz-question">
                         <h5>{currentQuestion.question}</h5>
                     </div>
                     <div className="quiz-answers-container" id="quiz-answers-container">
                         <div>
                         {currentQuestion.answers.map(answer=>
-                                <QuizAnswer id={`answer_${answer._id}`} didSelect={this.state.selected} answer={answer} correct={answer.correct} onSelect={(answer)=>{this.selectAnswer(answer)}}></QuizAnswer>
+                                <QuizAnswer id={`answer_${answer._id}`} didSelect={this.state.selected} answer={answer} correct={answer.correct} onSelect={this.props.multi?(answer)=>{this.selectAnswerMulti(answer)}:(answer)=>{this.selectAnswer(answer)}}></QuizAnswer>
                             )}
                         </div>
                     </div>

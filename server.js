@@ -62,6 +62,17 @@ io.on('connection',(client)=>{
     client.on('stopTimer',()=>{
         clearTimeout(timer);
     })
+    client.on('listen_room',(id)=>{
+        rethinkdb.db('refereeder').table('quizrooms').get(id).changes({includeStates:true}).run(rethinkConn,(err,cursor)=>{
+            if(err) throw err;
+            cursor.each((error,change)=>{
+                if(error) throw error;
+                if(change.type==='change'){
+                    console.log(JSON.stringify(change));
+                }
+            })
+        })
+    })
     client.on('disconnect',(socket)=>{
         rethinkdb.db('refereeder').table('quizrooms').filter((user)=>{return user("player1")("socket_id").eq(client.id).or((user("player2")("socket_id").eq(client.id)))}).run(rethinkConn).then(result=>{
             result.toArray().then(x=>{
@@ -104,7 +115,7 @@ io.on('connection',(client)=>{
             if(!foundRoom){
                 getRandomQuestions().then((questions)=>{
                     var newRoom={
-                        player1:{socket_id:client.id,uid:client.handshake.query['uid']},
+                        player1:{socket_id:client.id,uid:client.handshake.query['uid'],answers:[]},
                         player2:null,
                         questions:questions,
                         status:'created'}
@@ -115,12 +126,12 @@ io.on('connection',(client)=>{
                 })
             }
             else{
-                rethinkdb.db('refereeder').table('quizrooms').get(foundRoom.id).update({status:'matched',player2:{socket_id:client.id,uid:client.handshake.query['uid']}}).run(rethinkConn).then(result=>{
-                        client.emit('connectedToRoom',foundRoom);
-                        io.emit('connectedToRoom_' + foundRoom.id, client.id);
-                        timer=setTimeout(()=>{
-                            rethinkdb.db('refereeder').table('quizrooms').get(foundRoom.id).update({status:'started'}).run(rethinkConn).then(x=>{})
-                        },5000)
+                rethinkdb.db('refereeder').table('quizrooms').get(foundRoom.id).update({status:'matched',player2:{socket_id:client.id,uid:client.handshake.query['uid'],answers:[]}}).run(rethinkConn).then(result=>{
+                    client.emit('connectedToRoom',foundRoom);
+                    io.emit('connectedToRoom_' + foundRoom.id, client.id);
+                    timer=setTimeout(()=>{
+                        rethinkdb.db('refereeder').table('quizrooms').get(foundRoom.id).update({status:'started'}).run(rethinkConn).then(x=>{})
+                    },5000)
                 })
             }
         });
@@ -159,6 +170,39 @@ function initGraph(app)
 }
 
 //Endpoints setup
+//QUIZ
+
+app.post('/api/quiz/:roomid/:question/:uid',(req,res)=>{
+    var answer=req.body;
+    rethinkdb.db('refereeder').table('quizrooms').get(req.params.roomid).run(rethinkConn).then(y=>{
+        var user;
+        var userNr;
+        if(y.player1.uid===req.params.uid){
+            user=y.player1
+            userNr=1;
+        }
+        else if(y.player2.uid===req.params.uid){
+            user=y.player2;
+            userNr=2;
+        }
+        else user=null;
+        user.answers.push(answer);
+        if(userNr==1){
+            rethinkdb.db('refereeder').table('quizrooms').get(req.params.roomid).update({player1:user}).run(rethinkConn).then(result=>{
+                res.status(200)
+                res.end();
+            }).catch(()=>{res.status(500);res.end()})
+        }
+        else{
+            rethinkdb.db('refereeder').table('quizrooms').get(req.params.roomid).update({player2:user}).run(rethinkConn).then(result=>{
+                res.status(200);
+                res.end();
+            }).catch(()=>{res.status(500);res.end()})
+        }
+    })
+})
+
+//FIREBASE AUTH
 app.post('/api/login',(req,res)=>{
     firebase.auth().signInWithEmailAndPassword(req.body.email,req.body.password).then(x=>{
         res.end(x.user.uid);

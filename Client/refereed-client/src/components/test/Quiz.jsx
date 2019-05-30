@@ -72,7 +72,7 @@ class Quiz extends Component{
                         <div className="logo-container">
                             <a href="/"><img style={{filter:'invert(100%)',marginBottom:30}} src={process.env.PUBLIC_URL+'images/logo.png'}></img></a>                          
                         </div>
-                        {this.state.started?<QuizQuestions uid={this.state.loggedIn} questions={this.state.gameQuestions}></QuizQuestions>:
+                        {this.state.started?<QuizQuestions multi={false} uid={this.state.loggedIn} questions={this.state.gameQuestions}></QuizQuestions>:
                         <div>
                             <div className="quiz-question-container rules" id="explainig-rules">
                                 <p><h5>The rules for the quizzes are the following:</h5></p>

@@ -38,6 +38,8 @@ class QuizMulti extends Component{
                 this.stopCountDown();
                 this.setState({started:true});
                 this.setState({loading:false});
+                sessionStorage.setItem('roomid',`${this.state.room.id}`);
+                socket.emit(`listen_room`,this.state.room.id);
             }
             this.setState({countDown:this.state.countDown-1})
         },1000);
@@ -114,7 +116,7 @@ class QuizMulti extends Component{
                     <div className="logo-container">
                         <a href="/"><img style={{filter:'invert(100%)',marginBottom:30}} src={process.env.PUBLIC_URL+'images/logo.png'}></img></a>
                     </div>
-                    {this.state.started?<QuizQuestions questions={this.state.questions} uid={this.state.user.uid}></QuizQuestions>:
+                    {this.state.started?<QuizQuestions multi={true} questions={this.state.questions} uid={this.state.user.uid}></QuizQuestions>:
                     <div>
                         <div className="quiz-question-container rules" id="explaining-rules">
                             <p><h5>The rules for the quizzes 1v1 are the following:</h5></p>
