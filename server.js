@@ -62,13 +62,26 @@ io.on('connection',(client)=>{
     client.on('stopTimer',()=>{
         clearTimeout(timer);
     })
+    client.on('bothdone',(roomid)=>{
+        console.log(roomid);
+        setTimeout(() => {
+            io.emit(`nextQuestion_${roomid}`);
+        }, 2000);
+    })
     client.on('listen_room',(id)=>{
-        rethinkdb.db('refereeder').table('quizrooms').get(id).changes({includeStates:true}).run(rethinkConn,(err,cursor)=>{
+        rethinkdb.db('refereeder').table('quizrooms').get(id).changes({includeTypes:true}).run(rethinkConn,(err,cursor)=>{
             if(err) throw err;
             cursor.each((error,change)=>{
                 if(error) throw error;
                 if(change.type==='change'){
-                    console.log(JSON.stringify(change));
+                    if(change.old_val.player1.answers.length<change.new_val.player1.answers.length){
+                        console.log('emitPlayer1');
+                        client.emit('player1Answered',change.new_val.player1.answers[change.new_val.player1.answers.length-1]);
+                    }
+                    else if(change.old_val.player2.answers.length<change.new_val.player2.answers.length){
+                        console.log('emitPlayer2');
+                        client.emit('player2Answered', change.new_val.player2.answers[change.new_val.player2.answers.length-1]);
+                    }
                 }
             })
         })
@@ -120,7 +133,7 @@ io.on('connection',(client)=>{
                         questions:questions,
                         status:'created'}
                     rethinkdb.db('refereeder').table('quizrooms').insert(newRoom).run(rethinkConn).then(result=>{
-                        newRoom.id=result.generated_keys;
+                        newRoom.id=result.generated_keys[0];
                         client.emit('newRoom',newRoom);
                     })
                 })
@@ -128,7 +141,7 @@ io.on('connection',(client)=>{
             else{
                 rethinkdb.db('refereeder').table('quizrooms').get(foundRoom.id).update({status:'matched',player2:{socket_id:client.id,uid:client.handshake.query['uid'],answers:[]}}).run(rethinkConn).then(result=>{
                     client.emit('connectedToRoom',foundRoom);
-                    io.emit('connectedToRoom_' + foundRoom.id, client.id);
+                    io.emit('connectedToRoom_' + foundRoom.id, client.handshake.query['uid']);
                     timer=setTimeout(()=>{
                         rethinkdb.db('refereeder').table('quizrooms').get(foundRoom.id).update({status:'started'}).run(rethinkConn).then(x=>{})
                     },5000)

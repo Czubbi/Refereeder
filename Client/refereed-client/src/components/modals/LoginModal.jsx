@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { DEFAULT_ECDH_CURVE } from 'tls';
 var $ = require('jquery');
 var moment = require('moment');
 

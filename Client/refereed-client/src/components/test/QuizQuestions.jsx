@@ -5,7 +5,6 @@ import QuizAnswer from './QuizAnswers';
 import { CircularProgressbar, buildStyles } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
 import Cookies from 'js-cookie';
-
 class QuizQuestions extends Component{
     constructor()
     {
@@ -15,21 +14,97 @@ class QuizQuestions extends Component{
             counter:0,
             selected:false,
             answers:[],
+            answer:null,
             timeLeft:30,
             answered:false,
             lastQuestion:false,
             finished:false,
             timer:"",
             loggedInName:null,
+            opponent:null,
+            opponentAnswered:false,
+            opponentAnswer:null,
+            resetDone:false,
         }
     }
     componentDidMount()
     {
-        fetch(`/api/users/${this.props.uid}`).then(x=>x.json()).then(x=>{
-            this.setState({loggedInName:x.firstName});
-        })
+        if(this.props.uid)
+        {
+            fetch(`/api/users/${this.props.uid}`).then(x=>x.json()).then(x=>{
+                this.setState({loggedInName:x.firstName});
+            })
+        }
+        if(this.props.opponent){
+            fetch(`/api/users/${this.props.opponent}`).then(x=>x.json()).then(x=>{
+                this.setState({opponent:x.firstName});
+            })
+        }
         this.setState({questions:this.props.questions});
         this.startCounter();
+    }
+    componentDidUpdate(){ 
+        if(this.props.multi){
+            if(this.state.resetDone){
+                Array.from(document.getElementsByClassName('quiz-answer')).forEach(x=>{
+                    x.classList.remove('good-answer');
+                })
+                this.setState({resetDone:false});
+                this.startCounter();
+            }
+            else if(this.state.counter!=this.props.questionSeq-1 && this.state.opponentAnswered && this.state.answered){
+                var prevState=JSON.parse(JSON.stringify(this.state));
+                console.log(prevState);
+                prevState.answered=false;
+                prevState.opponentAnswered=false;
+                prevState.opponentAnswer=null;
+                prevState.counter=this.props.questionSeq-1;
+                prevState.timeLeft=30;
+                prevState.answer=null;
+                prevState.selected=false;
+                prevState.resetDone=true;
+                this.setState(prevState);
+            }
+            else if(this.props.opponentAnswered && this.props.opponentAnswered!=this.state.opponentAnswered && this.props.opponentAnswer)
+            {
+                this.setState({opponentAnswered:true});
+                console.log(this.props.opponentAnswer);
+                this.setState({opponentAnswer:this.props.opponentAnswer});
+            }
+            else if(this.state.opponentAnswered&&this.state.answered){
+                this.checkAnswersMulti();
+            }
+            
+        }
+        
+    }
+    checkAnswersMulti=()=>{
+        if(this.state.opponentAnswered&&this.state.answered)
+        {
+            if(this.props.playernr===1){
+                this.props.notifyServerBothDone();
+            }
+            setTimeout(() => {
+                document.getElementById(`answer_${this.state.opponentAnswer._id}`).innerHTML+='<div class="answer-sign opponent-answer"><i class="fas fa-caret-left"></i></div>';
+                if(this.state.answer.correct){
+                    document.getElementById(`answer_${this.state.answer._id}`).classList.remove('selected-answer');
+                    document.getElementById(`answer_${this.state.answer._id}`).classList.add('good-answer');
+                    document.getElementById(`answer_${this.state.answer._id}`).innerHTML+='<div class="answer-sign my-answer"><i class="fas fa-caret-right"></i></div>';
+                }
+                else{
+                    var goodAnswer=this.state.questions[this.state.counter].answers.filter(x=>x.correct);
+                    if(this.state.answer.answer!="time's up"){
+                        document.getElementById(`answer_${this.state.answer._id}`).classList.remove('selected-answer');
+                        document.getElementById(`answer_${this.state.answer._id}`).innerHTML+='<div class="answer-sign my-answer"><i class="fas fa-caret-right"></i></div>';
+                    }
+                    Array.from(document.getElementsByClassName('quiz-answer')).forEach(x=>{
+                        if(x.innerHTML==goodAnswer[0].answer){
+                            x.classList.add('good-answer');
+                        }
+                    })
+                }
+            }, 1000);
+        }
     }
     startCounter=()=>{
         var timer=setInterval(()=>{
@@ -53,6 +128,9 @@ class QuizQuestions extends Component{
             success:()=>{
                 this.stopCounter();
                 this.setState({selected:true});
+                this.setState({answered:true});
+                this.setState({answer:answer});
+                this.checkAnswersMulti();
             }
         })
     }
@@ -158,22 +236,27 @@ class QuizQuestions extends Component{
                     <div className="quiz-user">
                         <i className="fas fa-user"></i>
                         <p>{this.state.loggedInName?this.state.loggedInName:'Guest'}</p>
-                    </div>                  
+                    </div>
+                    {this.state.opponent?
+                        <div className="quiz-opponent">
+                            <i className="fas fa-user"></i>
+                            <p>{this.state.opponent}</p>
+                            {this.state.opponentAnswered?<i className="fas fa-check"></i>:null}
+                        </div>:null 
+                    }      
                     <div style={{width:'10vw',height:'10vw',maxWidth:100,maxHeight:100}}><CircularProgressbar circleRatio={0.75} styles={buildStyles({ rotation: 1 / 2 + 1 / 8, strokeLinecap: "butt", trailColor: "#eee", pathColor:"#444444", textColor: (this.state.timeLeft>15?'#28a745':(this.state.timeLeft>5?'#FFA500':'#d12626'))})} value={this.numMap(this.state.timeLeft,0,30,0,100)} text={this.state.timeLeft}></CircularProgressbar></div>
                     <div className="question-progress-bar" id="question-progress-bar" style={{width:`${(this.state.counter+1)*10}%`}}>{(this.state.counter+1) + '/10'}</div>
                     <div className="quiz-question">
                         <h5>{currentQuestion.question}</h5>
                     </div>
                     <div className="quiz-answers-container" id="quiz-answers-container">
-                        <div>
                         {currentQuestion.answers.map(answer=>
                                 <QuizAnswer id={`answer_${answer._id}`} didSelect={this.state.selected} answer={answer} correct={answer.correct} onSelect={this.props.multi?(answer)=>{this.selectAnswerMulti(answer)}:(answer)=>{this.selectAnswer(answer)}}></QuizAnswer>
                             )}
-                        </div>
                     </div>
-                    <div onClick={this.state.lastQuestion?()=>{this.setState({finished:true});this.saveData();}:this.nextQuestion} style={{display:this.state.answered?"block":"none"}} className="quiz-next-button">
+                    {this.props.multi?null:<div onClick={this.state.lastQuestion?()=>{this.setState({finished:true});this.saveData();}:this.nextQuestion} style={{display:this.state.answered?"block":"none"}} className="quiz-next-button">
                         <i className={this.state.lastQuestion?"fas fa-check":"fas fa-chevron-right"}></i>
-                    </div>
+                    </div>}
 
                 </div>
             )

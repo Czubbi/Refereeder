@@ -16,8 +16,13 @@ class QuizMulti extends Component{
             loading:false,
             userReady:true,
             room:{},
+            seq:1,
             questions:[],
             countDown:null,
+            answered:false,
+            opponentAnswered:false,
+            opponentAnswer:null,
+            playernr:null,
         }
     }
     componentWillUnmount() {
@@ -32,7 +37,8 @@ class QuizMulti extends Component{
             this.setState({user:x});
         })
     }
-    startCountDown=()=>{
+    startCountDown=(playernr)=>{
+        this.setState({playernr:playernr})
         counterId=setInterval(()=>{
             if(this.state.countDown-1<0){
                 this.stopCountDown();
@@ -40,6 +46,25 @@ class QuizMulti extends Component{
                 this.setState({loading:false});
                 sessionStorage.setItem('roomid',`${this.state.room.id}`);
                 socket.emit(`listen_room`,this.state.room.id);
+                if(playernr===1){
+                    socket.on('player2Answered',(answer)=>{
+                        this.setState({opponentAnswered:true});
+                        this.setState({opponentAnswer:answer});
+                    })
+                }
+                else if(playernr===2){
+                    socket.on('player1Answered',(answer)=>{
+                        this.setState({opponentAnswered:true});
+                        this.setState({opponentAnswer:answer});
+                    })
+                }
+                socket.on(`nextQuestion_${this.state.room.id}`,()=>{
+                    var tempstate=JSON.parse(JSON.stringify(this.state));
+                    tempstate.seq=this.state.seq+1;
+                    tempstate.opponentAnswer=null;
+                    tempstate.opponentAnswered=false;
+                    this.setState(tempstate);
+                })
             }
             this.setState({countDown:this.state.countDown-1})
         },1000);
@@ -52,11 +77,11 @@ class QuizMulti extends Component{
             socket=io('localhost:5000',{query:`uid=${Cookies.get('uid')}`});
             socket.on('connectedToRoom',(x)=>{
                 console.log('Connected to someone elses room: ' + x.id);
-                this.setState({opponent:x.player1});
+                this.setState({opponent:x.player1.uid});
                 this.setState({room:x});
                 this.setState({questions:x.questions});
                 this.setState({countDown:5});
-                this.startCountDown();
+                this.startCountDown(2);
             })
             socket.on('playerLeft',(x)=>{
                 if(x===1){
@@ -83,7 +108,7 @@ class QuizMulti extends Component{
                 socket.on(`connectedToRoom_${x.id}`,(opponent)=>{
                     this.setState({opponent:opponent});
                     this.setState({countDown:5});
-                    this.startCountDown();
+                    this.startCountDown(1);
                 })
             })
             window.addEventListener('beforeunload',()=>{
@@ -99,6 +124,9 @@ class QuizMulti extends Component{
         this.setState({room:{}});
         socket.emit('disconnect',socket.id);
         this.setState({loading:false});*/
+    }
+    notifyServerBothDone=()=>{
+        socket.emit('bothdone',this.state.room.id);
     }
     render(){
         return( 
@@ -116,7 +144,7 @@ class QuizMulti extends Component{
                     <div className="logo-container">
                         <a href="/"><img style={{filter:'invert(100%)',marginBottom:30}} src={process.env.PUBLIC_URL+'images/logo.png'}></img></a>
                     </div>
-                    {this.state.started?<QuizQuestions multi={true} questions={this.state.questions} uid={this.state.user.uid}></QuizQuestions>:
+                    {this.state.started?<QuizQuestions questionSeq={this.state.seq} notifyServerBothDone={this.notifyServerBothDone} playernr={this.state.playernr} opponentAnswer={this.state.opponentAnswer} opponentAnswered={this.state.opponentAnswered} opponent={this.state.opponent} multi={true} questions={this.state.questions} uid={this.state.user.uid}></QuizQuestions>:
                     <div>
                         <div className="quiz-question-container rules" id="explaining-rules">
                             <p><h5>The rules for the quizzes 1v1 are the following:</h5></p>

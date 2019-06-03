@@ -68,24 +68,28 @@ class Quiz extends Component{
                     <div onClick={(e)=>window.location.replace('/')}><img src={process.env.PUBLIC_URL+'/images/loading.gif'}/></div>        
                 </div>
                 <div className="quiz-container">
-                    <div>
-                        <div className="logo-container">
-                            <a href="/"><img style={{filter:'invert(100%)',marginBottom:30}} src={process.env.PUBLIC_URL+'images/logo.png'}></img></a>                          
-                        </div>
-                        {this.state.started?<QuizQuestions multi={false} uid={this.state.loggedIn} questions={this.state.gameQuestions}></QuizQuestions>:
-                        <div>
-                            <div className="quiz-question-container rules" id="explainig-rules">
-                                <p><h5>The rules for the quizzes are the following:</h5></p>
-                                <p>You have to answer <b>10</b> random questions.</p>
-                                <p>You have <b>30</b> seconds to answer each question.</p>
-                                <p>There's only <font color="green"><b>one</b> correct</font> answer for each question.</p>
-                                <p>If you leave the page the quiz will be <font color="red">terminated</font>.</p>
-                                {!this.state.loggedIn?<p>You can <a href="javascript:void(0)" onClick={()=>{this.setState({modalVisible:true})}}>log in</a> or <a href='/signup' onClick={(e)=>{window.location.replace('/signup')}}>sign up</a> to store your results.</p>:<p>Your results will be stored in your profile!</p>}
+                        {this.state.started?
+                            <div>
+                                <div className="logo-container-started">
+                                    <a href="/"><img src={process.env.PUBLIC_URL+'images/logo.png'}></img></a>                          
+                                </div>
+                                <QuizQuestions multi={false} uid={this.state.loggedIn} questions={this.state.gameQuestions}></QuizQuestions>
+                            </div>:
+                            <div>
+                                <div className="logo-container">
+                                    <a href="/"><img src={process.env.PUBLIC_URL+'images/logo.png'}></img></a>                          
+                                </div>
+                                <div className="quiz-question-container rules" id="explainig-rules">
+                                    <p><h5>The rules for the quizzes are the following:</h5></p>
+                                    <p>You have to answer <b>10</b> random questions.</p>
+                                    <p>You have <b>30</b> seconds to answer each question.</p>
+                                    <p>There's only <font color="green"><b>one</b> correct</font> answer for each question.</p>
+                                    <p>If you leave the page the quiz will be <font color="red">terminated</font>.</p>
+                                    {!this.state.loggedIn?<p>You can <a href="javascript:void(0)" onClick={()=>{this.setState({modalVisible:true})}}>log in</a> or <a href='/signup' onClick={(e)=>{window.location.replace('/signup')}}>sign up</a> to store your results.</p>:<p>Your results will be stored in your profile!</p>}
+                                </div>
+                                <span className='btn btn-lg btn-primary' onClick={this.startQuiz}>Start now</span>
                             </div>
-                            <span className='btn btn-lg btn-primary' onClick={this.startQuiz}>Start now</span>
-                        </div>
                         }
-                    </div>
                 </div>
                 <LoginModal modalVisible={this.state.modalVisible?'flex':'none'} modalPos={this.state.modalVisible?'0px':'-2000px'} onModalCloseClick={(e)=>{e.preventDefault();if(e.target==e.currentTarget){this.setState({modalVisible:false})}}}>
                 </LoginModal>
