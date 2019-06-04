@@ -50,7 +50,7 @@ getRandomQuestions=()=>{
     return new Promise((resolve,reject)=>{
         fetch('http://localhost:4000/api/questions').then(x=>x.json()).then(x=>{
             var shuffled = shuffleArray(x);
-            resolve(shuffled.slice(0,10));
+            resolve(shuffled.slice(0,3));
         })
     }) 
 }
@@ -184,9 +184,19 @@ function initGraph(app)
 
 //Endpoints setup
 //QUIZ
-
+app.get('/api/quiz/:roomid/:uid',(req,res)=>{
+    rethinkdb.db('refereeder').table('quizrooms').get(req.params.roomid).run(rethinkConn).then(y=>{
+        if(y.player1.uid===req.params.uid){
+            res.json(y.player1);
+        }
+        else if(y.player2.uid===req.params.uid){
+            res.json(y.player2);
+        }
+    })
+})
 app.post('/api/quiz/:roomid/:question/:uid',(req,res)=>{
     var answer=req.body;
+    answer.correct=answer.correct==='true';
     rethinkdb.db('refereeder').table('quizrooms').get(req.params.roomid).run(rethinkConn).then(y=>{
         var user;
         var userNr;

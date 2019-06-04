@@ -24,6 +24,7 @@ class QuizQuestions extends Component{
             opponent:null,
             opponentAnswered:false,
             opponentAnswer:null,
+            opponentAnswers:[],
             resetDone:false,
         }
     }
@@ -44,7 +45,7 @@ class QuizQuestions extends Component{
         this.startCounter();
     }
     componentDidUpdate(){ 
-        if(this.props.multi){
+        if(this.props.multi &&!this.state.finished){
             if(this.state.resetDone){
                 Array.from(document.getElementsByClassName('quiz-answer')).forEach(x=>{
                     x.classList.remove('good-answer');
@@ -79,9 +80,20 @@ class QuizQuestions extends Component{
         
     }
     checkAnswersMulti=()=>{
-        if(this.state.opponentAnswered&&this.state.answered)
+        if(this.state.counter+1===this.state.questions.length){
+            setTimeout(() => {
+                fetch(`/api/quiz/${window.sessionStorage.getItem('roomid')}/${this.props.uid}`).then(x=>x.json()).then(x=>{
+                    this.setState({answers:x.answers});
+                    this.setState({finished:true});
+                });
+                fetch(`/api/quiz/${window.sessionStorage.getItem('roomid')}/${this.props.opponent}`).then(x=>x.json()).then(x=>{
+                    this.setState({opponentAnswers:x.answers});
+                });
+            }, 3000);   
+        }
+        else if(this.state.opponentAnswered&&this.state.answered&&!this.state.finished)
         {
-            if(this.props.playernr===1){
+            if(this.props.playernr===1 && this.state.counter+1!==this.state.questions.length){
                 this.props.notifyServerBothDone();
             }
             setTimeout(() => {
@@ -218,10 +230,27 @@ class QuizQuestions extends Component{
             }
             currentQuestion.answers=newAnswers;
             if(this.state.finished){
+                var result;
+                if(this.props.multi)
+                {
+                    console.log(`Opponent:${this.state.opponentAnswers.filter(x=>x.correct).length}`)
+                    console.log(`You:${this.state.answers.filter(x=>x.correct).length}`);
+                    if(this.state.answers.filter(x=>x.correct).length>this.state.opponentAnswers.filter(x=>x.correct).length)
+                    {
+                        result='You win! @_@';
+                    }
+                    else if(this.state.answers.filter(x=>x.correct).length===this.state.opponentAnswers.filter(x=>x.correct).length)
+                    {
+                        result="It's a draw °-°";
+                    }
+                    else result='You lose >:(';
+                }
                 return(
                     <div className="quiz-question-container" id="quiz-question-container">
                         <h3>You have finished the quiz!<br/>See your results below:</h3>
                         <br></br>
+                        {this.props.multi?
+                            <h4>Result: {result}</h4>:null}
                         <h4>
                             Correct answers: {this.state.answers.filter(x=>x.correct).length}
                         </h4>
@@ -245,7 +274,7 @@ class QuizQuestions extends Component{
                         </div>:null 
                     }      
                     <div style={{width:'10vw',height:'10vw',maxWidth:100,maxHeight:100}}><CircularProgressbar circleRatio={0.75} styles={buildStyles({ rotation: 1 / 2 + 1 / 8, strokeLinecap: "butt", trailColor: "#eee", pathColor:"#444444", textColor: (this.state.timeLeft>15?'#28a745':(this.state.timeLeft>5?'#FFA500':'#d12626'))})} value={this.numMap(this.state.timeLeft,0,30,0,100)} text={this.state.timeLeft}></CircularProgressbar></div>
-                    <div className="question-progress-bar" id="question-progress-bar" style={{width:`${(this.state.counter+1)*10}%`}}>{(this.state.counter+1) + '/10'}</div>
+                    <div className="question-progress-bar" id="question-progress-bar" style={{width:`${(this.state.counter+1)*(100/this.state.questions.length)}%`}}>{(this.state.counter+1) +'/'+ this.state.questions.length}</div>
                     <div className="quiz-question">
                         <h5>{currentQuestion.question}</h5>
                     </div>

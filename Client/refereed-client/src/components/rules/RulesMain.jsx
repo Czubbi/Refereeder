@@ -17,7 +17,7 @@ class RulesMain extends Component
         this.state={
             rules:[],
             rulePicked:null,
-            modalVisible:true,
+            modalVisible:false,
         }
     }
     componentDidMount(){
