@@ -116,7 +116,7 @@ class RulesMain extends Component
                                         <div><div className="main-rule-content" id={`rule-${this.state.rulePicked.rule._id}`}><p>{this.state.rulePicked.rule.lang.eng.title} - {this.state.rulePicked.rule.lang.eng.name}</p>
                                         <div><p>{this.state.rulePicked.rule.lang.eng.text}</p></div></div>
                                         <div>{(this.state.rulePicked.rule.lang.eng.subRules.map(subrule=>{
-                                            return(<div className="subrule-content" id={`subrule-${subrule._id}`}><div className="subrule-content-number">{subrule.number}:</div> <div className="subrule-content-text">{subrule.text}</div></div>)
+                                            return(<div className="subrule-content" id={`subrule-${subrule._id}`}><div className="subrule-content-number">{subrule.number}:&nbsp;&nbsp;</div> <div className="subrule-content-text">{subrule.text}</div></div>)
                                         }))}</div></div>
                                         ):null
                                     ):

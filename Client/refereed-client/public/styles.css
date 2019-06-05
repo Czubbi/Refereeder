@@ -893,11 +893,10 @@
 .subrule-content{
     display:flex;
     position: relative;
-    padding: 15px;
+    padding: 25px;
     transition: 1s;
 }
 .subrule-content-text{
-    position: relative;
     left: 10px;
     max-width: 95%;
     text-align: justify;
@@ -1503,5 +1502,21 @@
     }
     .rules{
         width:auto !important;
+    }
+    .user-content-wrapper{
+        flex-direction: column;
+    }
+    .user-menu{
+        border-right: none;
+        min-height: 300px;
+    }
+    .user-info-chartholder{
+        grid-template-columns: repeat(1,1fr) !important;
+    }
+    .user-info-bottom{
+        display: none;
+    }
+    .user-info-chartcard{
+        height:100% !important;
     }
 }
