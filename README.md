@@ -1,2 +1,2 @@
 # Refereeder
-4th semester project 
+Platform for handball referees with interactive database of rules and live interactive quiz battles
